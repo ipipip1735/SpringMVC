@@ -17,6 +17,7 @@
           <file>file://$MODULE_DIR$/web/WEB-INF/one-servlet.xml</file>
           <file>file://$MODULE_DIR$/web/WEB-INF/one-servlet.xml</file>
           <file>file://$MODULE_DIR$/web/WEB-INF/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/src/config/WebMvcConfig.java</file>
         </fileset>
         <fileset id="web application context" name="MVC application context" removed="true">
           <file>file://$MODULE_DIR$/web/WEB-INF/one-servlet.xml</file>
@@ -24,6 +25,8 @@
         <fileset id="web one servlet context" name="MVC one servlet context" removed="true">
           <file>file://$MODULE_DIR$/web/WEB-INF/one-servlet.xml</file>
         </fileset>
+        <fileset id="initializer config.OneWebAppInitializer servlet context" name="MVC dispatcher initializer servlet context" removed="true" />
+        <fileset id="initializer config.OneWebAppInitializer root context" name="MVC dispatcher initializer root context" removed="true" />
       </configuration>
     </facet>
   </component>
