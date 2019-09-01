@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import service.OneBean;
+import service.OneService;
 
 import javax.servlet.ServletContext;
 
@@ -39,7 +39,7 @@ public class TwoController {
         System.out.println("uploadPath is " + uploadPath);
 
 
-        OneBean oneBean = (OneBean) applicationContext.getBean("oneSB");
+        OneService oneBean = (OneService) applicationContext.getBean("oneSB");
         System.out.println(oneBean);
 
 

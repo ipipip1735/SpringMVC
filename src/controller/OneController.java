@@ -19,7 +19,7 @@ public class OneController {
         System.out.println("~~" + getClass().getSimpleName() + ".handle~~");
 
         model.addAttribute("message", "Spring MVC Framework!");
-        return "one";
+        return "/jsp/service";
     }
 
 }
