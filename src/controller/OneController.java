@@ -22,5 +22,4 @@ public class OneController {
         return "one";
     }
 
-
 }
