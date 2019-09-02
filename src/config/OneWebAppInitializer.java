@@ -6,18 +6,29 @@
 // * Created by Administrator on 2019/8/31 14:12.
 // */
 //public class OneWebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+//
+//    public OneWebAppInitializer() {
+//        System.out.println("*********  " + getClass().getSimpleName() + ".Constructor  *********");
+//    }
+//
 //    @Override
 //    protected Class<?>[] getRootConfigClasses() {
-//        return new Class[0];
+//        System.out.println("~~" + getClass().getSimpleName() + ".getRootConfigClasses~~");
+//
+//        return new Class[]{AppConfig.class};
 //    }
 //
 //    @Override
 //    protected Class<?>[] getServletConfigClasses() {
-//        return new Class[0];
+//        System.out.println("~~" + getClass().getSimpleName() + ".getServletConfigClasses~~");
+//
+//        return new Class[]{ServletConfig.class};
 //    }
 //
 //    @Override
 //    protected String[] getServletMappings() {
-//        return new String[]{"/"};
+//        System.out.println("~~" + getClass().getSimpleName() + ".getServletMappings~~");
+//
+//        return new String[]{"/one"};
 //    }
 //}

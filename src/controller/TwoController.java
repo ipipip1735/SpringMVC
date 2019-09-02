@@ -16,36 +16,40 @@ import javax.servlet.ServletContext;
 @Controller
 public class TwoController {
 
-    @Autowired
-    ServletContext servletContext;
+//    @Autowired
+//    ServletContext servletContext;
+//
+//    @Autowired
+//    private ApplicationContext applicationContext;
 
-    @Autowired
-    private ApplicationContext applicationContext;
+    public TwoController() {
+        System.out.println("*********  " + getClass().getSimpleName() + ".Constructor  *********");
+    }
 
     @RequestMapping(value = "/two", method = RequestMethod.GET)
     public String handle(Model model) {
         System.out.println("~~" + getClass().getSimpleName() + ".handle~~");
 
         model.addAttribute("message", "Two Controller!");
-        return "one";
+        return "two";
     }
 
-    @RequestMapping(value = "/service", method = RequestMethod.GET)
-    public void service() {
-        System.out.println("~~" + getClass().getSimpleName() + ".service~~");
-
-
-        String uploadPath = servletContext.getRealPath("");
-        System.out.println("uploadPath is " + uploadPath);
-
-
-        OneService oneBean = (OneService) applicationContext.getBean("oneSB");
-        System.out.println(oneBean);
-
-
-
-
-    }
+//    @RequestMapping(value = "/service", method = RequestMethod.GET)
+//    public void service() {
+//        System.out.println("~~" + getClass().getSimpleName() + ".service~~");
+//
+//
+//        String uploadPath = servletContext.getRealPath("");
+//        System.out.println("uploadPath is " + uploadPath);
+//
+//
+//        OneService oneBean = (OneService) applicationContext.getBean("oneSB");
+//        System.out.println(oneBean);
+//
+//
+//
+//
+//    }
 
 
 }

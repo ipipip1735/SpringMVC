@@ -14,12 +14,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/one")
 public class OneController {
 
+    public OneController() {
+        System.out.println("*********  " + getClass().getSimpleName() + ".Constructor  *********");
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     public String handle(Model model) {
         System.out.println("~~" + getClass().getSimpleName() + ".handle~~");
 
         model.addAttribute("message", "Spring MVC Framework!");
-        return "/jsp/service";
+        return "one";
     }
 
 }
