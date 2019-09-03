@@ -23,12 +23,11 @@
 //    public void onStartup(ServletContext servletContext) throws ServletException {
 //        System.out.println("~~" + getClass().getSimpleName() + ".onStartup~~");
 //
-//        xml(servletContext);
-////        annotation(servletContext);
+////        xml(servletContext);
+//        annotation(servletContext);
 //    }
 //
 //    private void annotation(ServletContext servletContext) {
-//
 //
 //        AnnotationConfigWebApplicationContext rootAC = new AnnotationConfigWebApplicationContext();
 //        rootAC.register(AppConfig.class);

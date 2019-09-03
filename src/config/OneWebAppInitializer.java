@@ -29,6 +29,6 @@ public class OneWebAppInitializer extends AbstractAnnotationConfigDispatcherServ
     protected String[] getServletMappings() {
         System.out.println("~~" + getClass().getSimpleName() + ".getServletMappings~~");
 
-        return new String[]{"/one"};
+        return new String[]{"/"};
     }
 }
