@@ -79,14 +79,14 @@ public class OneController {
     /**
      * 获取请求参数
      */
-    @GetMapping
-    public String requestMapping(Model model, @RequestParam("id") long id) {
-        System.out.println("~~" + getClass().getSimpleName() + ".requestMapping~~");
-        System.out.println(id);
-
-        model.addAttribute("message", "Spring MVC Framework!");
-        return "one";
-    }
+//    @GetMapping
+//    public String requestMapping(Model model, @RequestParam("id") long id) {
+//        System.out.println("~~" + getClass().getSimpleName() + ".requestMapping~~");
+//        System.out.println(id);
+//
+//        model.addAttribute("message", "Spring MVC Framework!");
+//        return "one";
+//    }
 
 
 
