@@ -8,10 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>model.jsp</title>
+    <title>path.jsp</title>
   </head>
   <body>
-<%--  ${one}--%>
-  ${person.name}
   </body>
 </html>
