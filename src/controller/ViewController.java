@@ -1,12 +1,15 @@
 package controller;
 
+import dao.Car;
 import dao.Person;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +17,7 @@ import java.util.Map;
  * Created by Administrator on 2019/9/4 5:28.
  */
 @Controller
+@SessionAttributes("person")
 public class ViewController {
 
     /**
@@ -52,13 +56,40 @@ public class ViewController {
 
 
     /**
-     * 返回值将增加到Model容器
+     * 通过URL路径参数实例化Model属性
+     * 将调用路径参数匹配的setter/getter初始化
      */
-    @GetMapping({"/model"})
-    public void handle(Person person) {
+//    @GetMapping({"/model"})
+//    public String handle(Car car) {
+//        System.out.println("~~" + getClass().getSimpleName() + ".handle~~");
+//        return "model";
+//    }
+
+    /**
+     * Seesion变量
+     */
+    @GetMapping({"/model/{name}/{age}"})
+    public String handle(Person person, HttpSession session) {
         System.out.println("~~" + getClass().getSimpleName() + ".handle~~");
-        person.setName("bob");
+
+        if (session.getAttribute("person") == null) {
+            System.out.println("seesion is null");
+        } else {
+            System.out.println(session.getAttribute("person"));
+        }
+
+
+        return "model";
     }
+
+    /**
+     * 通过URL查询参数实例化Model属性
+     */
+//    @GetMapping({"/model"})
+//    public String handle(Person person) {
+//        System.out.println("~~" + getClass().getSimpleName() + ".handle~~");
+//        return "model";
+//    }
 
 
     /**
@@ -72,7 +103,7 @@ public class ViewController {
 
 
     /**
-     * 使用@RequestMapping修饰方法参数
+     * 使用@ModelAttribute修饰方法参数
      */
 //    @GetMapping({"/model/{one}" })
 //    public String handle(@ModelAttribute String one) {

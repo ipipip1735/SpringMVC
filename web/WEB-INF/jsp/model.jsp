@@ -13,5 +13,6 @@
   <body>
 <%--  ${one}--%>
   ${person.name}
+<%--  ${car.price}--%>
   </body>
 </html>
