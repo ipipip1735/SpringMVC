@@ -32,52 +32,6 @@ public class RequestController {
     }
 
 
-    /**
-     * 获取Cookie
-     * 一般会增加required属性，因为如果Cookie没有设置就会报错
-     */
-    @GetMapping("/cookies")
-    public void cookies(@CookieValue(name = "two", required = false) String cookie, HttpServletResponse response) {
-        System.out.println("~~" + getClass().getSimpleName() + ".cookies~~");
-
-        if (cookie == null) {
-            response.addCookie(new Cookie("two", "222"));
-            System.out.println("set cookies");
-        }
-
-        try {
-            response.getWriter().print(cookie);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-//    /**
-//     * 获取Seesion
-//     * 一般会增加required属性，因为如果Cookie没有设置就会报错
-//     */
-//    @GetMapping("/cookies")
-//    public void cookies(@CookieValue(name = "two", required = false) String cookie, HttpServletResponse response) {
-//        System.out.println("~~" + getClass().getSimpleName() + ".cookies~~");
-//
-//        if (cookie == null) {
-//            response.addCookie(new Cookie("two", "222"));
-//            System.out.println("set cookies");
-//        }
-//
-//        try {
-//            response.getWriter().print(cookie);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-
-
-
-
-
 
     /**
      * Post请求

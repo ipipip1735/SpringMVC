@@ -4,6 +4,7 @@ import dao.Car;
 import dao.Person;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,7 +18,7 @@ import java.util.Map;
  * Created by Administrator on 2019/9/4 5:28.
  */
 @Controller
-@SessionAttributes("person")
+
 public class ViewController {
 
     /**
@@ -29,13 +30,13 @@ public class ViewController {
 //        System.out.println("~~" + getClass().getSimpleName() + ".addData~~");
 //
 //        //方式一：增加属性
-//        model.addAttribute("one", "111");
+////        model.addAttribute("one", "111");
 //
 //        //方式二：增加对象
-//        Person person = new Person();
-//        person.setAge(123);
-//        person.setName("bob");
-//        model.addAttribute(person);
+////        Person person = new Person();
+////        person.setAge(123);
+////        person.setName("bob");
+////        model.addAttribute(person);
 //
 //
 //        //方式三：增加Map容器
@@ -44,15 +45,13 @@ public class ViewController {
 ////        model.addAllAttributes(map);
 //    }
 
-
     /**
      * 返回值将增加到Model容器
      */
 //    @GetMapping({"/model"})
-//    @ModelAttribute
-//    public int handle(Model model) {
+//    public void handle() {
 //        System.out.println("~~" + getClass().getSimpleName() + ".handle~~");
-//
+//    }
 
 
     /**
@@ -65,22 +64,6 @@ public class ViewController {
 //        return "model";
 //    }
 
-    /**
-     * Seesion变量
-     */
-    @GetMapping({"/model/{name}/{age}"})
-    public String handle(Person person, HttpSession session) {
-        System.out.println("~~" + getClass().getSimpleName() + ".handle~~");
-
-        if (session.getAttribute("person") == null) {
-            System.out.println("seesion is null");
-        } else {
-            System.out.println(session.getAttribute("person"));
-        }
-
-
-        return "model";
-    }
 
     /**
      * 通过URL查询参数实例化Model属性
@@ -120,6 +103,22 @@ public class ViewController {
 //    public String handle(String one) {
 //        System.out.println("~~" + getClass().getSimpleName() + ".handle~~");
 //        return "model";
+//    }
+
+
+    /**
+     * 绑定验证
+     * BindingResult对象用于查询绑定是否出现错误
+     */
+//    @GetMapping({"/model/{name}/{age}"})
+//    public String handle(@ModelAttribute Person person, BindingResult result) {
+//        System.out.println("~~" + getClass().getSimpleName() + ".handle~~");
+//
+//        if (result.hasErrors()) {
+//            return "error";
+//        } else {
+//            return "model";
+//        }
 //    }
 
 
