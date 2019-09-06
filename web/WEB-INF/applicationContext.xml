@@ -6,4 +6,15 @@
 
 
     <bean id="oneSB" class="service.OneService"/>
+
+
+    <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+        <property name="propertyEditorRegistrars">
+            <list>
+                <ref bean="onePropertyEditorRegistrar"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="onePropertyEditorRegistrar" class="binder.OnePropertyEditorRegistrar"/>
 </beans>
