@@ -9,7 +9,6 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 /**
  * Created by Administrator on 2019/8/31 16:05.
  */
-//@EnableWebMvc
 @Configuration
 @ComponentScan(basePackages = {"controller"})
 public class ServletConfig {

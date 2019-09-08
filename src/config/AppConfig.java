@@ -22,7 +22,7 @@ public class AppConfig {
         CustomEditorConfigurer customEditorConfigurer = new CustomEditorConfigurer();
 
         PropertyEditorRegistrar[] propertyEditorRegistrars = new PropertyEditorRegistrar[]{
-                onePropertyEditorRegistrar()
+                onePropertyEditorRegistrar()//注册登记员
         };
         customEditorConfigurer.setPropertyEditorRegistrars(propertyEditorRegistrars);
         return customEditorConfigurer;
@@ -31,9 +31,7 @@ public class AppConfig {
 
     @Bean
     OnePropertyEditorRegistrar onePropertyEditorRegistrar() {
-        return new OnePropertyEditorRegistrar();
+        return new OnePropertyEditorRegistrar();//自定义登记员
     }
-
-
 
 }
