@@ -6,8 +6,13 @@ import java.beans.ConstructorProperties;
  * Created by Administrator on 2019/9/4 15:48.
  */
 public class Person {
-    int age = -1;
-    String name = "XX";
+    int age;
+    String name;
+
+    public Person() {
+        age = -1;
+        name = "XX";
+    }
 
     public void setAge(int age) {
         System.out.println("~~" + getClass().getSimpleName() + ".setAge~~");

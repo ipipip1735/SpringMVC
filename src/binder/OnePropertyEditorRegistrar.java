@@ -13,6 +13,8 @@ public class OnePropertyEditorRegistrar implements PropertyEditorRegistrar {
         System.out.println("*********  " + getClass().getSimpleName() + ".Constructor  *********");
     }
 
+
+
     @Override
     public void registerCustomEditors(PropertyEditorRegistry registry) {
         System.out.println("~~" + getClass().getSimpleName() + ".registerCustomEditors~~");
