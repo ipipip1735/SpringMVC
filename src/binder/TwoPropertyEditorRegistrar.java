@@ -5,11 +5,11 @@ import org.springframework.beans.PropertyEditorRegistrar;
 import org.springframework.beans.PropertyEditorRegistry;
 
 /**
- * Created by Administrator on 2019/9/6 16:42.
+ * Created by Administrator on 2019/9/11 15:06.
  */
-public class OnePropertyEditorRegistrar implements PropertyEditorRegistrar {
+public class TwoPropertyEditorRegistrar implements PropertyEditorRegistrar {
 
-    public OnePropertyEditorRegistrar() {
+    public TwoPropertyEditorRegistrar() {
         System.out.println("*********  " + getClass().getSimpleName() + ".Constructor  *********");
     }
 

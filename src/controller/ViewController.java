@@ -18,7 +18,6 @@ import java.util.Map;
  * Created by Administrator on 2019/9/4 5:28.
  */
 @Controller
-
 public class ViewController {
 
     /**
@@ -68,11 +67,11 @@ public class ViewController {
     /**
      * 通过URL查询参数实例化Model属性
      */
-//    @GetMapping({"/model"})
-//    public String handle(Person person) {
-//        System.out.println("~~" + getClass().getSimpleName() + ".handle~~");
-//        return "model";
-//    }
+    @GetMapping({"/model"})
+    public String handle(Person person) {
+        System.out.println("~~" + getClass().getSimpleName() + ".handle~~");
+        return "model";
+    }
 
 
     /**
