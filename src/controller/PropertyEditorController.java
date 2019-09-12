@@ -59,7 +59,9 @@ public class PropertyEditorController {
 //        System.out.println(propertyEditorRegistrar);
 //        propertyEditorRegistrar.registerCustomEditors(binder);
 
-        webDataBinder.registerCustomEditor(Person.class, new PersonPE());
+        webDataBinder.registerCustomEditor(Person.class, new PersonPE());//注册属性编辑器
+//        webDataBinder.addCustomFormatter(null);//增加格式化工具
+//        webDataBinder.setValidator(null);//设置验证器
     }
 
 
