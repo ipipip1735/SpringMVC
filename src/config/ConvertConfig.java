@@ -7,11 +7,14 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.Formatter;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.format.datetime.DateFormatter;
+import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
+import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.sql.Time;
 import java.text.ParseException;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 
@@ -26,29 +29,12 @@ public class ConvertConfig implements WebMvcConfigurer {
         System.out.println("~~" + getClass().getSimpleName() + ".addFormatters~~");
 
 
-        /**
-         * 格式化日期
-         */
-//        Formatter<Date> dateFormatter = new Formatter<Date>() {
-//
-//            @Override
-//            public String print(Date object, Locale locale) {
-//                System.out.println("~~" + getClass().getSimpleName() + ".print~~");
-//                return "[Date]1970-01-01 00:00:00 UTC+8";
-//            }
-//
-//            @Override
-//            public Date parse(String text, Locale locale) throws ParseException {
-//                System.out.println("~~" + getClass().getSimpleName() + ".parse~~");
-//                return new Date(1501234567);
-//            }
-//        };
-//        registry.addFormatter(dateFormatter);
-
 
         /**
-         * 格式化Car对象
+         * 格式化任意对象
+         * 将任意对象格式化为所需字符串
          */
+        //Bean格式化
 //        Formatter<Car> carFormatter = new Formatter<>() {
 //            @Override
 //            public String print(Car car, Locale locale) {
@@ -62,7 +48,29 @@ public class ConvertConfig implements WebMvcConfigurer {
 //                return new Car(12, "bob");
 //            }
 //        };
-//        registry.addFormatter(carFormatter);
+//        registry.addFormatter(carFormatter);//注册
+
+        //日期格式化
+//        Formatter<Date> dateFormatter = new Formatter<Date>() {
+//
+//            @Override
+//            public String print(Date object, Locale locale) {
+//                System.out.println("~~" + getClass().getSimpleName() + ".print~~");
+//                return object.toString();
+//            }
+//
+//            @Override
+//            public Date parse(String text, Locale locale) throws ParseException {
+//                System.out.println("~~" + getClass().getSimpleName() + ".parse~~");
+//                System.out.println("text is " + text);
+//                return new Date(Long.valueOf(text));
+//            }
+//        };
+//        registry.addFormatter(dateFormatter);//注册
+
+
+
+
 
 
         //注册类型转换工具

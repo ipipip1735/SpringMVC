@@ -11,8 +11,8 @@
     <title>model.jsp</title>
   </head>
   <body>
-<%--  ${one}--%>
+  ${one}
   ${person.name}
-<%--  ${car.price}--%>
+  ${car.price}
   </body>
 </html>

@@ -8,14 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>Validate</title>
+    <title>formatter</title>
   </head>
   <body>
-  Validate!!
-  <h1>${person.name}</h1>
-  <h1>pp is ${pp.name}</h1>
-  <h1>${i} - ${i.intValue()}</h1>
-  <h1>${xx.intValue()}</h1>
-  <h1>${date}</h1>
+  formatter!!
+  <h1>${stu.birthday}</h1>
   </body>
 </html>

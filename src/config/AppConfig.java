@@ -29,5 +29,6 @@ import java.util.Set;
 @Configuration
 @ComponentScan(basePackages = {"service"})
 //@Import(PropertyEditorConfig.class)
-@Import(ConvertConfig.class)
+//@Import(ConvertConfig.class)
+@Import(FormatterConfig.class)
 public class AppConfig {}
