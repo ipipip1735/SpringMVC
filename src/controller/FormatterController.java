@@ -27,9 +27,9 @@ public class FormatterController {
 
     @GetMapping("/formatter/{date}")
 //    public String formatter(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date) {
-    public String formatter(@PathVariable @DateTimeFormat(pattern = "yyyyMM") Date date) {
+//    public String formatter(@PathVariable @DateTimeFormat(pattern = "yyyyMM") Date date) {
 //    public String formatter(@PathVariable @DateTimeFormat(style = "S-") Date date) {
-//    public String formatter(@PathVariable Date date) {
+    public String formatter(@PathVariable Date date) {
         System.out.println("~~" + getClass().getSimpleName() + ".formatter~~");
 
         System.out.println(date);
