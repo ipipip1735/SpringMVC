@@ -2,7 +2,9 @@ package controller;
 
 import dao.Person;
 import dao.Student;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.support.FormattingConversionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
@@ -22,15 +24,15 @@ import java.util.Date;
 @Controller
 public class FormatterController {
 
+
     @GetMapping("/formatter/{date}")
 //    public String formatter(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date) {
     public String formatter(@PathVariable @DateTimeFormat(pattern = "yyyyMM") Date date) {
+//    public String formatter(@PathVariable @DateTimeFormat(style = "S-") Date date) {
+//    public String formatter(@PathVariable Date date) {
         System.out.println("~~" + getClass().getSimpleName() + ".formatter~~");
 
         System.out.println(date);
-
-//        Date date1 = new Date();
-
 
         return "formatter";
     }

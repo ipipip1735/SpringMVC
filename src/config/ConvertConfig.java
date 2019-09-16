@@ -7,7 +7,10 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.Formatter;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.format.datetime.DateFormatter;
+import org.springframework.format.datetime.DateFormatterRegistrar;
+import org.springframework.format.datetime.DateTimeFormatAnnotationFormatterFactory;
 import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
+import org.springframework.format.number.NumberFormatAnnotationFormatterFactory;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -15,6 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.sql.Time;
 import java.text.ParseException;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -27,6 +31,19 @@ public class ConvertConfig implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         System.out.println("~~" + getClass().getSimpleName() + ".addFormatters~~");
+
+
+        /**
+         * 格式化任意日期
+         * 将字符串转换为日期
+         */
+        registry.addFormatter(new DateFormatter("yyyyMM"));
+        registry.addFormatterForFieldType(Date.class, new DateFormatter("yyyyMM"));
+//        registry.addFormatterForFieldAnnotation();
+
+
+
+
 
 
 

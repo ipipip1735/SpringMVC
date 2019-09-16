@@ -12,6 +12,7 @@
   </head>
   <body>
   formatter!!
-  <h1>${stu.birthday}</h1>
+  <h1>student is ${stu.birthday}</h1>
+  <h1>date is ${date}</h1>
   </body>
 </html>

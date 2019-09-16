@@ -10,17 +10,20 @@ import java.util.Date;
  */
 public class Student {
 
-    @DateTimeFormat(pattern = "yyyy")
+
+    @DateTimeFormat(pattern = "yyyyMM")
     private Date birthday;
 
 
-
     public void setBirthday(Date birthday) {
+        System.out.println("~~" + getClass().getSimpleName() + ".setBirthday~~");
         this.birthday = birthday;
+        System.out.println(this.birthday);
     }
 
 
     public Date getBirthday() {
+        System.out.println("~~" + getClass().getSimpleName() + ".getBirthday~~");
         return birthday;
     }
 

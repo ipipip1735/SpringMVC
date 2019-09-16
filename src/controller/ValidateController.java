@@ -3,7 +3,6 @@ package controller;
 import binder.PersonPE;
 import dao.Car;
 import dao.Person;
-import jdk.swing.interop.SwingInterOpUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
