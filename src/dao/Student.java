@@ -10,25 +10,38 @@ import java.util.Date;
  */
 public class Student {
 
+    int sno;
+    String name;
 
-    @DateTimeFormat(pattern = "yyyyMM")
-    private Date birthday;
-
+    @DateTimeFormat(pattern = "yyyyMMdd")
+    Date birthday = new Date(0L);
 
     public void setBirthday(Date birthday) {
-        System.out.println("~~" + getClass().getSimpleName() + ".setBirthday~~");
         this.birthday = birthday;
-        System.out.println(this.birthday);
     }
 
-
     public Date getBirthday() {
-        System.out.println("~~" + getClass().getSimpleName() + ".getBirthday~~");
         return birthday;
     }
 
-    public Student() {
+    public void setSno(int sno) {
+        this.sno = sno;
+    }
+    public int getSno() {
+        return sno;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getName() {
+        return name;
+    }
+
+    public Student(int sno, String name) {
         System.out.println("*********  " + getClass().getSimpleName() + ".Constructor  *********");
+        this.sno = sno;
+        this.name = name;
     }
 
 }

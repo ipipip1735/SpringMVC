@@ -1,11 +1,14 @@
 package config;
 
+import binder.StudentAnnotationFormatterFactory;
+import binder.StudentFormat;
 import dao.Car;
 import dao.Person;
+import dao.Student;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.format.*;
 import org.springframework.format.Formatter;
-import org.springframework.format.FormatterRegistry;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.format.datetime.DateFormatterRegistrar;
 import org.springframework.format.datetime.DateTimeFormatAnnotationFormatterFactory;
@@ -20,9 +23,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.sql.Time;
 import java.text.ParseException;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
+import java.util.*;
 
 /**
  * Created by Administrator on 2019/9/9 21:41.
@@ -46,14 +47,12 @@ public class FormattingConversionConfig implements WebMvcConfigurer {
     public void addFormatters(FormatterRegistry registry) {
         System.out.println("~~" + getClass().getSimpleName() + ".addFormatters~~");
 
-        System.out.println(registry);
-
 
         /**
          * 格式化任意对象
          * 将任意对象格式化为所需字符串
          */
-        //Bean格式化
+        //例一：Bean格式化
 //        Formatter<Car> carFormatter = new Formatter<>() {
 //            @Override
 //            public String print(Car car, Locale locale) {
@@ -69,26 +68,38 @@ public class FormattingConversionConfig implements WebMvcConfigurer {
 //        };
 //        registry.addFormatter(carFormatter);//注册
 
-        //日期格式化
-        Formatter<Date> dateFormatter = new Formatter<Date>() {
+        //例二：注册自定义格式化工具
+//        Formatter<Date> dateFormatter = new Formatter<Date>() {
+//
+//            @Override
+//            public String print(Date object, Locale locale) {
+//                System.out.println("~~" + getClass().getSimpleName() + ".print~~");
+//                return object.toString();
+//            }
+//
+//            @Override
+//            public Date parse(String text, Locale locale) throws ParseException {
+//                System.out.println("~~" + getClass().getSimpleName() + ".parse~~");
+//                System.out.println("text is " + text);
+//                return new Date(Long.valueOf(text));//将时间戳转换为日期
+//            }
+//        };
+//        registry.addFormatter(dateFormatter);
 
-            @Override
-            public String print(Date object, Locale locale) {
-                System.out.println("~~" + getClass().getSimpleName() + ".print~~");
-                return object.toString();
-            }
 
-            @Override
-            public Date parse(String text, Locale locale) throws ParseException {
-                System.out.println("~~" + getClass().getSimpleName() + ".parse~~");
-                System.out.println("text is " + text);
-                return new Date(Long.valueOf(text));//将时间戳转换为日期
-            }
-        };
-        registry.addFormatter(dateFormatter);//注册自定义格式化工具
+
+        //例三：注册自定义注解格式化工具
+//        registry.addFormatterForFieldAnnotation(new StudentAnnotationFormatterFactory());
+//        registry.addFormatterForFieldAnnotation(new DateTimeFormatAnnotationFormatterFactory());//增加Annotation转换（不需要增加，系统已经增加了，这里是为了演示）
+
+
+
+        //例四：使用Spring自带的格式化工具
 //        registry.addFormatter(new DateFormatter("yyyyMM"));//Spring自带的格式化工具
 //        registry.addFormatterForFieldType(Date.class, new DateFormatter("yyyyMM"));//限定控制器的参数类型
-//        registry.addFormatterForFieldAnnotation();//增加Annotation转换
+
+
+        System.out.println(registry);//打印最后注册器中包含的转换器和格式化工具
 
 
 
