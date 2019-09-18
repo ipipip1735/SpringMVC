@@ -50,23 +50,23 @@ public class FormatterController {
      * 使用自定义格式化工具
      * @StudentFormat 是自定义的格式化工具
      */
-    @GetMapping("/formatter/{stu}")
-    public String formatter(@ModelAttribute("stu") @StudentFormat(sno = 18, name = "jack") Student student) {
-        System.out.println("~~" + getClass().getSimpleName() + ".formatter~~");
-
-        return "formatter";
-    }
+//    @GetMapping("/formatter/{stu}")
+//    public String formatter(@ModelAttribute("stu") @StudentFormat(sno = 18, name = "jack") Student student) {
+//        System.out.println("~~" + getClass().getSimpleName() + ".formatter~~");
+//
+//        return "formatter";
+//    }
 
 
     /**
      * 使用注解格式化字段
      */
-//    @GetMapping("/formatter/{birthday}")
-//    public String formatter(@ModelAttribute("stu") Student student) {
-//        System.out.println("~~" + getClass().getSimpleName() + ".formatter~~");
-//
-//        return "formatter";
-//    }
+    @GetMapping("/formatter/{birthday}")
+    public String formatter(@ModelAttribute("stu") Student student) {
+        System.out.println("~~" + getClass().getSimpleName() + ".formatter~~");
+
+        return "formatter";
+    }
 
 
 }

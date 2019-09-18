@@ -18,13 +18,15 @@ public class Student {
     String name;
 
     @DateTimeFormat(pattern = "yyyyMMdd")
-    Date birthday = new Date(0L);
+    private Date birthday = new Date(0L);
 
     public void setBirthday(Date birthday) {
+        System.out.println("~~" + getClass().getSimpleName() + ".setBirthday~~");
         this.birthday = birthday;
     }
 
     public Date getBirthday() {
+        System.out.println("~~" + getClass().getSimpleName() + ".getBirthday~~");
         return birthday;
     }
 
