@@ -2,6 +2,10 @@ package dao;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.text.DateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Date;
 
 
@@ -36,6 +40,12 @@ public class Student {
     }
     public String getName() {
         return name;
+    }
+
+    public Student() {
+        System.out.println("*********  " + getClass().getSimpleName() + ".Constructor  *********");
+        this.sno = -1;
+        this.name = "xx";
     }
 
     public Student(int sno, String name) {

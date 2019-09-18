@@ -62,7 +62,6 @@ public class FormatterController {
      * 使用注解格式化字段
      */
     @GetMapping("/formatter/{birthday}")
-//    @GetMapping("/formatter/{sno}/{name}/{birthday}")
     public String formatter(@ModelAttribute("stu") Student student) {
         System.out.println("~~" + getClass().getSimpleName() + ".formatter~~");
 
