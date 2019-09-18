@@ -89,8 +89,8 @@ public class FormattingConversionConfig implements WebMvcConfigurer {
 
 
         //例三：注册自定义注解格式化工具
-//        registry.addFormatterForFieldAnnotation(new StudentAnnotationFormatterFactory());
-//        registry.addFormatterForFieldAnnotation(new DateTimeFormatAnnotationFormatterFactory());//增加Annotation转换（不需要增加，系统已经增加了，这里是为了演示）
+        registry.addFormatterForFieldAnnotation(new StudentAnnotationFormatterFactory());
+        registry.addFormatterForFieldAnnotation(new DateTimeFormatAnnotationFormatterFactory());//增加Annotation转换（不需要增加，系统已经增加了，这里是为了演示）
 
 
 

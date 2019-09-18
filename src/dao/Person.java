@@ -6,6 +6,8 @@ import java.beans.ConstructorProperties;
  * Created by Administrator on 2019/9/4 15:48.
  */
 public class Person {
+
+
     int age;
     String name;
 

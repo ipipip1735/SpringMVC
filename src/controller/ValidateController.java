@@ -70,19 +70,29 @@ public class ValidateController {
 //        return "validate";
 //    }
 
+    //验证实体参数
+    @GetMapping("/validate/{name}")
+    public String validate(Person person, BindingResult result) {
+        System.out.println("~~" + getClass().getSimpleName() + ".validate~~");
+
+        if(result.hasErrors()) System.out.println("error!");
+
+        return "validate";
+    }
+
 
     /**
      * 直接验证
      */
-    @GetMapping("/validate")
-    public String validate(@ModelAttribute("pp") Person pp, BindingResult result) {
-        System.out.println("~~" + getClass().getSimpleName() + ".validate~~");
-
-        pp.setName("bob");
-        result.reject("xxx");//设置错误码
-
-        return "validate";
-    }
+//    @GetMapping("/validate")
+//    public String validate(@ModelAttribute("pp") Person pp, BindingResult result) {
+//        System.out.println("~~" + getClass().getSimpleName() + ".validate~~");
+//
+//        pp.setName("bob");
+//        result.reject("xxx");//设置错误码
+//
+//        return "validate";
+//    }
 
 
 
