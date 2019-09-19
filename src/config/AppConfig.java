@@ -11,6 +11,6 @@ import org.springframework.validation.annotation.Validated;
 @Configuration
 @ComponentScan(basePackages = {"service"})
 //@Import(PropertyEditorConfig.class)//属性编辑器配置
-@Import(FormattingConversionConfig.class)//格式化和类型转换配置
+//@Import(FormattingConversionConfig.class)//格式化和类型转换配置
 //@Import(ValidateConfig.class)//格式化和类型转换配置
 public class AppConfig {}

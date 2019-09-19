@@ -3,6 +3,7 @@ package controller;
 import binder.StudentFormat;
 import dao.Person;
 import dao.Student;
+import dao.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.datetime.DateFormatter;
@@ -61,12 +62,11 @@ public class FormatterController {
     /**
      * 使用注解格式化字段
      */
-    @GetMapping("/formatter/{birthday}")
-    public String formatter(@ModelAttribute("stu") Student student) {
-        System.out.println("~~" + getClass().getSimpleName() + ".formatter~~");
-
-        return "formatter";
-    }
-
+//    @GetMapping("/formatter/{birthday}")
+//    public String formatter(@ModelAttribute("stu") Student student) {
+//        System.out.println("~~" + getClass().getSimpleName() + ".formatter~~");
+//
+//        return "formatter";
+//    }
 
 }

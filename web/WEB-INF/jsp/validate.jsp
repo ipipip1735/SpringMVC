@@ -12,10 +12,13 @@
   </head>
   <body>
   Validate!!
-  <h1>${person.name}</h1>
-  <h1>pp is ${pp.name}</h1>
-  <h1>${i} - ${i.intValue()}</h1>
-  <h1>${xx.intValue()}</h1>
-  <h1>${date}</h1>
+<%--  <h1>${person.name}</h1>--%>
+<%--  <h1>pp is ${pp.name}</h1>--%>
+<%--  <h1>${i} - ${i.intValue()}</h1>--%>
+<%--  <h1>${xx.intValue()}</h1>--%>
+<%--  <h1>${date}</h1>--%>
+
+  <h1>${teacher.age}</h1>
+
   </body>
 </html>
