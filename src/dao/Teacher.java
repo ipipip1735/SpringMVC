@@ -15,17 +15,16 @@ public class Teacher {
     @Autowired
     private Validator validator;
 
-    @Min(value = 10, message = "xxxx")
+    @Min(value = 10)
+//    @Min(value = 10, message = "xxxx")
     int age;
 
-    @Min(value = 10, message = "xxxx")
     public int getAge() {
         System.out.println("~~" + getClass().getSimpleName() + ".getAge~~");
 
         return age;
     }
 
-    @Min(value = 10, message = "xxxx")
     public void setAge(int age) {
         System.out.println("~~" + getClass().getSimpleName() + ".setAge~~");
 

@@ -17,6 +17,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Date;
 
@@ -27,7 +28,8 @@ import java.util.Date;
 public class ValidateController {
 
     /**
-     * 绑定验证器
+     * 绑定局部验证器
+     * 局部验证器优先级最高
      */
 //    @InitBinder
 //    public void initBinder(WebDataBinder webDataBinder) {
@@ -60,8 +62,7 @@ public class ValidateController {
 //        webDataBinder.setValidator(validator);//设置验证器
 //    }
 
-
-    //验证控制器验证
+    //验证实体参数（使用局部验证器）
 //    @GetMapping("/validate/{name}")
 //    public String validate(@Validated Person person, BindingResult result) {
 //        System.out.println("~~" + getClass().getSimpleName() + ".validate~~");
@@ -71,7 +72,7 @@ public class ValidateController {
 //        return "validate";
 //    }
 
-    //验证实体参数
+    //验证实体参数（使用全局验证器）
 //    @GetMapping("/validate/{name}")
 //    public String validate(Person person, BindingResult result) {
 //        System.out.println("~~" + getClass().getSimpleName() + ".validate~~");
@@ -81,10 +82,11 @@ public class ValidateController {
 //        return "validate";
 //    }
 
-    @GetMapping("/validate/{age}")
-    public String validate(Teacher teacher) {
-        System.out.println("~~" + getClass().getSimpleName() + ".validate~~");
 
+    //验证实体参数（使用JSR380注解）
+    @GetMapping("/validate/{age}")
+    public String validate(@Valid Teacher teacher) {
+        System.out.println("~~" + getClass().getSimpleName() + ".validate~~");
 
 
         return "validate";
