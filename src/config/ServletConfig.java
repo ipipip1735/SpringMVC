@@ -1,5 +1,6 @@
 package config;
 
+import advice.OneAdvice;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -36,5 +37,10 @@ public class ServletConfig{
         LocalValidatorFactoryBean localValidatorFactoryBean = new LocalValidatorFactoryBean();
         return localValidatorFactoryBean;
     }
+
+//    @Bean
+//    public OneAdvice oneAdvice() {
+//        return new OneAdvice();
+//    }
 
 }
