@@ -30,13 +30,17 @@ public class ServletConfig{
     }
 
 
-    @Bean
-    public Validator localValidatorFactoryBean() {
-        System.out.println("~~" + getClass().getSimpleName() + ".localValidatorFactoryBean~~");
-
-        LocalValidatorFactoryBean localValidatorFactoryBean = new LocalValidatorFactoryBean();
-        return localValidatorFactoryBean;
-    }
+    /**
+     * 基于注解的验证
+     * 此Bean加不加都一样
+     */
+//    @Bean
+//    public Validator localValidatorFactoryBean() {
+//        System.out.println("~~" + getClass().getSimpleName() + ".localValidatorFactoryBean~~");
+//
+//        LocalValidatorFactoryBean localValidatorFactoryBean = new LocalValidatorFactoryBean();
+//        return localValidatorFactoryBean;
+//    }
 
 //    @Bean
 //    public OneAdvice oneAdvice() {
