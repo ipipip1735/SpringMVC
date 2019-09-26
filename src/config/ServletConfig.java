@@ -42,9 +42,9 @@ public class ServletConfig{
 //        return localValidatorFactoryBean;
 //    }
 
-//    @Bean
-//    public OneAdvice oneAdvice() {
-//        return new OneAdvice();
-//    }
+    @Bean
+    public OneAdvice oneAdvice() {
+        return new OneAdvice();
+    }
 
 }
