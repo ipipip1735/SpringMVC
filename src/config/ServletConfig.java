@@ -42,9 +42,13 @@ public class ServletConfig{
 //        return localValidatorFactoryBean;
 //    }
 
-    @Bean
-    public OneAdvice oneAdvice() {
-        return new OneAdvice();
-    }
+
+//    /**
+//     * 建言控制器
+//     */
+//    @Bean
+//    public OneAdvice oneAdvice() {
+//        return new OneAdvice();
+//    }
 
 }
