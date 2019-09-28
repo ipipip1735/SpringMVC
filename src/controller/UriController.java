@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -16,12 +17,14 @@ import org.springframework.web.util.UrlPathHelper;
 import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
 
+import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
 import static org.springframework.web.util.DefaultUriBuilderFactory.EncodingMode.*;
 
 /**
  * Created by Administrator on 2019/9/26 11:43.
  */
 @Controller
+@RequestMapping("/one/{one}")
 public class UriController {
 
     /**
@@ -137,48 +140,66 @@ public class UriController {
     /**
      * servlet请求
      */
-    @GetMapping("/uri/{xx}")
-    public String uriBuilder(HttpServletRequest request, PathVariable pathVariable, Model model) {
+//    @GetMapping("/uri")
+//    public void uriBuilder(HttpServletRequest request, Model model) {
+//        //覆写查询参数
+////        UriComponents uriComponents = ServletUriComponentsBuilder.fromRequest(request)
+////                .replaceQueryParam("aaa", "{xxx}")
+////                .build()
+////                .expand("123")
+////                .encode();
+////        URI uri = uriComponents.toUri();
+////        model.addAttribute("uri", uri);
+////        System.out.println(uriComponents.toUri().toString());
+//
+//
+//        //覆写路径
+////        UriComponents uriComponents = ServletUriComponentsBuilder.fromContextPath(request)
+////                .path("/accounts")
+////                .build();
+////        model.addAttribute("uri", uriComponents.toUri());
+////        System.out.println(uriComponents.toUri().toString());
+//
+//
+//        //覆写相对路径
+////        UriComponents uriComponents = ServletUriComponentsBuilder.fromServletMapping(request)
+////                .path("/accounts")
+////                .build();
+////        model.addAttribute("uri", uriComponents.toUri());
+////        System.out.println(uriComponents.toUri().toString());
+//
+//    }
 
-        //覆写查询参数
-//        UriComponents uriComponents = ServletUriComponentsBuilder.fromRequest(request)
-//                .replaceQueryParam("aaa", "{xxx}")
-//                .build()
-//                .expand("123")
-//                .encode();
-//        URI uri = uriComponents.toUri();
-//        model.addAttribute("uri", uri);
-//        System.out.println(uriComponents.toUri().toString());
+
+    /**
+     * 通过控制器方法创建
+     */
+//    @GetMapping("/two/{two}")
+//    public String uriBuilder(HttpServletRequest request, @PathVariable int two, Model model) {
+//
+//        //控制器路径（创建匹配控制器方法的URI）
+//        UriComponents uriComponents = MvcUriComponentsBuilder
+//                .fromMethodName(this.getClass(), "uriBuilder", null, 31, null)
+//                .buildAndExpand(42);
+//        URI uri = uriComponents.encode().toUri();
+//        model.addAttribute("uri", uri.toString());
+//        System.out.println(uri.toString());
+//
+//        return "uri";
+//    }
 
 
-        //覆写路径
-//        UriComponents uriComponents = ServletUriComponentsBuilder.fromContextPath(request)
-//                .path("/accounts")
-//                .build();
-//        model.addAttribute("uri", uriComponents.toUri());
-//        System.out.println(uriComponents.toUri().toString());
-
-
-        //覆写相对路径
-//        UriComponents uriComponents = ServletUriComponentsBuilder.fromServletMapping(request)
-//                .path("/accounts")
-//                .build();
-//        model.addAttribute("uri", uriComponents.toUri());
-//        System.out.println(uriComponents.toUri().toString());
-
-
-        //
-        UriComponents uriComponents = MvcUriComponentsBuilder
-                .fromMethodName(this.getClass(), "uriBuilder", 21)
-                .buildAndExpand(42);
-
-        URI uri = uriComponents.encode().toUri();
-
+    /**
+     * 通过视图获取 URI
+     */
+    @GetMapping("/uri")
+//    @GetMapping("/two/{two}")
+//    public String uriBuilder(HttpServletRequest request, @PathVariable int two, Model model) {
+    public String uriBuilder() {
 
 
 
         return "uri";
-
     }
 
 
