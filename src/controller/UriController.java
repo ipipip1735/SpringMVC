@@ -24,7 +24,7 @@ import static org.springframework.web.util.DefaultUriBuilderFactory.EncodingMode
  * Created by Administrator on 2019/9/26 11:43.
  */
 @Controller
-@RequestMapping("/one/{one}")
+@RequestMapping(path = "/one/{one}")
 public class UriController {
 
     /**
@@ -192,12 +192,8 @@ public class UriController {
     /**
      * 通过视图获取 URI
      */
-    @GetMapping("/uri")
-//    @GetMapping("/two/{two}")
-//    public String uriBuilder(HttpServletRequest request, @PathVariable int two, Model model) {
-    public String uriBuilder() {
-
-
+    @GetMapping("/two/{two}")
+    public String uriBuilder(@PathVariable Integer two) {
 
         return "uri";
     }
