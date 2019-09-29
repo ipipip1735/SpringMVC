@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>Advice</title>
+    <title>CORS</title>
   </head>
 
   <script
@@ -20,13 +20,16 @@
 
   <div id="ajax">XXX</div>
 
+
+  <div>${res}</div>
+
   </body>
 
   <script>
     $("#ajax").on("click", function () {
 
 
-      htmlobj=$.ajax({url:"/uri.jsp",async:false});
+      htmlobj=$.ajax({url:"/cors",async:false});
       $("this").html(htmlobj.responseText);
 
 
