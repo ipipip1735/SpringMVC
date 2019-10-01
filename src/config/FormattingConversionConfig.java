@@ -89,8 +89,8 @@ public class FormattingConversionConfig implements WebMvcConfigurer {
 
 
         //例三：注册自定义注解格式化工具
-        registry.addFormatterForFieldAnnotation(new StudentAnnotationFormatterFactory());
-        registry.addFormatterForFieldAnnotation(new DateTimeFormatAnnotationFormatterFactory());//增加Annotation转换（不需要增加，系统已经增加了，这里是为了演示）
+//        registry.addFormatterForFieldAnnotation(new StudentAnnotationFormatterFactory());
+//        registry.addFormatterForFieldAnnotation(new DateTimeFormatAnnotationFormatterFactory());//增加Annotation转换（不需要增加，系统已经增加了，这里是为了演示）
 
 
 
@@ -99,27 +99,27 @@ public class FormattingConversionConfig implements WebMvcConfigurer {
 //        registry.addFormatterForFieldType(Date.class, new DateFormatter("yyyyMM"));//限定控制器的参数类型
 
 
-        System.out.println(registry);//打印最后注册器中包含的转换器和格式化工具
+//        System.out.println(registry);//打印最后注册器中包含的转换器和格式化工具
 
 
 
 
 
         /*注册类型转换工具*/
-//        Converter<String, Person> converter = new Converter<String, Person>() {
-//            @Override
-//            public Person convert(String source) {
-//                System.out.println("~~" + getClass().getSimpleName() + ".convert~~");
-//                System.out.println(this);
-//
-//                System.out.println("source is " + source);
-//
-//                Person person = new Person();
-//                System.out.println(person);
-//                return person;
-//            }
-//        };
-//        registry.addConverter(converter);
+        Converter<String, Person> converter = new Converter<String, Person>() {
+            @Override
+            public Person convert(String source) {
+                System.out.println("~~" + getClass().getSimpleName() + ".convert~~");
+                System.out.println(this);
+
+                System.out.println("source is " + source);
+
+                Person person = new Person();
+                System.out.println(person);
+                return person;
+            }
+        };
+        registry.addConverter(converter);
     }
 
 }

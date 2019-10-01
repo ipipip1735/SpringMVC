@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestBody;
  */
 @Controller
 public class UploadController {
-    @GetMapping("/upload")
-    public void upload() {
-        System.out.println("~~" + getClass().getSimpleName() + ".upload~~");
-    }
+//    @GetMapping("/upload")
+//    public void upload() {
+//        System.out.println("~~" + getClass().getSimpleName() + ".upload~~");
+//    }
 
-    @PostMapping(path = "/handler", consumes = {"application/json;charset=UTF-8"})
-    public void submit(@RequestBody Employee employee) {
-        System.out.println("~~" + getClass().getSimpleName() + ".handler~~");
-        System.out.println(employee);
-    }
+//    @PostMapping(path = "/handler", consumes = {"application/json;charset=UTF-8"})
+//    public void submit(@RequestBody Employee employee) {
+//        System.out.println("~~" + getClass().getSimpleName() + ".handler~~");
+//        System.out.println(employee);
+//    }
 }
