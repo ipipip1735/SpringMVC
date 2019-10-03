@@ -22,30 +22,6 @@ import java.util.Locale;
 @Controller
 public class HttpController {
 
-
-    @InitBinder
-    public void initBinder(WebDataBinder webDataBinder) {
-//        webDataBinder.addCustomFormatter(new Formatter<Person>() {
-//            @Override
-//            public Person parse(String text, Locale locale) throws ParseException {
-//                System.out.println(text);
-//                return null;
-//            }
-//
-//            @Override
-//            public String print(Person object, Locale locale) {
-//                return object.toString();
-//            }
-//        });
-
-
-        webDataBinder.setConversionService(conversionService);
-
-
-
-    }
-
-
     @GetMapping("/http")
     public String http() {
         System.out.println("~~" + getClass().getSimpleName() + ".http~~");
@@ -55,30 +31,15 @@ public class HttpController {
 
 
     /**
-     * 方式一：
-     */
-//    @PostMapping(name = "/handler", consumes = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseBody
-//    public String ajax(@RequestBody String person) {
-//        System.out.println("~~" + getClass().getSimpleName() + ".ajax~~");
-//        System.out.println(person);
-//
-//        return "ok";
-//    }
-
-
-    /**
-     * 方式二：
+     * 方式一
      */
     @PostMapping(name = "/handler", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String ajax(@RequestBody Person person) {
+    public Person ajax(@RequestBody Person person) {
         System.out.println("~~" + getClass().getSimpleName() + ".ajax~~");
         System.out.println(person);
 
-        return "ok";
+        return person;
     }
-
-
 
 }

@@ -19,24 +19,23 @@ ajax
 <script>
 
     $(function () {
-        // var person = "ttt";
         var person = {
             "name": "bob",
             "age": 11
-        }
+        };
+        JSON.stringify(person);
 
         $.ajax({
             url: "/handler",
             type: 'POST',
             dataType: 'json',
-            contentType: "application/json",
-            headers: {contentType: "application/json"},
-            data: person,
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(person),
             success: function (data) {
                 console.log(data);
             },
             error: function () {
-                console.log('Error edited flight');
+                console.log('Error');
             }
         });
 

@@ -1,15 +1,16 @@
 package dao;
 
 import java.beans.ConstructorProperties;
+import java.io.Serializable;
 
 /**
  * Created by Administrator on 2019/9/4 15:48.
  */
-public class Person {
+public class Person{
 
 
-    int age;
     String name;
+    int age;
 
     public Person() {
         age = -1;
