@@ -45,6 +45,6 @@
     <orderEntry type="library" name="org.springframework:spring-webmvc:5.1.9.RELEASE" level="application" />
     <orderEntry type="library" name="javax.validation:validation-api:2.0.1.Final" level="application" />
     <orderEntry type="library" name="org.hibernate:hibernate-validator:6.0.17.Final" level="application" />
-    <orderEntry type="library" name="com.fasterxml.jackson.core:jackson-databind:2.9.10" level="application" />
+    <orderEntry type="library" name="com.fasterxml.jackson.core:jackson-databind:2.10.0" level="application" />
   </component>
 </module>

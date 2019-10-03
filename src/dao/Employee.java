@@ -1,14 +1,35 @@
 package dao;
 
+import javax.validation.constraints.Min;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by Administrator on 2019/9/30 11:13.
  */
 public class Employee implements Serializable{
 
+
     private String name;
     private long id;
+    private boolean sex;
+    private List<String> interests;
+
+    public void setInterests(List<String> interests) {
+        this.interests = interests;
+    }
+
+    public List<String> getInterests() {
+        return interests;
+    }
+
+    public void setSex(boolean sex) {
+        this.sex = sex;
+    }
+
+    public boolean isSex() {
+        return sex;
+    }
 
     public String getName() {
         return name;

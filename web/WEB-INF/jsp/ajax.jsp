@@ -15,6 +15,7 @@
 ajax
 
 
+
 </body>
 <script>
 
@@ -23,7 +24,6 @@ ajax
             "name": "bob",
             "age": 11
         };
-        JSON.stringify(person);
 
         $.ajax({
             url: "/handler",

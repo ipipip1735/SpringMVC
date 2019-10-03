@@ -13,17 +13,28 @@
   </head>
   <body>
 
-  <h2>${employee.name} - ${employee.id}</h2>
 
-  <form:form method="POST" action="/addEmployee" modelAttribute="employee" >
+  <h2>${employee.name} - ${employee.id} - ${employee.sex}</h2>
+
+
+<%--  使用标签库--%>
+  <form:form method="POST" action="/addEmployee" modelAttribute="employee">
     <table>
       <tr>
         <td><form:label path="name">Name</form:label></td>
-        <td><form:input path="name"/></td>
+        <td><form:input path="name"/><form:errors /></td>
       </tr>
       <tr>
         <td><form:label path="id">Id</form:label></td>
         <td><form:input path="id"/></td>
+      </tr>
+      <tr>
+        <td><form:label path="sex">sex</form:label></td>
+        <td><form:checkbox path="sex"/></td>
+      </tr>
+      <tr>
+        <td><form:label path="sex">interests</form:label></td>
+        <td><form:checkboxes path="interests" items="${interestList}"/></td>
       </tr>
       <tr>
         <td><input type="submit" value="Submit"/></td>
@@ -31,6 +42,11 @@
     </table>
   </form:form>
 
+
+<%--  方法转换--%>
+<%--  <form:form method="delete">--%>
+<%--    <p class="submit"><input type="submit" value="Delete Pet"/></p>--%>
+<%--  </form:form>--%>
 
 
 

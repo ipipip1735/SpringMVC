@@ -31,7 +31,7 @@ public class HttpController {
 
 
     /**
-     * 方式一
+     * 处理AJAX发送的JSON对象
      */
     @PostMapping(name = "/handler", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
