@@ -2,6 +2,7 @@ package controller;
 
 import dao.Employee;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -60,13 +61,18 @@ public class FormController {
 
 
     //方式二：使用标签库
-    @PostMapping("/addEmployee", consumes=MimeType)
-    public String submit(HttpEntity<Employee> entity) {
-        System.out.println("~~" + getClass().getSimpleName() + ".submit~~");
+    @GetMapping(path = "/entity")
+    public void entity(HttpEntity entity) {
+        System.out.println("~~" + getClass().getSimpleName() + ".entity~~");
 
         System.out.println(entity);
 
-        return "form";
+        if (entity.hasBody()) {
+            System.out.println(entity.getBody());
+        }
+
+        System.out.println(entity.getHeaders());
+
     }
 
 
