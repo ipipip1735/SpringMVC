@@ -10,16 +10,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
 import java.text.ParseException;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Administrator on 2019/9/30 8:46.
@@ -38,33 +36,19 @@ public class HttpController {
     /**
      * 处理AJAX发送的JSON对象
      */
-//    @PostMapping(name = "/handler", consumes = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseBody
-//    public Person ajax(@RequestBody Person person) {
-//        System.out.println("~~" + getClass().getSimpleName() + ".ajax~~");
-//        System.out.println(person);
-//
-//        return person;
-//    }
-
-
-    /**
-     * 处理AJAX发送的JSON对象
-     */
-    @PostMapping(name = "/handler")
-    public void ajax(HttpEntity entity) {
+    @PostMapping(name = "/handler", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Person ajax(@RequestBody Person person) {
         System.out.println("~~" + getClass().getSimpleName() + ".ajax~~");
-        if (entity.hasBody()) {
-            System.out.println(entity.getBody());
-        }
+        System.out.println(person);
 
-        System.out.println(entity.getHeaders());
-        HttpHeaders httpHeaders = entity.getHeaders();
-
-        for (Map.Entry<String, List<String>> map : httpHeaders.entrySet())
-            System.out.println(map);
-
-        System.out.println(entity);
+        return person;
     }
+
+
+
+
+
+
 
 }

@@ -29,7 +29,7 @@ ajax
             url: "/handler",
             type: 'POST',
             dataType: 'json',
-            contentType: "application/json; charset=utf-8",
+            contentType: "application/json",
             data: JSON.stringify(person),
             success: function (data) {
                 console.log(data);
@@ -38,6 +38,7 @@ ajax
                 console.log('Error');
             }
         });
+
 
     });
 

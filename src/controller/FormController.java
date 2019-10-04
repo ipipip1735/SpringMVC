@@ -59,21 +59,4 @@ public class FormController {
 //        return "form";
 //    }
 
-
-    //方式二：使用标签库
-    @GetMapping(path = "/entity")
-    public void entity(HttpEntity entity) {
-        System.out.println("~~" + getClass().getSimpleName() + ".entity~~");
-
-        System.out.println(entity);
-
-        if (entity.hasBody()) {
-            System.out.println(entity.getBody());
-        }
-
-        System.out.println(entity.getHeaders());
-
-    }
-
-
 }
