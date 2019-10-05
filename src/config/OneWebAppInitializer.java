@@ -1,6 +1,12 @@
 package config;
 
+import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+import javax.servlet.Filter;
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletRegistration;
 
 /**
  * Created by Administrator on 2019/8/31 14:12.
@@ -30,5 +36,28 @@ public class OneWebAppInitializer extends AbstractAnnotationConfigDispatcherServ
         System.out.println("~~" + getClass().getSimpleName() + ".getServletMappings~~");
 
         return new String[]{"/"};
+    }
+
+    @Override
+    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+        System.out.println("~~" + getClass().getSimpleName() + ".getServletMappings~~");
+
+        String TMP_FOLDER = "/tmp";
+        int MAX_UPLOAD_SIZE = 5 * 1024 * 1024;
+        MultipartConfigElement multipartConfigElement = new MultipartConfigElement(TMP_FOLDER,
+                MAX_UPLOAD_SIZE, MAX_UPLOAD_SIZE * 2,
+                MAX_UPLOAD_SIZE / 2);
+        registration.setMultipartConfig(multipartConfigElement);
+
+    }
+
+    @Override
+    protected ApplicationContextInitializer<?>[] getRootApplicationContextInitializers() {
+        return super.getRootApplicationContextInitializers();
+    }
+
+    @Override
+    protected Filter[] getServletFilters() {
+        return super.getServletFilters();
     }
 }

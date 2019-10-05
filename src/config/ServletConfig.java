@@ -6,6 +6,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -18,7 +20,7 @@ import javax.validation.Validator;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"controller"})
-public class ServletConfig{
+public class ServletConfig {
 
     @Bean
     public InternalResourceViewResolver viewResolver() {
@@ -50,5 +52,25 @@ public class ServletConfig{
 //    public OneAdvice oneAdvice() {
 //        return new OneAdvice();
 //    }
+
+
+//    /**
+//     * 上传转换器
+//     */
+//    @Bean
+//    public CommonsMultipartResolver multipartResolver() {
+//        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+//        multipartResolver.setMaxUploadSize(100000);
+//        return multipartResolver;
+//    }
+
+    //使用Servlet 3.0标准
+    @Bean
+    public StandardServletMultipartResolver multipartResolver() {
+        StandardServletMultipartResolver standardServletMultipartResolver = new StandardServletMultipartResolver();
+//        standardServletMultipartResolver
+        return standardServletMultipartResolver;
+    }
+
 
 }

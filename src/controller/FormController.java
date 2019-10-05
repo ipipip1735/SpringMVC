@@ -59,4 +59,28 @@ public class FormController {
 //        return "form";
 //    }
 
+
+    //方式二：使用标签库
+    @PostMapping("/addEmployee")
+    public String submit(@ModelAttribute Employee employee, BindingResult result, ModelMap model) {
+        System.out.println("~~" + getClass().getSimpleName() + ".submit~~");
+        if (result.hasErrors()) {
+            System.out.println("Error!");
+            return "error";
+        }
+
+        System.out.println("employee is " + employee);
+        System.out.println("employee is " + employee.getName());
+        System.out.println("employee is " + employee.getId());
+
+
+        model.addAttribute("name", employee.getName());
+        model.addAttribute("id", employee.getId());
+        model.addAttribute("sex", employee.isSex());
+
+
+
+        return "form";
+    }
+
 }

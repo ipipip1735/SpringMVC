@@ -6,15 +6,15 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
-  <head>
+<head>
     <title>Form</title>
-  </head>
-  <body>
+</head>
+<body>
 
 
-  <h2>${employee.name} - ${employee.id} - ${employee.sex}</h2>
+<h2>${employee.name} - ${employee.id} - ${employee.sex}</h2>
 
 
 <%--  使用标签库--%>
@@ -43,13 +43,12 @@
 <%--  </form:form>--%>
 
 
-<%--  方法转换--%>
+<%--  方法转换(Post转DELETE)--%>
 <%--  <form:form method="delete">--%>
 <%--    <p class="submit"><input type="submit" value="Delete Pet"/></p>--%>
 <%--  </form:form>--%>
 
 
 
-
-  </body>
+</body>
 </html>
