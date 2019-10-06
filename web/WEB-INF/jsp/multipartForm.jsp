@@ -13,17 +13,22 @@
 </head>
 <body>
 
-<form:form method="POST" action="/uploadFile" enctype="multipart/form-data">
+
+
+<form method="POST" action="/uploadFile" enctype="multipart/form-data">
     <table>
         <tr>
             <td><label>Select a file to upload</label></td>
             <td><input type="file" name="file"/></td>
+<%--            <td><input type="file" name="file1"/></td>--%>
+<%--            <td><input type="file" name="file2"/></td>--%>
+<%--            <td><input type="file" name="file3"/></td>--%>
         </tr>
         <tr>
             <td><input type="submit" value="Submit"/></td>
         </tr>
     </table>
-</form:form>
+</form>
 
 
 </body>

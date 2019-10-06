@@ -24,15 +24,9 @@ public class OneWebInitializer implements WebApplicationInitializer {
 
 //        xml(servletContext);
 //        annotation(servletContext);
-//        multipulPart();
-    }
-
-    private void multipulPart() {
-
-
-
 
     }
+
 
     private void annotation(ServletContext servletContext) {
 

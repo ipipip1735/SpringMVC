@@ -55,22 +55,22 @@ public class ServletConfig {
 
 
 //    /**
-//     * 上传转换器
+//     * Apache通用上传组件
 //     */
-//    @Bean
-//    public CommonsMultipartResolver multipartResolver() {
-//        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-//        multipartResolver.setMaxUploadSize(100000);
-//        return multipartResolver;
-//    }
+    @Bean
+    public CommonsMultipartResolver multipartResolver() {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSize(100000);
+        return multipartResolver;
+    }
+
 
     //使用Servlet 3.0标准
-    @Bean
-    public StandardServletMultipartResolver multipartResolver() {
-        StandardServletMultipartResolver standardServletMultipartResolver = new StandardServletMultipartResolver();
-//        standardServletMultipartResolver
-        return standardServletMultipartResolver;
-    }
+//    @Bean
+//    public StandardServletMultipartResolver multipartResolver() {
+//        StandardServletMultipartResolver standardServletMultipartResolver = new StandardServletMultipartResolver();
+//        return standardServletMultipartResolver;
+//    }
 
 
 }
