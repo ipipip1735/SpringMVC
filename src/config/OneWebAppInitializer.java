@@ -41,21 +41,21 @@ public class OneWebAppInitializer extends AbstractAnnotationConfigDispatcherServ
         return new String[]{"/"};
     }
 
-    @Override
-    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
-        System.out.println("~~" + getClass().getSimpleName() + ".customizeRegistration~~");
-
-
-        String TMP_FOLDER = System.getenv("CATALINA_TMPDIR");
-        int MAX_UPLOAD_SIZE = 2 * 1024;
-        MultipartConfigElement multipartConfigElement = new MultipartConfigElement(
-                TMP_FOLDER,
-                MAX_UPLOAD_SIZE,
-                MAX_UPLOAD_SIZE * 2,
-                MAX_UPLOAD_SIZE / 2);
-        registration.setMultipartConfig(multipartConfigElement);
-
-    }
+//    @Override
+//    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+//        System.out.println("~~" + getClass().getSimpleName() + ".customizeRegistration~~");
+//
+//
+//        String TMP_FOLDER = System.getenv("CATALINA_TMPDIR");
+//        int MAX_UPLOAD_SIZE = 2 * 1024;
+//        MultipartConfigElement multipartConfigElement = new MultipartConfigElement(
+//                TMP_FOLDER,
+//                MAX_UPLOAD_SIZE,
+//                MAX_UPLOAD_SIZE * 2,
+//                MAX_UPLOAD_SIZE / 2);
+//        registration.setMultipartConfig(multipartConfigElement);
+//
+//    }
 
     @Override
     protected ApplicationContextInitializer<?>[] getRootApplicationContextInitializers() {

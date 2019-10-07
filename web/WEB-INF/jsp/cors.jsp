@@ -28,9 +28,34 @@
   <script>
     $("#ajax").on("click", function () {
 
+      //方式一：同步
+      // htmlobj=$.ajax({url:"/corsHandler",async:false});
+      // $(this).html(htmlobj.responseText);
 
-      htmlobj=$.ajax({url:"/cors",async:false});
-      $("this").html(htmlobj.responseText);
+      //方式二：异步
+      // $.ajax({
+      //   url: "http://example.com/",
+      //   // url: "/corsHandler",
+      //     setHeader: {},
+      //   success: function (data) {
+      //     console.log(data);
+      //     $("#ajax").html(data);
+      //   },
+      //   error: function () {
+      //     console.log('Error');
+      //   }
+      // });
+
+        var xhr = new XMLHttpRequest();
+        var url = 'http://example.com/25';
+
+        xhr.open('GET', url);
+        xhr.onreadystatechange = function (ev) {
+            console.log("[info]" + ev);
+        };
+        xhr.send();
+
+
 
 
     });

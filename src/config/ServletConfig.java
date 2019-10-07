@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
@@ -12,6 +14,9 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.validation.Validator;
+import java.io.File;
+import java.io.IOException;
+import java.util.Random;
 
 
 /**
@@ -61,6 +66,13 @@ public class ServletConfig {
     public CommonsMultipartResolver multipartResolver() {
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
         multipartResolver.setMaxUploadSize(100000);
+
+        try {
+            multipartResolver.setUploadTempDir(new FileSystemResource(System.getenv("CATALINA_TMPDIR")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return multipartResolver;
     }
 
