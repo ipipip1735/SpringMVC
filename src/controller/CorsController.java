@@ -14,15 +14,13 @@ import java.net.http.HttpResponse;
  * Created by Administrator on 2019/9/29 17:07.
  */
 @Controller
-//@CrossOrigin(value = "http://example.com/", maxAge = 3600)
 //@CrossOrigin(origins = "*", allowedHeaders = "*")
+//@CrossOrigin(maxAge = 3600)
 public class CorsController {
-//    @CrossOrigin(value = "http://example.com/", maxAge = 3600)
+    @CrossOrigin(value = "http://example.com/", maxAge = 3600)
     @GetMapping("/cors")
-    public String cors() {
+    public void cors() {
         System.out.println("~~" + getClass().getSimpleName() + ".cors~~");
-
-        return "cors";
     }
 
 
@@ -34,7 +32,7 @@ public class CorsController {
 //        return "ok";
 //    }
 
-    @CrossOrigin("http://localhost")
+//    @CrossOrigin("http://localhost")
     @GetMapping("/{index}")
     public void res(@PathVariable Long index) {
         System.out.println("~~" + getClass().getSimpleName() + ".res~~");

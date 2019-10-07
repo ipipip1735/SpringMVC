@@ -21,11 +21,10 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
  * Created by Administrator on 2019/10/7 12:21.
  */
 public class CORSConfig implements WebMvcConfigurer {
-//    @Override
-//    public void addCorsMappings(CorsRegistry registry) {
-//        registry.addMapping("/index")
-//                .allowedOrigins("*")
-//                .allowedHeaders("Access-Control-Allow-Origin", "*")
-//                .allowedMethods("GET", "POST");
-//    }
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/*")
+                .allowedOrigins("*")
+                .allowedHeaders("Access-Control-Allow-Origin", "*");
+    }
 }
