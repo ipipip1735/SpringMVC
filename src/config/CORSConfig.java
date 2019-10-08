@@ -25,6 +25,7 @@ public class CORSConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/*")
                 .allowedOrigins("*")
-                .allowedHeaders("Access-Control-Allow-Origin", "*");
+                .allowedHeaders("Access-Control-Allow-Origin", "*")
+                .allowCredentials(true);
     }
 }
