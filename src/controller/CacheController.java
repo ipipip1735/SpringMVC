@@ -63,7 +63,7 @@ public class CacheController {
             return null;
         }
 
-        return "myViewName";
+        return "cache";
     }
 
 }
