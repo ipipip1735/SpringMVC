@@ -25,6 +25,10 @@
 <%--            <td><input type="file" name="file3"/></td>--%>
         </tr>
         <tr>
+            <td><label>name</label></td>
+            <td><input type="text" name="name"/></td>
+        </tr>
+        <tr>
             <td><input type="submit" value="Submit"/></td>
         </tr>
     </table>

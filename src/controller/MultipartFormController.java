@@ -44,8 +44,10 @@ public class MultipartFormController {
 
     //表单字段
     @PostMapping(value = "/uploadFile")
-    public void uploadFile(@RequestParam("file") MultipartFile xx) {
+    public void uploadFile(@RequestParam("file") MultipartFile xx, @RequestParam("name") String name) {
         System.out.println("~~" + getClass().getSimpleName() + ".uploadFile~~");
+
+        System.out.println("name is " + name);
 
         try {
             System.out.println("getContentType is " + xx.getContentType());
@@ -59,7 +61,7 @@ public class MultipartFormController {
             System.out.println("getInputStream is " + xx.getInputStream());
             System.out.println("getInputStream is " + xx.getInputStream());
 
-            xx.transferTo(new File(environment.getProperty("CATALINA_HOME"), "upload/" + new Random().nextInt(100) + ".txt"));
+            xx.transferTo(new File(environment.getProperty("CATALINA_TMPDIR"), "upload/" + new Random().nextInt(100) + ".txt"));
 
         } catch (IOException e) {
             e.printStackTrace();

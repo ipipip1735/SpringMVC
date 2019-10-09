@@ -36,7 +36,8 @@ public class FormController {
 
     }
 
-    //方式一：使用标签库
+    //方式一：使用Model
+    //表单提交的数据将绑定到参数对象，如果不成功就把错误信息打印到表单页
 //    @PostMapping("/addEmployee")
 //    public String submit(@ModelAttribute Employee employee, BindingResult result, ModelMap model) {
 //        System.out.println("~~" + getClass().getSimpleName() + ".submit~~");
@@ -60,7 +61,7 @@ public class FormController {
 //    }
 
 
-    //方式二：使用标签库
+    //方式二：
     @PostMapping("/addEmployee")
     public String submit(@ModelAttribute Employee employee, BindingResult result, ModelMap model) {
         System.out.println("~~" + getClass().getSimpleName() + ".submit~~");
