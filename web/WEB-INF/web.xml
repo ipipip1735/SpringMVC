@@ -5,68 +5,68 @@
          version="4.0">
 
     <!--版本1：最简配置-->
-<!--        <listener>-->
-<!--            <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>-->
-<!--        </listener>-->
+    <!--        <listener>-->
+    <!--            <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>-->
+    <!--        </listener>-->
 
-<!--        <context-param>-->
-<!--            <param-name>contextConfigLocation</param-name>-->
-<!--            <param-value>/WEB-INF/applicationContext.xml</param-value>-->
-<!--        </context-param>-->
+    <!--        <context-param>-->
+    <!--            <param-name>contextConfigLocation</param-name>-->
+    <!--            <param-value>/WEB-INF/applicationContext.xml</param-value>-->
+    <!--        </context-param>-->
 
-<!--        <servlet>-->
-<!--            <servlet-name>one</servlet-name>-->
-<!--            <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>-->
-<!--            <init-param>-->
-<!--                <param-name>contextConfigLocation</param-name>-->
-<!--                <param-value>/WEB-INF/one-servlet.xml</param-value>-->
-<!--            </init-param>-->
-<!--            <load-on-startup>1</load-on-startup>-->
-<!--            <multipart-config>-->
-<!--                <location>/tmp</location>-->
-<!--                <max-file-size>20848820</max-file-size>-->
-<!--                <max-request-size>418018841</max-request-size>-->
-<!--                <file-size-threshold>1048576</file-size-threshold>-->
-<!--            </multipart-config>-->
-<!--        </servlet>-->
-<!--        <servlet-mapping>-->
-<!--            <servlet-name>one</servlet-name>-->
-<!--            <url-pattern>/</url-pattern>-->
-<!--        </servlet-mapping>-->
+    <!--        <servlet>-->
+    <!--            <servlet-name>one</servlet-name>-->
+    <!--            <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>-->
+    <!--            <init-param>-->
+    <!--                <param-name>contextConfigLocation</param-name>-->
+    <!--                <param-value>/WEB-INF/one-servlet.xml</param-value>-->
+    <!--            </init-param>-->
+    <!--            <load-on-startup>1</load-on-startup>-->
+    <!--            <multipart-config>-->
+    <!--                <location>/tmp</location>-->
+    <!--                <max-file-size>20848820</max-file-size>-->
+    <!--                <max-request-size>418018841</max-request-size>-->
+    <!--                <file-size-threshold>1048576</file-size-threshold>-->
+    <!--            </multipart-config>-->
+    <!--        </servlet>-->
+    <!--        <servlet-mapping>-->
+    <!--            <servlet-name>one</servlet-name>-->
+    <!--            <url-pattern>/</url-pattern>-->
+    <!--        </servlet-mapping>-->
 
 
     <!--版本2：使用Java类配置应用上下文-->
-<!--        <listener>-->
-<!--            <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>-->
-<!--        </listener>-->
+    <!--        <listener>-->
+    <!--            <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>-->
+    <!--        </listener>-->
 
-<!--        <context-param>-->
-<!--            <param-name>contextClass</param-name>-->
-<!--            <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>-->
-<!--        </context-param>-->
-<!--        <context-param>-->
-<!--            <param-name>contextConfigLocation</param-name>-->
-<!--            <param-value>config.AppConfig</param-value>-->
-<!--        </context-param>-->
+    <!--        <context-param>-->
+    <!--            <param-name>contextClass</param-name>-->
+    <!--            <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>-->
+    <!--        </context-param>-->
+    <!--        <context-param>-->
+    <!--            <param-name>contextConfigLocation</param-name>-->
+    <!--            <param-value>config.AppConfig</param-value>-->
+    <!--        </context-param>-->
 
-<!--        <servlet>-->
-<!--            <servlet-name>one</servlet-name>-->
-<!--            <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>-->
-<!--            <init-param>-->
-<!--                <param-name>namespace</param-name>-->
-<!--                <param-value>/WEB-INF/one-servlet.xml</param-value>-->
-<!--            </init-param>-->
-<!--            <init-param>-->
-<!--                <param-name>contextConfigLocation</param-name>-->
-<!--                <param-value>/WEB-INF/one-servlet.xml</param-value>-->
-<!--            </init-param>-->
-<!--            <load-on-startup>1</load-on-startup>-->
-<!--        </servlet>-->
+    <!--        <servlet>-->
+    <!--            <servlet-name>one</servlet-name>-->
+    <!--            <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>-->
+    <!--            <init-param>-->
+    <!--                <param-name>namespace</param-name>-->
+    <!--                <param-value>/WEB-INF/one-servlet.xml</param-value>-->
+    <!--            </init-param>-->
+    <!--            <init-param>-->
+    <!--                <param-name>contextConfigLocation</param-name>-->
+    <!--                <param-value>/WEB-INF/one-servlet.xml</param-value>-->
+    <!--            </init-param>-->
+    <!--            <load-on-startup>1</load-on-startup>-->
+    <!--        </servlet>-->
 
-<!--        <servlet-mapping>-->
-<!--            <servlet-name>one</servlet-name>-->
-<!--            <url-pattern>/</url-pattern>-->
-<!--        </servlet-mapping>-->
+    <!--        <servlet-mapping>-->
+    <!--            <servlet-name>one</servlet-name>-->
+    <!--            <url-pattern>/</url-pattern>-->
+    <!--        </servlet-mapping>-->
 
 
     <!--版本3：使用Java类配置Servlet上下文-->
@@ -97,5 +97,12 @@
     <!--            <servlet-name>one</servlet-name>-->
     <!--            <url-pattern>/</url-pattern>-->
     <!--        </servlet-mapping>-->
+
+
+    <!-- static resources -->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>default</servlet-name>-->
+<!--        <url-pattern>*.jpg</url-pattern>-->
+<!--    </servlet-mapping>-->
 
 </web-app>

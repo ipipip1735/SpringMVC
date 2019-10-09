@@ -5,16 +5,16 @@
            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
-    <bean id="oneSB" class="service.OneService"/>
+<!--    <bean id="oneSB" class="service.OneService"/>-->
 
 
-    <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
-        <property name="propertyEditorRegistrars">
-            <list>
-                <ref bean="onePropertyEditorRegistrar"/>
-            </list>
-        </property>
-    </bean>
+<!--    <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">-->
+<!--        <property name="propertyEditorRegistrars">-->
+<!--            <list>-->
+<!--                <ref bean="onePropertyEditorRegistrar"/>-->
+<!--            </list>-->
+<!--        </property>-->
+<!--    </bean>-->
 
-    <bean id="onePropertyEditorRegistrar" class="binder.OnePropertyEditorRegistrar"/>
+<!--    <bean id="onePropertyEditorRegistrar" class="binder.OnePropertyEditorRegistrar"/>-->
 </beans>
