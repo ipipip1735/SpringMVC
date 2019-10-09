@@ -19,6 +19,8 @@ public class UploadController {
 //        System.out.println("~~" + getClass().getSimpleName() + ".upload~~");
 //    }
 
+    //这个测试失败了@RequestBody没办法用于application/x-www-form-urlencoded
+    //需要和aplication/json协议使用
 //    @PostMapping(path = "/handler", consumes = {"application/json;charset=UTF-8"})
 //    public void submit(@RequestBody Employee employee) {
 //        System.out.println("~~" + getClass().getSimpleName() + ".handler~~");
