@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import org.springframework.context.annotation.Import;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -25,6 +26,7 @@ import java.util.Random;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"controller"})
+@Import(ResourcesConfig.class)//配置静态资源
 public class ServletConfig {
 
     @Bean

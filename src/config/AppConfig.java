@@ -16,5 +16,6 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 //@Import(FormattingConversionConfig.class)//格式化和类型转换配置
 //@Import(ValidateConfig.class)//验证器
 //@Import(MessageConverterConfig.class)//配置信息转换器
-@Import(CORSConfig.class)//配置跨域
+//@Import(CORSConfig.class)//配置跨域
+//@Import(ResourcesConfig.class)//配置静态资源
 public class AppConfig {}

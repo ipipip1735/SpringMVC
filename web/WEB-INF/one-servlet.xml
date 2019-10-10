@@ -17,4 +17,9 @@
 <!--    </bean>-->
 
 
+
+<!--    <mvc:default-servlet-handler default-servlet-name="default" />-->
+<!--    <mvc:resources mapping="/res/**" location="/cc/, classpath:/static/" />-->
+
+
 </beans>

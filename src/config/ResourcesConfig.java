@@ -18,10 +18,11 @@ public class ResourcesConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        System.out.println("~~" + getClass().getSimpleName() + ".addResourceHandlers~~");
 
 
-        registry.addResourceHandler("/resources/**")
-                .addResourceLocations("/public", "classpath:/static/")
+        registry.addResourceHandler("/res/**")
+                .addResourceLocations("/cc/")
                 .setCachePeriod(365 * 24 * 3600);
     }
 
