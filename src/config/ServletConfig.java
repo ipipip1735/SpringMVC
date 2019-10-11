@@ -24,9 +24,7 @@ import java.util.Random;
  * Created by Administrator on 2019/8/31 16:05.
  */
 @Configuration
-@EnableWebMvc
 @ComponentScan(basePackages = {"controller"})
-@Import(ResourcesConfig.class)//配置静态资源
 public class ServletConfig {
 
     @Bean

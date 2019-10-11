@@ -57,13 +57,13 @@ public class OneWebAppInitializer extends AbstractAnnotationConfigDispatcherServ
 //
 //    }
 
-    @Override
-    protected ApplicationContextInitializer<?>[] getRootApplicationContextInitializers() {
-        return super.getRootApplicationContextInitializers();
-    }
+//    @Override
+//    protected ApplicationContextInitializer<?>[] getRootApplicationContextInitializers() {
+//        return super.getRootApplicationContextInitializers();
+//    }
 
-    @Override
-    protected Filter[] getServletFilters() {
-        return super.getServletFilters();
-    }
+//    @Override
+//    protected Filter[] getServletFilters() {
+//        return super.getServletFilters();
+//    }
 }
