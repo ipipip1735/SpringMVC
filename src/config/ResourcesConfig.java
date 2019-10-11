@@ -39,10 +39,10 @@ public class ResourcesConfig implements WebMvcConfigurer {
 //                .setCachePeriod(365 * 24 * 3600);
 //    }
 
-    @Bean
-    public ResourceUrlEncodingFilter resourceUrlEncodingFilter() {
-        return new ResourceUrlEncodingFilter();
-    }
+//    @Bean
+//    public ResourceUrlEncodingFilter resourceUrlEncodingFilter() {
+//        return new ResourceUrlEncodingFilter();
+//    }
 
 
     //配置静态资源，增加资源链
@@ -52,22 +52,22 @@ public class ResourcesConfig implements WebMvcConfigurer {
 
 
         //方式一：自定义解析器
-//        ResourceResolver resourceResolver = new ResourceResolver() {
-//
-//            @Override
-//            public Resource resolveResource(HttpServletRequest request, String requestPath, List<? extends Resource> locations, ResourceResolverChain chain) {
-//                System.out.println("~~" + getClass().getSimpleName() + ".resolveResource~~");
-//
-//                System.out.println("request is " + request);
-//                System.out.println("requestPath is " + requestPath);
-//                System.out.println("locations is " + locations);
-//                System.out.println("chain is " + chain);
-//
-//                Resource resolved = chain.resolveResource(request, requestPath, locations);
-//                if (resolved != null) {
-//                    return resolved;
-//                }
-//
+        ResourceResolver resourceResolver = new ResourceResolver() {
+
+            @Override
+            public Resource resolveResource(HttpServletRequest request, String requestPath, List<? extends Resource> locations, ResourceResolverChain chain) {
+                System.out.println("~~" + getClass().getSimpleName() + ".resolveResource~~");
+
+                System.out.println("request is " + request);
+                System.out.println("requestPath is " + requestPath);
+                System.out.println("locations is " + locations);
+                System.out.println("chain is " + chain);
+
+                Resource resolved = chain.resolveResource(request, requestPath, locations);
+                if (resolved != null) {
+                    return resolved;
+                }
+
 //                String version = "static/v1.2.0/j.js";
 //                try {
 //                    Resource r = locations.get(0).createRelative(version);
@@ -76,20 +76,20 @@ public class ResourcesConfig implements WebMvcConfigurer {
 //                } catch (IOException e) {
 //                    e.printStackTrace();
 //                }
-//                return null;
-//            }
-//
-//            @Override
-//            public String resolveUrlPath(String resourcePath, List<? extends Resource> locations, ResourceResolverChain chain) {
-//                System.out.println("~~" + getClass().getSimpleName() + ".resolveUrlPath~~");
-//
-//                System.out.println("resourcePath is " + resourcePath);
-//                System.out.println("locations is " + locations);
-//                System.out.println("chain is " + chain);
-//
-//                return null;
-//            }
-//        };
+                return null;
+            }
+
+            @Override
+            public String resolveUrlPath(String resourcePath, List<? extends Resource> locations, ResourceResolverChain chain) {
+                System.out.println("~~" + getClass().getSimpleName() + ".resolveUrlPath~~");
+
+                System.out.println("resourcePath is " + resourcePath);
+                System.out.println("locations is " + locations);
+                System.out.println("chain is " + chain);
+
+                return null;
+            }
+        };
 //        registry.addResourceHandler("/resources/**")
 //                .addResourceLocations("/cc/")
 //                .resourceChain(true)
@@ -98,12 +98,13 @@ public class ResourcesConfig implements WebMvcConfigurer {
 
         //方式二：使用系统自带对象
         VersionResourceResolver versionResolver = new VersionResourceResolver()
-                .addFixedVersionStrategy("v1.2.0", "/**");
+                .addFixedVersionStrategy("aaa", "/tit/**");
 
         registry.addResourceHandler("/resources/**")
                 .addResourceLocations("/cc/static/")
                 .resourceChain(false)
-                .addResolver(versionResolver);
+                .addResolver(versionResolver)
+                .addResolver(resourceResolver);
 
 //        String version = "v1.2.0";
 //        VersionResourceResolver versionResolver = new VersionResourceResolver()
