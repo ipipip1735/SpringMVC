@@ -8,10 +8,7 @@ import org.springframework.web.context.support.ServletContextResource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.resource.ResourceResolver;
-import org.springframework.web.servlet.resource.ResourceResolverChain;
-import org.springframework.web.servlet.resource.ResourceUrlEncodingFilter;
-import org.springframework.web.servlet.resource.VersionResourceResolver;
+import org.springframework.web.servlet.resource.*;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -52,23 +49,23 @@ public class ResourcesConfig implements WebMvcConfigurer {
 
 
         //方式一：自定义解析器
-//        ResourceResolver resourceResolver = new ResourceResolver() {
+        ResourceResolver resourceResolver = new ResourceResolver() {
+
+            @Override
+            public Resource resolveResource(HttpServletRequest request, String requestPath, List<? extends Resource> locations, ResourceResolverChain chain) {
+                System.out.println("~~" + getClass().getSimpleName() + ".resolveResource~~");
+
+                System.out.println("request is " + request);
+                System.out.println("requestPath is " + requestPath);
+                System.out.println("locations is " + locations);
+                System.out.println("chain is " + chain);
+
+                Resource resolved = chain.resolveResource(request, requestPath, locations);
+                if (resolved != null) {
+                    return resolved;
+                }
 //
-//            @Override
-//            public Resource resolveResource(HttpServletRequest request, String requestPath, List<? extends Resource> locations, ResourceResolverChain chain) {
-//                System.out.println("~~" + getClass().getSimpleName() + ".resolveResource~~");
-//
-//                System.out.println("request is " + request);
-//                System.out.println("requestPath is " + requestPath);
-//                System.out.println("locations is " + locations);
-//                System.out.println("chain is " + chain);
-//
-//                Resource resolved = chain.resolveResource(request, requestPath, locations);
-//                if (resolved != null) {
-//                    return resolved;
-//                }
-//
-//                String version = "static/v1.2.0/j.js";
+//                String version = "static/1.2.0/j.js";
 //                try {
 //                    Resource r = locations.get(0).createRelative(version);
 //                    System.out.println(r);
@@ -76,20 +73,21 @@ public class ResourcesConfig implements WebMvcConfigurer {
 //                } catch (IOException e) {
 //                    e.printStackTrace();
 //                }
-//                return null;
-//            }
-//
-//            @Override
-//            public String resolveUrlPath(String resourcePath, List<? extends Resource> locations, ResourceResolverChain chain) {
-//                System.out.println("~~" + getClass().getSimpleName() + ".resolveUrlPath~~");
-//
-//                System.out.println("resourcePath is " + resourcePath);
-//                System.out.println("locations is " + locations);
-//                System.out.println("chain is " + chain);
-//
-//                return null;
-//            }
-//        };
+
+                return null;
+            }
+
+            @Override
+            public String resolveUrlPath(String resourcePath, List<? extends Resource> locations, ResourceResolverChain chain) {
+                System.out.println("~~" + getClass().getSimpleName() + ".resolveUrlPath~~");
+
+                System.out.println("resourcePath is " + resourcePath);
+                System.out.println("locations is " + locations);
+                System.out.println("chain is " + chain);
+
+                return null;
+            }
+        };
 //        registry.addResourceHandler("/resources/**")
 //                .addResourceLocations("/cc/")
 //                .resourceChain(true)
@@ -98,19 +96,13 @@ public class ResourcesConfig implements WebMvcConfigurer {
 
         //方式二：使用系统自带对象
         VersionResourceResolver versionResolver = new VersionResourceResolver()
-                .addFixedVersionStrategy("v1.2.0", "/**");
+                .addFixedVersionStrategy("1.2.0", "/aa/bb/**");
 
         registry.addResourceHandler("/resources/**")
                 .addResourceLocations("/cc/static/")
                 .resourceChain(false)
-                .addResolver(versionResolver);
-
-//        String version = "v1.2.0";
-//        VersionResourceResolver versionResolver = new VersionResourceResolver()
-//                .addFixedVersionStrategy(version, "/**/*.js")
-//                .addFixedVersionStrategy(version, "/**/*.js")
-//                .addContentVersionStrategy(version, "/**/*.css", "/**/*.png");
-
+                .addResolver(versionResolver)
+                .addResolver(resourceResolver);
 
     }
 }
