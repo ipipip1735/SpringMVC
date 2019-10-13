@@ -1,8 +1,10 @@
 package config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.*;
 import org.springframework.web.context.support.ServletContextResource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -23,8 +25,11 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by Administrator on 2019/10/8 23:10.
  */
+@PropertySource("classpath:stk.properties")
 public class ResourcesConfig implements WebMvcConfigurer {
 
+    @Value("${app.version}")
+    String version;
 
     //配置静态资源
 //    @Override
@@ -36,10 +41,10 @@ public class ResourcesConfig implements WebMvcConfigurer {
 //                .setCachePeriod(365 * 24 * 3600);
 //    }
 
-    @Bean
-    public ResourceUrlEncodingFilter resourceUrlEncodingFilter() {
-        return new ResourceUrlEncodingFilter();
-    }
+//    @Bean
+//    public ResourceUrlEncodingFilter resourceUrlEncodingFilter() {
+//        return new ResourceUrlEncodingFilter();
+//    }
 
 
     //配置静态资源，增加资源链
@@ -64,7 +69,7 @@ public class ResourcesConfig implements WebMvcConfigurer {
                 if (resolved != null) {
                     return resolved;
                 }
-//
+
 //                String version = "static/1.2.0/j.js";
 //                try {
 //                    Resource r = locations.get(0).createRelative(version);
@@ -94,15 +99,19 @@ public class ResourcesConfig implements WebMvcConfigurer {
 //                .addResolver(resourceResolver);
 
 
-        //方式二：使用系统自带对象
+        //方式二：使用系统自带对象（版本解析器）
+//        VersionResourceResolver versionResolver = new VersionResourceResolver()
+//                .addContentVersionStrategy("/**");
         VersionResourceResolver versionResolver = new VersionResourceResolver()
-                .addFixedVersionStrategy("1.2.0", "/aa/bb/**");
+                .addFixedVersionStrategy(version, "/aa/bb/**");
 
         registry.addResourceHandler("/resources/**")
                 .addResourceLocations("/cc/static/")
                 .resourceChain(false)
                 .addResolver(versionResolver)
                 .addResolver(resourceResolver);
+
+
 
     }
 }
