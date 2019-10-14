@@ -16,6 +16,8 @@ public class OneController {
 
     @RequestMapping(path = "/one", method = RequestMethod.GET)
     public String one() {
+        System.out.println("~~" + getClass().getSimpleName() + ".one~~");
+
         return "one";
     }
 

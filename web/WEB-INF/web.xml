@@ -106,6 +106,24 @@
     <!--            <url-pattern>/cc/static/*</url-pattern>-->
     <!--        </servlet-mapping>-->
 
+
+    <filter>
+        <filter-name>ResourceUrlEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.servlet.resource.ResourceUrlEncodingFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ResourceUrlEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>OneFilter</filter-name>
+        <filter-class>filter.OneFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>OneFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
 </web-app>
 
 
