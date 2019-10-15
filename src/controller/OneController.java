@@ -1,8 +1,9 @@
 package controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * Created by Administrator on 2019/8/30 9:09.
@@ -14,7 +15,7 @@ public class OneController {
         System.out.println("*********  " + getClass().getSimpleName() + ".Constructor  *********");
     }
 
-    @RequestMapping(path = "/one", method = RequestMethod.GET)
+    @GetMapping(path = "/one")
     public String one() {
         System.out.println("~~" + getClass().getSimpleName() + ".one~~");
 

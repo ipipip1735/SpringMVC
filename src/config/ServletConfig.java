@@ -12,6 +12,8 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.validation.Validator;
@@ -24,8 +26,9 @@ import java.util.Random;
  * Created by Administrator on 2019/8/31 16:05.
  */
 @Configuration
+@EnableWebMvc
 @ComponentScan(basePackages = {"controller"})
-public class ServletConfig {
+public class ServletConfig{
 
     @Bean
     public InternalResourceViewResolver viewResolver() {
@@ -62,19 +65,19 @@ public class ServletConfig {
 //    /**
 //     * Apache通用上传组件
 //     */
-    @Bean
-    public CommonsMultipartResolver multipartResolver() {
-        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-        multipartResolver.setMaxUploadSize(100000);
-
-        try {
-            multipartResolver.setUploadTempDir(new FileSystemResource(System.getenv("CATALINA_TMPDIR")));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return multipartResolver;
-    }
+//    @Bean
+//    public CommonsMultipartResolver multipartResolver() {
+//        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+//        multipartResolver.setMaxUploadSize(100000);
+//
+//        try {
+//            multipartResolver.setUploadTempDir(new FileSystemResource(System.getenv("CATALINA_TMPDIR")));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return multipartResolver;
+//    }
 
 
     //使用Servlet 3.0标准

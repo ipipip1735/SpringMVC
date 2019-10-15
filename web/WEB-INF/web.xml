@@ -21,7 +21,7 @@
 <!--            <param-name>contextConfigLocation</param-name>-->
 <!--            <param-value>/WEB-INF/one-servlet.xml</param-value>-->
 <!--        </init-param>-->
-<!--        <load-on-startup>1</load-on-startup>-->
+<!--        <load-on-startup>2</load-on-startup>-->
 <!--        &lt;!&ndash;文件上传&ndash;&gt;-->
 <!--        &lt;!&ndash;        <multipart-config>&ndash;&gt;-->
 <!--        &lt;!&ndash;            <location>/tmp</location>&ndash;&gt;-->
@@ -107,38 +107,21 @@
     <!--        </servlet-mapping>-->
 
 
-    <filter>
-        <filter-name>ResourceUrlEncodingFilter</filter-name>
-        <filter-class>org.springframework.web.servlet.resource.ResourceUrlEncodingFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>ResourceUrlEncodingFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-    <filter>
-        <filter-name>OneFilter</filter-name>
-        <filter-class>filter.OneFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>OneFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
+<!--    <filter>-->
+<!--        <filter-name>ResourceUrlEncodingFilter</filter-name>-->
+<!--        <filter-class>org.springframework.web.servlet.resource.ResourceUrlEncodingFilter</filter-class>-->
+<!--    </filter>-->
+<!--    <filter-mapping>-->
+<!--        <filter-name>ResourceUrlEncodingFilter</filter-name>-->
+<!--        <url-pattern>/*</url-pattern>-->
+<!--    </filter-mapping>-->
+<!--    <filter>-->
+<!--        <filter-name>OneFilter</filter-name>-->
+<!--        <filter-class>filter.OneFilter</filter-class>-->
+<!--    </filter>-->
+<!--    <filter-mapping>-->
+<!--        <filter-name>OneFilter</filter-name>-->
+<!--        <url-pattern>/*</url-pattern>-->
+<!--    </filter-mapping>-->
 
 </web-app>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

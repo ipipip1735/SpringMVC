@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.core.io.*;
 import org.springframework.web.context.support.ServletContextResource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -38,12 +39,6 @@ public class ResourcesConfig implements WebMvcConfigurer {
 //                .addResourceLocations("/cc/")
 //                .setCachePeriod(365 * 24 * 3600);
 //    }
-
-//    @Bean
-//    public ResourceUrlEncodingFilter resourceUrlEncodingFilter() {
-//        return new ResourceUrlEncodingFilter();
-//    }
-
 
     //配置静态资源，增加资源链
     @Override
@@ -106,6 +101,7 @@ public class ResourcesConfig implements WebMvcConfigurer {
                 .resourceChain(false)
                 .addResolver(versionResolver)
                 .addResolver(resourceResolver);
+        registry.setOrder(-1);
 
     }
 }

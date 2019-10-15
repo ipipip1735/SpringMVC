@@ -1,11 +1,16 @@
 package filter;
 
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+
 import javax.servlet.*;
 import java.io.IOException;
 
 /**
  * Created by Administrator on 2019/10/14 22:42.
  */
+//@Component
+//@Order(1)
 public class OneFilter implements Filter {
 
     public OneFilter() {

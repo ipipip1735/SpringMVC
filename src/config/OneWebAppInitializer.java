@@ -1,14 +1,12 @@
 package config;
 
+import filter.OneFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.core.env.Environment;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import javax.servlet.Filter;
-import javax.servlet.MultipartConfigElement;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletRegistration;
+import javax.servlet.*;
 import java.io.File;
 
 /**
@@ -41,6 +39,11 @@ public class OneWebAppInitializer extends AbstractAnnotationConfigDispatcherServ
         return new String[]{"/"};
     }
 
+    @Override
+    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+        registration.setLoadOnStartup(2);
+    }
+
 //    @Override
 //    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
 //        System.out.println("~~" + getClass().getSimpleName() + ".customizeRegistration~~");
@@ -64,6 +67,6 @@ public class OneWebAppInitializer extends AbstractAnnotationConfigDispatcherServ
 
 //    @Override
 //    protected Filter[] getServletFilters() {
-//        return super.getServletFilters();
+//        return new Filter[]{OneFilter};
 //    }
 }
