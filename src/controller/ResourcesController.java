@@ -29,6 +29,8 @@ public class ResourcesController {
     @GetMapping("/resource")
     public String resource(Model model) {
         System.out.println("~~" + getClass().getSimpleName() + ".resource~~");
+
+        //方式一：直接传递String到JSP
         String urlDM5 = mvcResourceUrlProvider.getForLookupPath("/resources/x.png");
         System.out.println("urlDM5 is " + urlDM5);
         model.addAttribute("urlDM5", urlDM5);
@@ -36,6 +38,12 @@ public class ResourcesController {
         String urlVersion = mvcResourceUrlProvider.getForLookupPath("/resources/aa/bb/x.png");
         System.out.println("urlVersion is " + urlVersion);
         model.addAttribute("urlVersion", urlVersion);
+
+
+        //方式二：直接传递String到JSP
+        model.addAttribute("mvcResourceUrlProvider", mvcResourceUrlProvider);
+
+
 
         return "resources";
 

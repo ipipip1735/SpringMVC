@@ -20,7 +20,9 @@ public class PathMatchConfig implements WebMvcConfigurer {
     public void configurePathMatch(PathMatchConfigurer configurer) {
         System.out.println("~~" + getClass().getSimpleName() + ".configurePathMatch~~");
 
-//        configurer.setUseSuffixPatternMatch();
+//        configurer.setUseSuffixPatternMatch(false);//不要匹配后缀
+//        configurer.setUseTrailingSlashMatch(false);//不要匹配以/结尾
+//        configurer.setUseRegisteredSuffixPatternMatch(true);
 
     }
 }

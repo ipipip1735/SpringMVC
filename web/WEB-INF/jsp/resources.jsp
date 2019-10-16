@@ -13,12 +13,19 @@
   </head>
   <body>
 
-
+<%--方式一：使用标签库--%>
   <%--  <spring:url value="/resources/aa/bb/x.png"/> <br/>--%>
   <%--  <spring:url value="/resources/x.png"/>--%>
 
-  ${urlDM5} <br/>
-  ${urlVersion}
+<%--方式二：使用Model变量--%>
+<%--  ${urlDM5} <br/>--%>
+<%--  ${urlVersion} <br/>--%>
+
+
+
+<%--方式三：使用mvcResourceUrlProvider--%>
+  ${mvcResourceUrlProvider.getForLookupPath("/resources/x.png")} <br/>
+  ${mvcResourceUrlProvider.getForLookupPath("/resources/aa/bb/x.png")} <br/>
 
 
   </body>

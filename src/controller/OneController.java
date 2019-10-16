@@ -20,7 +20,7 @@ public class OneController {
         System.out.println("*********  " + getClass().getSimpleName() + ".Constructor  *********");
     }
 
-    @GetMapping(path = "/one")
+    @GetMapping("/one")
     public String one(Model model) {
         System.out.println("~~" + getClass().getSimpleName() + ".one~~");
 

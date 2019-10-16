@@ -22,9 +22,10 @@ import org.springframework.web.servlet.resource.ResourceUrlEncodingFilter;
 //@Import(ValidateConfig.class)//验证器
 //@Import(MessageConverterConfig.class)//配置信息转换器
 //@Import(CORSConfig.class)//配置跨域
-@Import(ResourcesConfig.class)//配置静态资源
 //@Import(DefaultServletConfig.class)//配置默认Servlet
-//@Import(PathMatchConfig.class)//配置路径匹配
+//@Import(ResourcesConfig.class)//配置静态资源
+//@Import(PathMatchConfig.class)//配置路径匹配策略
+@Import(ViewControllerConfig.class)//配置视图导航
 //@ComponentScan(basePackages = {"service"})
 //@ComponentScan(basePackages = {"filter"})
 public class AppConfig {}
