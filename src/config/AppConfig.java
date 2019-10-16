@@ -27,13 +27,4 @@ import org.springframework.web.servlet.resource.ResourceUrlEncodingFilter;
 //@Import(PathMatchConfig.class)//配置路径匹配
 //@ComponentScan(basePackages = {"service"})
 //@ComponentScan(basePackages = {"filter"})
-public class AppConfig {
-
-//    @Bean
-//    public ResourceUrlEncodingFilter resourceUrlEncodingFilter() {
-//        ResourceUrlEncodingFilter resourceUrlEncodingFilter = new ResourceUrlEncodingFilter();
-//        return resourceUrlEncodingFilter;
-//    }
-
-
-}
+public class AppConfig {}

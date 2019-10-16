@@ -1,9 +1,11 @@
 package config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.*;
 import org.springframework.web.context.support.ServletContextResource;
@@ -27,8 +29,11 @@ import java.util.concurrent.TimeUnit;
  * Created by Administrator on 2019/10/8 23:10.
  */
 @Configuration
+@PropertySource("classpath:stk.properties")
 public class ResourcesConfig implements WebMvcConfigurer {
 
+    @Value("${app.version}")
+    String version;
 
     //配置静态资源
 //    @Override
@@ -49,6 +54,7 @@ public class ResourcesConfig implements WebMvcConfigurer {
         //方式一：自定义解析器
         ResourceResolver resourceResolver = new ResourceResolver() {
 
+            //URL解析为磁盘路径
             @Override
             public Resource resolveResource(HttpServletRequest request, String requestPath, List<? extends Resource> locations, ResourceResolverChain chain) {
                 System.out.println("~~" + getClass().getSimpleName() + ".resolveResource~~");
@@ -63,9 +69,10 @@ public class ResourcesConfig implements WebMvcConfigurer {
                     return resolved;
                 }
 
-//                String version = "static/1.2.0/j.js";
+
 //                try {
-//                    Resource r = locations.get(0).createRelative(version);
+//                    //locations.get(0)是/cc/static/,requestPath是aa/bb/x.png，这样就能定位到磁盘文件
+//                    Resource r = locations.get(0).createRelative(requestPath);//获取资源对象
 //                    System.out.println(r);
 //                    return r;
 //                } catch (IOException e) {
@@ -75,6 +82,7 @@ public class ResourcesConfig implements WebMvcConfigurer {
                 return null;
             }
 
+            //磁盘路径反解URL
             @Override
             public String resolveUrlPath(String resourcePath, List<? extends Resource> locations, ResourceResolverChain chain) {
                 System.out.println("~~" + getClass().getSimpleName() + ".resolveUrlPath~~");
@@ -82,6 +90,11 @@ public class ResourcesConfig implements WebMvcConfigurer {
                 System.out.println("resourcePath is " + resourcePath);
                 System.out.println("locations is " + locations);
                 System.out.println("chain is " + chain);
+
+                String url = chain.resolveUrlPath(resourcePath, locations);
+                if (url != null) {
+                    return url;
+                }
 
                 return null;
             }
@@ -93,15 +106,16 @@ public class ResourcesConfig implements WebMvcConfigurer {
 
 
         //方式二：使用系统自带对象
+        String version = "1.2.0";
         VersionResourceResolver versionResolver = new VersionResourceResolver()
-                .addFixedVersionStrategy("1.2.0", "/aa/bb/**");
+                .addFixedVersionStrategy(this.version, "/aa/bb/**")
+                .addVersionStrategy(new ContentVersionStrategy(), "/**");
 
-        registry.addResourceHandler("/resources/**")
+        registry.setOrder(-1)
+                .addResourceHandler("/resources/**")
                 .addResourceLocations("/cc/static/")
                 .resourceChain(false)
                 .addResolver(versionResolver)
                 .addResolver(resourceResolver);
-        registry.setOrder(-1);
-
     }
 }

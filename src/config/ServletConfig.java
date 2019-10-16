@@ -14,6 +14,7 @@ import org.springframework.web.multipart.support.StandardServletMultipartResolve
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.resource.ResourceUrlEncodingFilter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.validation.Validator;
@@ -38,6 +39,8 @@ public class ServletConfig{
         viewResolver.setSuffix(".jsp");
         return viewResolver;
     }
+
+
 
 
     /**

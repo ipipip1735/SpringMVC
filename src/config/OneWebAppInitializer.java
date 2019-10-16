@@ -4,6 +4,7 @@ import filter.OneFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.core.env.Environment;
+import org.springframework.web.servlet.resource.ResourceUrlEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.*;
@@ -39,11 +40,6 @@ public class OneWebAppInitializer extends AbstractAnnotationConfigDispatcherServ
         return new String[]{"/"};
     }
 
-    @Override
-    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
-        registration.setLoadOnStartup(2);
-    }
-
 //    @Override
 //    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
 //        System.out.println("~~" + getClass().getSimpleName() + ".customizeRegistration~~");
@@ -65,8 +61,8 @@ public class OneWebAppInitializer extends AbstractAnnotationConfigDispatcherServ
 //        return super.getRootApplicationContextInitializers();
 //    }
 
-//    @Override
-//    protected Filter[] getServletFilters() {
-//        return new Filter[]{OneFilter};
-//    }
+    @Override
+    protected Filter[] getServletFilters() {
+        return new Filter[]{new ResourceUrlEncodingFilter()};
+    }
 }

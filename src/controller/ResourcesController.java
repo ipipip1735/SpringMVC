@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.WebRequest;
@@ -21,14 +22,22 @@ import java.util.concurrent.TimeUnit;
 @Controller
 public class ResourcesController {
 
-//    @Autowired
-//    private ResourceUrlProvider mvcResourceUrlProvider;
+
+    @Autowired
+    private ResourceUrlProvider mvcResourceUrlProvider;
 
     @GetMapping("/resource")
-    public void resource() {
+    public String resource(Model model) {
         System.out.println("~~" + getClass().getSimpleName() + ".resource~~");
+        String urlDM5 = mvcResourceUrlProvider.getForLookupPath("/resources/x.png");
+        System.out.println("urlDM5 is " + urlDM5);
+        model.addAttribute("urlDM5", urlDM5);
 
-//        System.out.println(this.mvcResourceUrlProvider.getForLookupPath("/resources/1.0.1/aa/bb/x.png"));
+        String urlVersion = mvcResourceUrlProvider.getForLookupPath("/resources/aa/bb/x.png");
+        System.out.println("urlVersion is " + urlVersion);
+        model.addAttribute("urlVersion", urlVersion);
+
+        return "resources";
 
     }
 
