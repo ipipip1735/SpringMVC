@@ -19,6 +19,7 @@ public class OneWebAppInitializer extends AbstractAnnotationConfigDispatcherServ
         System.out.println("*********  " + getClass().getSimpleName() + ".Constructor  *********");
     }
 
+    //配置根应用上下文
     @Override
     protected Class<?>[] getRootConfigClasses() {
         System.out.println("~~" + getClass().getSimpleName() + ".getRootConfigClasses~~");
@@ -26,6 +27,7 @@ public class OneWebAppInitializer extends AbstractAnnotationConfigDispatcherServ
         return new Class[]{AppConfig.class};
     }
 
+    //配置Servlet上下文
     @Override
     protected Class<?>[] getServletConfigClasses() {
         System.out.println("~~" + getClass().getSimpleName() + ".getServletConfigClasses~~");
@@ -33,6 +35,7 @@ public class OneWebAppInitializer extends AbstractAnnotationConfigDispatcherServ
         return new Class[]{ServletConfig.class};
     }
 
+    //配置URL映射
     @Override
     protected String[] getServletMappings() {
         System.out.println("~~" + getClass().getSimpleName() + ".getServletMappings~~");
@@ -61,6 +64,7 @@ public class OneWebAppInitializer extends AbstractAnnotationConfigDispatcherServ
 //        return super.getRootApplicationContextInitializers();
 //    }
 
+    //配置过滤器
     @Override
     protected Filter[] getServletFilters() {
         return new Filter[]{new ResourceUrlEncodingFilter()};

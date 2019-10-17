@@ -14,8 +14,8 @@
   <body>
 
 <%--方式一：使用标签库--%>
-  <%--  <spring:url value="/resources/aa/bb/x.png"/> <br/>--%>
-  <%--  <spring:url value="/resources/x.png"/>--%>
+    <spring:url value="/resources/aa/bb/x.png"/> <br/>
+    <spring:url value="/resources/x.png"/> <br/>
 
 <%--方式二：使用Model变量--%>
 <%--  ${urlDM5} <br/>--%>
