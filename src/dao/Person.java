@@ -1,5 +1,6 @@
 package dao;
 
+import javax.validation.constraints.Min;
 import java.beans.ConstructorProperties;
 import java.io.Serializable;
 
@@ -10,6 +11,8 @@ public class Person{
 
 
     String name;
+
+    @Min(15)
     int age;
 
     public Person() {

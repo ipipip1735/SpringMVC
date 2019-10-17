@@ -34,7 +34,7 @@ public class TwoWebAppInitializer extends AbstractAnnotationConfigDispatcherServ
     //配置Servlet名
     @Override
     protected String getServletName() {
-        return "twoDispatcher";
+        return "twodispatcher";
     }
 
     //配置Servlet加载顺序
@@ -51,8 +51,8 @@ public class TwoWebAppInitializer extends AbstractAnnotationConfigDispatcherServ
     }
 
     //配置过滤器
-    @Override
-    protected Filter[] getServletFilters() {
-        return new Filter[]{new ResourceUrlEncodingFilter()};
-    }
+//    @Override
+//    protected Filter[] getServletFilters() {
+//        return new Filter[]{new ResourceUrlEncodingFilter()};
+//    }
 }
