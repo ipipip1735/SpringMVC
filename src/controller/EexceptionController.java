@@ -46,9 +46,7 @@ public class EexceptionController {
         }
 
 
-
         return "error";
-
     }
 
 }

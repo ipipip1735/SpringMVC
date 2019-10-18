@@ -1,35 +1,21 @@
 package config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.Ordered;
 import org.springframework.core.io.*;
-import org.springframework.web.context.support.ServletContextResource;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.*;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.time.Instant;
-import java.time.Period;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Administrator on 2019/10/8 23:10.
  */
 @Configuration
-@PropertySource("classpath:stk.properties")
+@PropertySource("classpath:ppp.properties")
 public class ResourcesConfig implements WebMvcConfigurer {
 
     @Value("${app.version}")
