@@ -1,12 +1,12 @@
 package controller;
 
 import dao.Person;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.ObjectError;
-import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.*;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,7 +21,11 @@ import java.io.PrintWriter;
  * Created by Administrator on 2019/9/5 13:23.
  */
 @Controller
-public class EexceptionController {
+public class ErrorController {
+
+    @Autowired
+    private MessageSource messageSource;
+
 
 //    @ExceptionHandler
 //    public ResponseEntity<String> handle(IOException ex) {
@@ -34,16 +38,6 @@ public class EexceptionController {
     public String error(@Validated Person person, BindingResult bindingResult) {
         System.out.println("~~" + getClass().getSimpleName() + ".error~~");
 
-        if (bindingResult.hasErrors()) {
-            System.out.println("error!!");
-            ValidationUtils.rejectIfEmpty(bindingResult, "name", "xx", "ttt");
-
-        }
-
-
-        for (ObjectError error : bindingResult.getAllErrors()) {
-            System.out.println(error);
-        }
 
 
         return "error";

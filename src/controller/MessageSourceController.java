@@ -17,7 +17,7 @@ import java.util.Locale;
  * Created by Administrator on 2019/10/18 13:54.
  */
 @Controller
-public class MessageController {
+public class MessageSourceController {
 
     @Autowired
     private MessageSource messageSource;

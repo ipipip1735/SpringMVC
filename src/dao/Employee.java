@@ -1,6 +1,7 @@
 package dao;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
 public class Employee implements Serializable{
 
 
+    @Size(min = 12)
     private String name;
     private long id;
     private boolean sex;

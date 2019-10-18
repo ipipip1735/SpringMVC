@@ -46,7 +46,7 @@ public class ServletConfig{
     @Bean
     public MessageSource messageSource() {
         ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();
-        resourceBundleMessageSource.setBasenames("messages", "skt");
+        resourceBundleMessageSource.setBasenames("messages");
         return resourceBundleMessageSource;
     }
 

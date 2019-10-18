@@ -18,29 +18,29 @@
 
 
 <%--  使用标签库--%>
-<%--  <form:form method="POST" action="/addEmployee" modelAttribute="employee">--%>
-<%--    <table>--%>
-<%--      <tr>--%>
-<%--        <td><form:label path="name">Name</form:label></td>--%>
-<%--        <td><form:input path="name"/><form:errors /></td>--%>
-<%--      </tr>--%>
-<%--      <tr>--%>
-<%--        <td><form:label path="id">Id</form:label></td>--%>
-<%--        <td><form:input path="id"/></td>--%>
-<%--      </tr>--%>
-<%--      <tr>--%>
-<%--        <td><form:label path="sex">sex</form:label></td>--%>
-<%--        <td><form:checkbox path="sex"/></td>--%>
-<%--      </tr>--%>
+  <form:form method="POST" action="/addEmployee" modelAttribute="employee">
+    <table>
+      <tr>
+        <td><form:label path="name">Name</form:label></td>
+        <td><form:input path="name"/><form:errors path="name"/></td>
+      </tr>
+      <tr>
+        <td><form:label path="id">Id</form:label></td>
+        <td><form:input path="id"/></td>
+      </tr>
+      <tr>
+        <td><form:label path="sex">sex</form:label></td>
+        <td><form:checkbox path="sex"/></td>
+      </tr>
 <%--      <tr>--%>
 <%--        <td><form:label path="sex">interests</form:label></td>--%>
 <%--        <td><form:checkboxes path="interests" items="${interestList}"/></td>--%>
 <%--      </tr>--%>
-<%--      <tr>--%>
-<%--        <td><input type="submit" value="Submit"/></td>--%>
-<%--      </tr>--%>
-<%--    </table>--%>
-<%--  </form:form>--%>
+      <tr>
+        <td><input type="submit" value="Submit"/></td>
+      </tr>
+    </table>
+  </form:form>
 
 
 <%--  方法转换(Post转DELETE)--%>

@@ -10,8 +10,10 @@ import org.springframework.util.MimeType;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.BindStatus;
 
 import java.lang.management.MemoryType;
 
@@ -22,8 +24,9 @@ import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED_VAL
  */
 @Controller
 public class FormController {
+
     @GetMapping("/form")
-    public void form(@ModelAttribute Employee employee, Model model, Errors errors) {
+    public void form(Employee employee, Model model, Errors errors) {
         System.out.println("~~" + getClass().getSimpleName() + ".form~~");
         System.out.println("employee is " + employee);
 
@@ -32,6 +35,10 @@ public class FormController {
         model.addAttribute("interestList", interestList);
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "required", "Field is required.");
+
+
+//        String[] interestList = {"fishing", "football"};
+//        model.addAttribute("interestList", interestList);
 
 
     }
@@ -63,11 +70,12 @@ public class FormController {
 
     //方式二：
     @PostMapping("/addEmployee")
-    public String submit(@ModelAttribute Employee employee, BindingResult result, ModelMap model) {
+    public String submit(@Validated Employee employee, BindingResult result, ModelMap model) {
         System.out.println("~~" + getClass().getSimpleName() + ".submit~~");
         if (result.hasErrors()) {
             System.out.println("Error!");
-            return "error";
+            ValidationUtils.rejectIfEmptyOrWhitespace(result, result.getFieldError().getField(), "required", "Field is required.");
+            return "form";
         }
 
         System.out.println("employee is " + employee);
@@ -78,6 +86,7 @@ public class FormController {
         model.addAttribute("name", employee.getName());
         model.addAttribute("id", employee.getId());
         model.addAttribute("sex", employee.isSex());
+
 
 
 

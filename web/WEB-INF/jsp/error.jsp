@@ -13,6 +13,6 @@
     <title>Error</title>
   </head>
   <body>
-  <spring:message code="Min.person.age" />
+  <spring:message code="" />
   </body>
 </html>
