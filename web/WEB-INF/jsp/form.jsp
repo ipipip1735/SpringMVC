@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
     <title>Form</title>
@@ -15,7 +16,14 @@
 
 
 <h2>${employee.name} - ${employee.id} - ${employee.sex}</h2>
-
+Spring:bind <br/>
+<spring:bind path="employee.name">
+  status.toString : ${status.toString()} <br/>
+  status.error : ${status.error} <br/>
+  status.errorMessages : ${status.errorMessages} <br/>
+  status.displayValue : ${status.displayValue} <br/>
+</spring:bind>
+<br/>
 
 <%--  使用标签库--%>
   <form:form method="POST" action="/addEmployee" modelAttribute="employee">
