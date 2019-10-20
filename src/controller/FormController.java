@@ -31,11 +31,13 @@ public class FormController {
         System.out.println("employee is " + employee);
 
 
-        String[] interestList = {"fishing", "football"};
-        model.addAttribute("interestList", interestList);
+//        String[] interestList = {"fishing", "football"};
+//        model.addAttribute("interestList", interestList);
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "required", "Field is required.");
 
+        employee.setName("ok");
+        model.addAttribute(employee);
 
 //        String[] interestList = {"fishing", "football"};
 //        model.addAttribute("interestList", interestList);

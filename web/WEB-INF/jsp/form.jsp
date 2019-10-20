@@ -20,7 +20,11 @@ Spring:bind <br/>
 <spring:bind path="employee.name">
   status.toString : ${status.toString()} <br/>
   status.error : ${status.error} <br/>
-  status.errorMessages : ${status.errorMessages} <br/>
+  status.path : ${status.path} <br/>
+  status.errorMessages : ${status.errorMessages[0]} <br/>
+  status.value : ${status.value} <br/>
+  status.valueType : ${status.valueType} <br/>
+  status.actualValue : ${status.actualValue} <br/>
   status.displayValue : ${status.displayValue} <br/>
 </spring:bind>
 <br/>
