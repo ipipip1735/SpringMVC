@@ -6,15 +6,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 
 /**
  * Created by Administrator on 2019/10/4 16:10.
  */
-@RestController
-public class RestfullController {
+@org.springframework.web.bind.annotation.RestController
+public class RestController {
 
 
 //    @RequestMapping("/handleUserRequest")
