@@ -1,8 +1,6 @@
 package controller;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,21 +13,26 @@ import java.util.Arrays;
 @org.springframework.web.bind.annotation.RestController
 public class RestController {
 
-
-//    @RequestMapping("/handleUserRequest")
-//    public HttpEntity<String> handleUserRequest (HttpEntity requestEntity) {
-//        System.out.println("~~" + getClass().getSimpleName() + ".handleUserRequest~~");
+    //使用实体对象
+//    @GetMapping("/rest")
+//    public ResponseEntity<String> rest(RequestEntity<String> request) {
+//        System.out.println("~~" + getClass().getSimpleName() + ".restapi~~");
 //
-//        MultiValueMap<String, String> headers = new HttpHeaders();
-//        headers.put("Cache-Control", Arrays.asList("max-age=3600"));
+//        String head = request.getHeaders().getFirst("one");
+//        System.out.println("head is " + head);
 //
-//        HttpEntity<String> responseEntity = new HttpEntity<>("my response body", headers);
+//        HttpHeaders responseHeaders = new HttpHeaders(); //可选的，可以传递null
+//        responseHeaders.set("two", "2222");
+//
+//        ResponseEntity<String> responseEntity =  new ResponseEntity<String>("Hello World", responseHeaders, HttpStatus.OK);
+//
 //        return responseEntity;
 //    }
 
 
-    @GetMapping("/something")
-    public HttpEntity<String> handleUserRequest() {
+    //使用实体对象
+    @RequestMapping("/rest")
+    public HttpEntity<String> handleUserRequest (HttpEntity requestEntity) {
         System.out.println("~~" + getClass().getSimpleName() + ".handleUserRequest~~");
 
         MultiValueMap<String, String> headers = new HttpHeaders();
@@ -38,6 +41,5 @@ public class RestController {
         HttpEntity<String> responseEntity = new HttpEntity<>("my response body", headers);
         return responseEntity;
     }
-
 
 }

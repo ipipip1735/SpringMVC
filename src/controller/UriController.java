@@ -1,5 +1,7 @@
 package controller;
 
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -16,6 +18,7 @@ import org.springframework.web.util.UrlPathHelper;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
+import java.net.URISyntaxException;
 
 import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
 import static org.springframework.web.util.DefaultUriBuilderFactory.EncodingMode.*;
@@ -24,56 +27,41 @@ import static org.springframework.web.util.DefaultUriBuilderFactory.EncodingMode
  * Created by Administrator on 2019/9/26 11:43.
  */
 @Controller
-@RequestMapping(path = "/one/{one}")
+//@RequestMapping(path = "/one/{one}")
 public class UriController {
 
     /**
      * 使用构建器
      */
-//    @GetMapping("/uri")
-//    public void uri(Model model) {
-//
-//
-//        //简单使用
-////        UriComponents uriComponents = UriComponentsBuilder
-////                .fromUriString("https://example.com/hotels/{hotel}")
-////                .queryParam("q", "{q}")
-////                .encode()
-////                .build();
-////        URI uri = uriComponents.expand("Westin", "123").toUri();
-//
-//
-//        //简化使用(构建并扩展)
+    @GetMapping("/uri")
+    public void uri(Model model) {
+
+
+        //简单使用
+        UriComponents uriComponents = UriComponentsBuilder
+                .fromUriString("https://example.com/hotels/{hotel}")
+                .queryParam("q", "{xx}")
+                .encode()//编译，把模板中某些字符编译为UNCODE
+                .build();//创建实例，即创建模板
+        System.out.println(uriComponents); //模板为https://example.com/hotels/{hotel}?q={xx}
+        URI uri = uriComponents
+                .expand("Westin", "123")//给模板的占位符赋值
+                .toUri();
+
+
+        //简化使用(构建并扩展)
 //        URI uri = UriComponentsBuilder
 //                .fromUriString("https://example.com/hotels/{hotel}")
-//                .queryParam("q", "{q}")
+//                .queryParam("q", "{xx}")
 //                .buildAndExpand("Westin", "123")
 //                .toUri();
-//
-//
-//        model.addAttribute("uri", uri);
-//        System.out.println(uri);
-//    }
 
 
-//    @GetMapping("/uri")
-//    public void webClinet(Model model) {
-//
-////        String baseUrl = "https://example.org";
-////        DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory(baseUrl);
-////        factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.TEMPLATE_AND_VALUES);
-////        WebClient
+        model.addAttribute("uri", uri);
+        System.out.println(uri);
+    }
 
 
-    //使用 REST URL
-//    String baseUrl = "https://example.org";
-//    DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory(baseUrl);
-//        factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.TEMPLATE_AND_VALUES);
-//    RestTemplate restTemplate = new RestTemplate();
-//        restTemplate.setUriTemplateHandler(factory);
-//    restTemplate.get
-
-//    }
 
 
     /**
@@ -90,19 +78,6 @@ public class UriController {
 //                .queryParam("q", "{q}")
 //                .build("Wes;t:in", "12>3");
 //
-//
-//        //使用模板
-////        String baseUrl = "https://example.com";
-////        DefaultUriBuilderFactory uriBuilderFactory = new DefaultUriBuilderFactory(baseUrl);
-////        uriBuilderFactory.setEncodingMode(URI_COMPONENT);
-////
-////        RestTemplate restTemplate = new RestTemplate();
-////        restTemplate.setUriTemplateHandler(uriBuilderFactory);
-////
-//////        WebClient client = WebClient.builder().uriBuilderFactory(factory).build();
-//
-//
-//
 //        model.addAttribute("uri", uri);
 //    }
 
@@ -114,25 +89,25 @@ public class UriController {
 //    public void uriEncoding(Model model) {
 //
 //        //使用 UriComponentsBuilder编码
-////        URI uri = UriComponentsBuilder.fromUriString("https://example.com/ho:t;e&l s/{hotel}")
-////                .queryParam("q", "{q}")
-////                .encode()
-////                .build()
-////                .expand("We:s;t&in", "12<3")
-////                .toUri();
+//        URI uri = UriComponentsBuilder.fromUriString("https://example.com/ho:t;e&l s/{hotel}")
+//                .queryParam("q", "{xx}")
+//                .encode()
+//                .build()
+//                .expand("We:s;t&in", "12<3")
+//                .toUri();
 //
 //
 //
 //        //使用 UriComponentsBuilder编码
 //        //这里拆开来写，为了方便演示，所以没有使用链式写法
-//        UriComponents uriComponents = UriComponentsBuilder.fromUriString("https://example.com/ho:t;e&l s/{hotel}")
-//                .queryParam("q", "{q}")
-//                .build();
-//        URI uri = uriComponents.expand("We:s;t&in", "12<3")
-//                .encode()//先扩展，再编码
-//                .toUri();
-//
-//        model.addAttribute("uri", uri);
+////        UriComponents uriComponents = UriComponentsBuilder.fromUriString("https://example.com/ho:t;e&l s/{hotel}")
+////                .queryParam("q", "{xx}")
+////                .build();
+////        URI uri = uriComponents.expand("We:s;t&in", "12<3")
+////                .encode()//先扩展，再编码
+////                .toUri();
+////
+////        model.addAttribute("uri", uri);
 //
 //    }
 
@@ -192,11 +167,11 @@ public class UriController {
     /**
      * 通过视图获取 URI
      */
-    @GetMapping("/two/{two}")
-    public String uriBuilder(@PathVariable Integer two) {
-
-        return "uri";
-    }
+//    @GetMapping("/two/{two}")
+//    public String uriBuilder(@PathVariable Integer two) {
+//
+//        return "uri";
+//    }
 
 
 }
