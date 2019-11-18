@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.http.HttpClient;
 import java.util.Arrays;
 
 import static org.springframework.web.util.DefaultUriBuilderFactory.EncodingMode.URI_COMPONENT;
@@ -131,6 +132,8 @@ public class RestAPIController {
 
 
         WebClient client = WebClient.create("https://example.org");
+
+        HttpClient httpClient;
 
 
 
