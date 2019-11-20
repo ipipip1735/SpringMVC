@@ -3,6 +3,7 @@ package controller;
 import org.springframework.http.*;
 import org.springframework.http.client.ClientHttpRequest;
 import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,12 +15,12 @@ import org.springframework.web.client.ResponseExtractor;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.DefaultUriBuilderFactory;
+import reactor.netty.http.client.HttpClient;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.http.HttpClient;
 import java.util.Arrays;
 
 import static org.springframework.web.util.DefaultUriBuilderFactory.EncodingMode.URI_COMPONENT;
@@ -131,9 +132,22 @@ public class RestAPIController {
         factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.TEMPLATE_AND_VALUES);
 
 
+
+        //方式一：使用create()创建
         WebClient client = WebClient.create("https://example.org");
 
-        HttpClient httpClient;
+
+
+
+
+        //方法二：使用构建器
+//        HttpClient httpClient = HttpClient.create();
+//        WebClient client = WebClient.builder()
+//                .clientConnector(new ReactorClientHttpConnector(httpClient))
+//                .build();
+
+
+
 
 
 

@@ -55,5 +55,6 @@
     <orderEntry type="library" name="jstl:jstl:1.2" level="application" />
     <orderEntry type="library" name="org.springframework:spring-webflux:5.2.0.RELEASE" level="application" />
     <orderEntry type="library" name="org.springframework:spring-webmvc:5.2.0.RELEASE" level="application" />
+    <orderEntry type="library" name="io.projectreactor.netty:reactor-netty:0.9.0.RELEASE" level="application" />
   </component>
 </module>
