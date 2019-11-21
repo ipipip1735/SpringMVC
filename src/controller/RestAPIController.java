@@ -128,16 +128,10 @@ public class RestAPIController {
     @GetMapping("/restapi")
     public void webClinet(Model model) {
 
-        String baseUrl = "https://example.org";
-        DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory(baseUrl);
-        factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.TEMPLATE_AND_VALUES);
-
-
-
-
-        create();//使用create()创建
-
+//        create();//使用create()创建
 //        build();//使用构建器
+
+        retrive
 
 
     }
@@ -147,21 +141,28 @@ public class RestAPIController {
 //        WebClient client = WebClient.builder()
 //                .clientConnector(new ReactorClientHttpConnector(httpClient))
 //                .build();
+
+
+//        String baseUrl = "https://example.org";
+//        DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory(baseUrl);
+//        factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.TEMPLATE_AND_VALUES);
+//
+//
+//
+//        HttpClient httpClient = HttpClient.create()
+//                .tcpConfiguration(client ->
+//                        client.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10000));
     }
 
     private void create() {
 
+        WebClient.create()
+                .get()
+                .uri("https://example.org")
+                .retrieve()
+                .bodyToMono(String.class)
+                .subscribe(System.out::println);
 
-        HttpClient httpClient = HttpClient.create()
-                .tcpConfiguration(client ->
-                        client.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10000));
-
-
-        WebClient client = WebClient.create("https://example.org");
-
-
-        client.tcpConfiguration(client ->
-                client.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10000));
     }
 
 }
