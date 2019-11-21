@@ -1,5 +1,6 @@
 package controller;
 
+import io.netty.channel.ChannelOption;
 import org.springframework.http.*;
 import org.springframework.http.client.ClientHttpRequest;
 import org.springframework.http.client.ClientHttpResponse;
@@ -133,25 +134,34 @@ public class RestAPIController {
 
 
 
-        //方式一：使用create()创建
-        WebClient client = WebClient.create("https://example.org");
+
+        create();//使用create()创建
+
+//        build();//使用构建器
 
 
+    }
 
-
-
-        //方法二：使用构建器
-//        HttpClient httpClient = HttpClient.create();
+    private void build() {
+        //        HttpClient httpClient = HttpClient.create();
 //        WebClient client = WebClient.builder()
 //                .clientConnector(new ReactorClientHttpConnector(httpClient))
 //                .build();
+    }
+
+    private void create() {
 
 
+        HttpClient httpClient = HttpClient.create()
+                .tcpConfiguration(client ->
+                        client.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10000));
 
 
+        WebClient client = WebClient.create("https://example.org");
 
 
-
+        client.tcpConfiguration(client ->
+                client.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10000));
     }
 
 }
