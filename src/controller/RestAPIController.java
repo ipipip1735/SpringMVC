@@ -1,5 +1,6 @@
 package controller;
 
+import dao.Person;
 import io.netty.channel.ChannelOption;
 import org.springframework.http.*;
 import org.springframework.http.client.ClientHttpRequest;
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RequestCallback;
 import org.springframework.web.client.ResponseExtractor;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.DefaultUriBuilderFactory;
+import reactor.core.publisher.Mono;
 import reactor.netty.http.client.HttpClient;
 
 import java.io.IOException;
@@ -33,6 +36,8 @@ import static org.springframework.web.util.DefaultUriBuilderFactory.EncodingMode
  */
 @RestController
 public class RestAPIController {
+
+    String r = null;
 
     /**
      * 使用模板
@@ -126,14 +131,89 @@ public class RestAPIController {
      * 使用execute()完成请求，传递请求主体，获取响应实体
      */
     @GetMapping("/restapi")
-    public void webClinet(Model model) {
+    public String webClinet(Model model) {
 
 //        create();//使用create()创建
 //        build();//使用构建器
 
-        retrive
+//        r = retrieve();//检索
+
+//        error(); // 错误处理
+
+        exchange();
+
+        return r;
+
+    }
+
+    private void exchange() {
+
+        WebClient.create("https://example.org")
+                .get()
+                .exchange()
+                .subscribe(clientResponse -> {
+                    System.out.println(clientResponse);
+
+//                    clientResponse.bodyToMono(String.class)
+//                    .subscribe(System.out::println);
+//                    System.out.println("end");
+
+                    clientResponse.toEntity(String.class)
+                    .subscribe(stringResponseEntity -> {
+                        System.out.println(stringResponseEntity);
+                        System.out.println("getStatusCode is " + stringResponseEntity.getStatusCode());
+                        System.out.println("getStatusCodeValue is " + stringResponseEntity.getStatusCodeValue());
+                        System.out.println("getHeaders is " + stringResponseEntity.getHeaders());
+                        System.out.println("getBody is " + stringResponseEntity.getBody());
+                    });
+
+//                    clientResponse.releaseBody();//抛弃响应主体
+
+//                    System.out.println("cookies is " + clientResponse.cookies());
+//                    System.out.println("headers is " + clientResponse.headers());
+//                    System.out.println("statusCode is " + clientResponse.statusCode());
 
 
+//                    ExchangeStrategies exchangeStrategies = clientResponse.strategies();
+
+
+//                    clientResponse.toEntity(String.class)
+//                            .subscribe(System.out::println);
+
+
+                });
+
+
+    }
+
+    private void error() {
+
+        String r = WebClient.create()
+                .get()
+                .uri("https://example.org")
+                .retrieve()
+                .onStatus(httpStatus -> {
+                    System.out.println("~~onStatus~~");
+                    System.out.println(httpStatus);
+                    return true;
+                }, clientResponse -> {
+                    System.out.println("~~handle~~");
+                    System.out.println(clientResponse);
+                    return Mono.just(new Throwable());
+                })
+                .bodyToMono(String.class)
+                .block();
+        System.out.println(r);
+    }
+
+    private String retrieve() {
+
+        return WebClient.create()
+                .get()
+                .uri("https://example.org")
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
     }
 
     private void build() {
