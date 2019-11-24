@@ -11,14 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.web.util.DefaultUriBuilderFactory;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
-import org.springframework.web.util.UrlPathHelper;
+import org.springframework.web.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
 import static org.springframework.web.util.DefaultUriBuilderFactory.EncodingMode.*;
@@ -30,36 +28,75 @@ import static org.springframework.web.util.DefaultUriBuilderFactory.EncodingMode
 //@RequestMapping(path = "/one/{one}")
 public class UriController {
 
+
+
+
+
     /**
-     * 使用构建器
+     * 使用URI模板
      */
     @GetMapping("/uri")
     public void uri(Model model) {
 
-
-        //简单使用
-        UriComponents uriComponents = UriComponentsBuilder
-                .fromUriString("https://example.com/hotels/{hotel}")
-                .queryParam("q", "{xx}")
-                .encode()//编译，把模板中某些字符编译为UNCODE
-                .build();//创建实例，即创建模板
-        System.out.println(uriComponents); //模板为https://example.com/hotels/{hotel}?q={xx}
-        URI uri = uriComponents
-                .expand("Westin", "123")//给模板的占位符赋值
-                .toUri();
+        String url = "https://www.example.org/{pp}/{qq}";
 
 
-        //简化使用(构建并扩展)
-//        URI uri = UriComponentsBuilder
-//                .fromUriString("https://example.com/hotels/{hotel}")
-//                .queryParam("q", "{xx}")
-//                .buildAndExpand("Westin", "123")
-//                .toUri();
+        //获取占位符变量名
+        List<String> list = new UriTemplate(url).getVariableNames();
+        for (String s : list) System.out.println(s);
+
+
+        //抓取占位符变量名和对应的值
+        UriTemplate template = new UriTemplate("https://example.com/hotels/{hotel}/bookings/{booking}");
+        System.out.println(template.match("https://example.com/hotels/1/bookings/42")); //结果为 {hotel=1, booking=42}
+
+
+        //匹配
+        boolean b = new UriTemplate(url).matches("https://www.example.org/111/222");
+        System.out.println(b);
+
+
+        //给占位符赋值
+        URI uri = new UriTemplate(url).expand("aaa");
+
 
 
         model.addAttribute("uri", uri);
         System.out.println(uri);
     }
+
+
+
+    /**
+     * 使用构建器
+     */
+//    @GetMapping("/uri")
+//    public void uri(Model model) {
+//
+//
+//        //简单使用
+//        UriComponents uriComponents = UriComponentsBuilder
+//                .fromUriString("https://example.com/hotels/{hotel}")
+//                .queryParam("q", "{xx}")
+//                .encode()//编译，把模板中某些字符编译为UNCODE
+//                .build();//创建实例，即创建模板
+//        System.out.println(uriComponents); //模板为https://example.com/hotels/{hotel}?q={xx}
+//        URI uri = uriComponents
+//                .expand("Westin", "123")//给模板的占位符赋值
+//                .toUri();
+//
+//
+//        //简化使用(构建并扩展)
+////        URI uri = UriComponentsBuilder
+////                .fromUriString("https://example.com/hotels/{hotel}")
+////                .queryParam("q", "{xx}")
+////                .buildAndExpand("Westin", "123")
+////                .toUri();
+//
+//
+//        model.addAttribute("uri", uri);
+//        System.out.println(uri);
+//    }
 
 
 
