@@ -13,6 +13,7 @@ import org.springframework.web.reactive.handler.SimpleUrlHandlerMapping;
 import org.springframework.web.reactive.socket.WebSocketHandler;
 import org.springframework.web.reactive.socket.server.support.WebSocketHandlerAdapter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import reactor.core.publisher.Mono;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -29,8 +30,15 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 public class WebSocketConfig implements WebMvcConfigurer {
     @Bean
     public HandlerMapping handlerMapping() {
+        System.out.println("~~handlerMapping~~");
         Map<String, WebSocketHandler> map = new HashMap<>();
-        map.put("/path", new MyWebSocketHandler());
+        map.put("/wss", session -> {
+            System.out.println("~~websocket.session~~");
+            System.out.println();
+            return Mono.never();
+        });
+
+
         int order = -1; // before annotated controllers
 
         return new SimpleUrlHandlerMapping(map, order);
@@ -38,6 +46,8 @@ public class WebSocketConfig implements WebMvcConfigurer {
 
     @Bean
     public WebSocketHandlerAdapter handlerAdapter() {
+        System.out.println("~~handlerAdapter~~");
+
         return new WebSocketHandlerAdapter();
     }
 }

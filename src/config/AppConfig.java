@@ -24,9 +24,9 @@ import org.springframework.web.servlet.resource.ResourceUrlEncodingFilter;
 //@Import(CORSConfig.class)//配置跨域
 //@Import(DefaultServletConfig.class)//配置默认Servlet
 //@Import(ResourcesConfig.class)//配置静态资源
-@Import(WebSocketConfig.class)//配置WebSocket
 //@Import(PathMatchConfig.class)//配置路径匹配策略
 //@Import(ViewControllerConfig.class)//配置视图导航
 //@ComponentScan(basePackages = {"service"})
 //@ComponentScan(basePackages = {"filter"})
+@Import(WebSocketConfig.class)//配置WebSocket
 public class AppConfig {}

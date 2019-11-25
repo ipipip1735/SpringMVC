@@ -13,12 +13,9 @@ import reactor.core.publisher.Mono;
 @Controller
 public class WebSocketController {
 
-    @Override
-    public Mono<Void> handle(WebSocketSession session) {
-
-
-
-
+    @GetMapping("/wsclient")
+    public String client() {
+        return "websocket";
     }
 
 

@@ -9,6 +9,10 @@
 <html>
   <head>
     <title>Websocket</title>
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
   </head>
   <body>
 
@@ -22,7 +26,7 @@
 
 
   <script>
-    var webSocket = new WebSocket("wss://www.example.com/");
+    var webSocket = new WebSocket("ws://192.168.0.126:8080/wss");
 
     webSocket.addEventListener("open", function (e) {
       console.log("~~open~~");
