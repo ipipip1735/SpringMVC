@@ -18,5 +18,4 @@ public class WebSocketController {
         return "websocket";
     }
 
-
 }

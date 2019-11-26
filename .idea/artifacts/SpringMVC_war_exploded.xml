@@ -16,6 +16,7 @@
           <element id="library" level="application" name="org.springframework:spring-webflux:5.2.0.RELEASE" />
           <element id="library" level="application" name="org.springframework:spring-webmvc:5.2.0.RELEASE" />
           <element id="library" level="application" name="io.projectreactor.netty:reactor-netty:0.9.0.RELEASE" />
+          <element id="library" level="application" name="org.springframework:spring-websocket:5.2.0.RELEASE" />
         </element>
       </element>
     </root>
