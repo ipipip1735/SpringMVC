@@ -7,55 +7,70 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-  <head>
+<head>
     <title>Websocket</title>
     <script
             src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
             crossorigin="anonymous"></script>
-  </head>
-  <body>
+</head>
+<body>
 
-  <button id="go">go</button>
-
-
-
-  </body>
+<button id="send">send</button>
+<button id="close">close</button>
 
 
+</body>
 
 
-  <script>
+<script>
     var webSocket = new WebSocket("ws://192.168.0.126:8080/wss");
+    // var webSocket = new WebSocket("ws://192.168.0.126:8080/wss", "soap");
+    // var webSocket = new WebSocket("ws://192.168.0.126:8080/wss", ["soap", "wamp"]);
 
     webSocket.addEventListener("open", function (e) {
-      console.log("~~open~~");
-      console.log(e);
-    });
+        console.log("~~open~~");
+        console.log("binaryType is " + webSocket.binaryType);
+        console.log("bufferedAmount is " + webSocket.bufferedAmount);
+        console.log("extensions is " + webSocket.extensions);
+        console.log("protocol is " + webSocket.protocol);
+        console.log("readyState is " + webSocket.readyState);
+        console.log("url is " + webSocket.url);
 
-    webSocket.addEventListener("message", function (e) {
-      console.log("~~message~~");
-      console.log(e);
-    });
 
+    });
+    webSocket.addEventListener("message", function (e, f, g, h) {
+        console.log("~~message~~");
+
+    });
     webSocket.addEventListener("close", function (e) {
-      console.log("~~close~~");
-      console.log(e);
-    });
+        console.log("~~close~~");
 
+    });
     webSocket.addEventListener("error", function (e) {
-      console.log("~~error~~");
-      console.log(e);
+        console.log("~~error~~");
+
     });
-
-
     $(function () {
-      $("#go").on("click", function () {
+        $("#send").on("click", function () {
 
-        // webSocket.send("ok");
-      })
+            if (webSocket.readyState == webSocket.OPEN) {
+                console.log("send ok!");
+                webSocket.send("ok");
+            }
+        });
+        $("#close").on("click", function () {
+
+            if (webSocket.readyState != webSocket.CONNECTING && webSocket.readyState == webSocket.OPEN) {
+                console.log("closeing");
+                webSocket.close();
+            }
+        });
+
+
+
     });
 
-  </script>
+</script>
 
 </html>

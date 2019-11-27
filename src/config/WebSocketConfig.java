@@ -13,10 +13,7 @@ import org.springframework.web.reactive.HandlerMapping;
 import org.springframework.web.reactive.handler.SimpleUrlHandlerMapping;
 import org.springframework.web.reactive.socket.server.support.WebSocketHandlerAdapter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.socket.BinaryMessage;
-import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketHandler;
-import org.springframework.web.socket.WebSocketSession;
+import org.springframework.web.socket.*;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
@@ -72,18 +69,114 @@ public class WebSocketConfig implements WebSocketConfigurer {
 //    }
 
 
+//    @Bean
+//    public WebSocketHandler myHandler() {
+//        System.out.println("~~handlerAdapter~~");
+//
+//        return new TextWebSocketHandler(){
+//            @Override
+//            protected void handleBinaryMessage(WebSocketSession session, BinaryMessage message) {
+//                System.out.println("~~handleBinaryMessage~~");
+//                super.handleBinaryMessage(session, message);
+//            }
+//        };
+//    }
+
     @Bean
     public WebSocketHandler myHandler() {
         System.out.println("~~handlerAdapter~~");
 
-        return new TextWebSocketHandler(){
+        WebSocketHandler handler = new WebSocketHandler(){
             @Override
-            protected void handleBinaryMessage(WebSocketSession session, BinaryMessage message) {
-                System.out.println("~~handleBinaryMessage~~");
-                super.handleBinaryMessage(session, message);
+            public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+                System.out.println("~~afterConnectionEstablished~~");
+
+                System.out.println("getAcceptedProtocol is " + session.getAcceptedProtocol());
+                System.out.println("getAttributes is " + session.getAttributes());
+                System.out.println("getBinaryMessageSizeLimit is " + session.getBinaryMessageSizeLimit());
+                System.out.println("getExtensions is " + session.getExtensions());
+                System.out.println("getHandshakeHeaders is " + session.getHandshakeHeaders());
+                System.out.println("getId is " + session.getId());
+                System.out.println("getLocalAddress is " + session.getLocalAddress());
+                System.out.println("getPrincipal is " + session.getPrincipal());
+                System.out.println("getRemoteAddress is " + session.getRemoteAddress());
+                System.out.println("getTextMessageSizeLimit is " + session.getTextMessageSizeLimit());
+                System.out.println("getUri is " + session.getUri());
+            }
+
+            @Override
+            public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
+                System.out.println("~~handleMessage~~");
+
+                System.out.println("getAcceptedProtocol is " + session.getAcceptedProtocol());
+                System.out.println("getAttributes is " + session.getAttributes());
+                System.out.println("getBinaryMessageSizeLimit is " + session.getBinaryMessageSizeLimit());
+                System.out.println("getExtensions is " + session.getExtensions());
+                System.out.println("getHandshakeHeaders is " + session.getHandshakeHeaders());
+                System.out.println("getId is " + session.getId());
+                System.out.println("getLocalAddress is " + session.getLocalAddress());
+                System.out.println("getPrincipal is " + session.getPrincipal());
+                System.out.println("getRemoteAddress is " + session.getRemoteAddress());
+                System.out.println("getTextMessageSizeLimit is " + session.getTextMessageSizeLimit());
+                System.out.println("getUri is " + session.getUri());
+                System.out.println("----------");
+                System.out.println("getPayload is " + message.getPayload());
+                System.out.println("getPayloadLength is " + message.getPayloadLength());
+                System.out.println("isLast is " + message.isLast());
+
+
+
+            }
+
+            @Override
+            public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
+                System.out.println("~~handleTransportError~~");
+
+                System.out.println("getAcceptedProtocol is " + session.getAcceptedProtocol());
+                System.out.println("getAttributes is " + session.getAttributes());
+                System.out.println("getBinaryMessageSizeLimit is " + session.getBinaryMessageSizeLimit());
+                System.out.println("getExtensions is " + session.getExtensions());
+                System.out.println("getHandshakeHeaders is " + session.getHandshakeHeaders());
+                System.out.println("getId is " + session.getId());
+                System.out.println("getLocalAddress is " + session.getLocalAddress());
+                System.out.println("getPrincipal is " + session.getPrincipal());
+                System.out.println("getRemoteAddress is " + session.getRemoteAddress());
+                System.out.println("getTextMessageSizeLimit is " + session.getTextMessageSizeLimit());
+                System.out.println("getUri is " + session.getUri());
+            }
+
+            @Override
+            public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
+                System.out.println("~~afterConnectionClosed~~");
+
+                System.out.println("getAcceptedProtocol is " + session.getAcceptedProtocol());
+                System.out.println("getAttributes is " + session.getAttributes());
+                System.out.println("getBinaryMessageSizeLimit is " + session.getBinaryMessageSizeLimit());
+                System.out.println("getExtensions is " + session.getExtensions());
+                System.out.println("getHandshakeHeaders is " + session.getHandshakeHeaders());
+                System.out.println("getId is " + session.getId());
+                System.out.println("getLocalAddress is " + session.getLocalAddress());
+                System.out.println("getPrincipal is " + session.getPrincipal());
+                System.out.println("getRemoteAddress is " + session.getRemoteAddress());
+                System.out.println("getTextMessageSizeLimit is " + session.getTextMessageSizeLimit());
+                System.out.println("getUri is " + session.getUri());
+                System.out.println("----------");
+                System.out.println("getCode is " + closeStatus.getCode());
+                System.out.println("getReason is " + closeStatus.getReason());
+
+            }
+
+            @Override
+            public boolean supportsPartialMessages() {
+                System.out.println("~~supportsPartialMessages~~");
+                return true;
             }
         };
+
+        return handler;
     }
+
+
 
 
 
