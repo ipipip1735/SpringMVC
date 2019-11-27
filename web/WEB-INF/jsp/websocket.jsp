@@ -15,7 +15,7 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-
+<div id="context"></div>
 <button id="send">send</button>
 <button id="close">close</button>
 
@@ -24,12 +24,16 @@
 
 
 <script>
+    //创建实例
     var webSocket = new WebSocket("ws://192.168.0.126:8080/wss");
     // var webSocket = new WebSocket("ws://192.168.0.126:8080/wss", "soap");
     // var webSocket = new WebSocket("ws://192.168.0.126:8080/wss", ["soap", "wamp"]);
 
-    webSocket.addEventListener("open", function (e) {
+    //方式一：使用监听器
+    webSocket.addEventListener("open", function (event) {
         console.log("~~open~~");
+        console.log(event);
+
         console.log("binaryType is " + webSocket.binaryType);
         console.log("bufferedAmount is " + webSocket.bufferedAmount);
         console.log("extensions is " + webSocket.extensions);
@@ -37,26 +41,42 @@
         console.log("readyState is " + webSocket.readyState);
         console.log("url is " + webSocket.url);
 
-
     });
-    webSocket.addEventListener("message", function (e, f, g, h) {
+    webSocket.addEventListener("message", function (messageEvent) {
         console.log("~~message~~");
+        console.log(messageEvent);
 
+        console.log("data is " + messageEvent.data);
+        console.log("origin is " + messageEvent.origin);
+        console.log("lastEventId is " + messageEvent.lastEventId);
+        console.log("source is " + messageEvent.source);
+        console.log("ports is " + messageEvent.ports);
     });
-    webSocket.addEventListener("close", function (e) {
+    webSocket.addEventListener("close", function (closeEvent) {
         console.log("~~close~~");
+        console.log(closeEvent);
 
+        console.log("code is " + closeEvent.code);
+        console.log("reason is " + closeEvent.reason);
+        console.log("wasClean is " + closeEvent.wasClean);
     });
-    webSocket.addEventListener("error", function (e) {
+    webSocket.addEventListener("error", function (event) {
         console.log("~~error~~");
-
+        console.log(event);
     });
+
+
+    //方式二：使用周期函数
+
+
+
     $(function () {
         $("#send").on("click", function () {
 
             if (webSocket.readyState == webSocket.OPEN) {
                 console.log("send ok!");
-                webSocket.send("ok");
+                // webSocket.send("ok");
+                webSocket.send("close");
             }
         });
         $("#close").on("click", function () {
@@ -66,7 +86,6 @@
                 webSocket.close();
             }
         });
-
 
 
     });

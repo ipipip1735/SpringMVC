@@ -124,6 +124,14 @@ public class WebSocketConfig implements WebSocketConfigurer {
                 System.out.println("getPayloadLength is " + message.getPayloadLength());
                 System.out.println("isLast is " + message.isLast());
 
+                if (message.getPayload().equals("close")) {
+                    session.close();
+                    System.out.println("closing");
+                }else {
+                    String s = "server|" + message.getPayload();
+                    System.out.println(s);
+                    session.sendMessage(new TextMessage(s));
+                }
 
 
             }
