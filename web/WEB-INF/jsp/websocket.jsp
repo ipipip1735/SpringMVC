@@ -70,11 +70,12 @@
 
 
 
+
     $(function () {
         $("#send").on("click", function () {
 
             if (webSocket.readyState == webSocket.OPEN) {
-                console.log("send ok!");
+                console.log("sending!");
                 // webSocket.send("ok");
                 webSocket.send("close");
             }
@@ -83,11 +84,9 @@
 
             if (webSocket.readyState != webSocket.CONNECTING && webSocket.readyState == webSocket.OPEN) {
                 console.log("closeing");
-                webSocket.close();
+                webSocket.close(1000, "ttt");
             }
         });
-
-
     });
 
 </script>

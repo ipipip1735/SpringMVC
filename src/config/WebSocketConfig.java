@@ -30,6 +30,8 @@ import java.util.Map;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.web.socket.CloseStatus.GOING_AWAY;
+import static org.springframework.web.socket.CloseStatus.PROTOCOL_ERROR;
 
 /**
  * Created by Administrator on 2019/11/25 17:24.
@@ -125,14 +127,14 @@ public class WebSocketConfig implements WebSocketConfigurer {
                 System.out.println("isLast is " + message.isLast());
 
                 if (message.getPayload().equals("close")) {
-                    session.close();
+                    CloseStatus status = PROTOCOL_ERROR.withReason("yyyy");
+                    session.close(status);
                     System.out.println("closing");
                 }else {
                     String s = "server|" + message.getPayload();
                     System.out.println(s);
                     session.sendMessage(new TextMessage(s));
                 }
-
 
             }
 
