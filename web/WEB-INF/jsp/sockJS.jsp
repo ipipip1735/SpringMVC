@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
-  Date: 2019/11/25
-  Time: 17:21
+  Date: 2019/11/26
+  Time: 17:26
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -26,8 +26,6 @@
 <script>
     //创建实例
     var webSocket = new WebSocket("ws://192.168.0.126:8080/wss");
-    // var webSocket = new WebSocket("ws://192.168.0.126:8080/wss", "soap");
-    // var webSocket = new WebSocket("ws://192.168.0.126:8080/wss", ["soap", "wamp"]);
 
     //方式一：使用监听器
     webSocket.addEventListener("open", function (event) {
@@ -67,16 +65,7 @@
 
 
     //方式二：使用周期函数
-    webSocket.onmessage = function (messageEvent) {
-        console.log("~~message~~");
-        console.log(messageEvent);
 
-        console.log("data is " + messageEvent.data);
-        console.log("origin is " + messageEvent.origin);
-        console.log("lastEventId is " + messageEvent.lastEventId);
-        console.log("source is " + messageEvent.source);
-        console.log("ports is " + messageEvent.ports);
-    };
 
 
 

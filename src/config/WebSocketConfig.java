@@ -84,9 +84,23 @@ public class WebSocketConfig implements WebSocketConfigurer {
 //        };
 //    }
 
+
+
+//    @Bean
+//    public DefaultHandshakeHandler handshakeHandler() {
+//
+//        WebSocketPolicy policy = new WebSocketPolicy(WebSocketBehavior.SERVER);
+//        policy.setInputBufferSize(8192);
+//        policy.setIdleTimeout(600000);
+//
+//        return new DefaultHandshakeHandler(
+//                new JettyRequestUpgradeStrategy(new WebSocketServerFactory(policy)));
+//    }
+
+
     @Bean
     public WebSocketHandler myHandler() {
-        System.out.println("~~handlerAdapter~~");
+        System.out.println("~~myHandler~~");
 
         WebSocketHandler handler = new WebSocketHandler(){
             @Override
@@ -195,20 +209,10 @@ public class WebSocketConfig implements WebSocketConfigurer {
         System.out.println("~~registerWebSocketHandlers~~");
 
         registry.addHandler(myHandler(), "/wss");
+//        registry.addHandler(myHandler(), "/sockJS").withSockJS();
     }
 
 
-
-//    @Bean
-//    public DefaultHandshakeHandler handshakeHandler() {
-//
-//        WebSocketPolicy policy = new WebSocketPolicy(WebSocketBehavior.SERVER);
-//        policy.setInputBufferSize(8192);
-//        policy.setIdleTimeout(600000);
-//
-//        return new DefaultHandshakeHandler(
-//                new JettyRequestUpgradeStrategy(new WebSocketServerFactory(policy)));
-//    }
 
 
 }

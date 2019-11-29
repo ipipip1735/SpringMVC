@@ -14,8 +14,13 @@ import reactor.core.publisher.Mono;
 public class WebSocketController {
 
     @GetMapping("/wsclient")
-    public String client() {
+    public String wsclient() {
         return "websocket";
+    }
+
+    @GetMapping("/sockJS")
+    public String sockJS() {
+        return "sockJS";
     }
 
 }
