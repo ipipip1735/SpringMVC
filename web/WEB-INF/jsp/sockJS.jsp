@@ -13,6 +13,7 @@
             src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
             crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 </head>
 <body>
 <div id="context"></div>
@@ -25,46 +26,32 @@
 
 <script>
     //创建实例
-    var webSocket = new WebSocket("ws://192.168.0.126:8080/wss");
+    var sock = new SockJS('http://192.168.0.126:8080/skJS');
+    // var sock = new SockJS('http://192.168.0.126:8080/skJS', null, {"server":"xxx"});
+    // var sock = new SockJS('http://192.168.0.126:8080/skJS', null, {"server":"xxx", "sessionId":4});
+    sock.onopen = function(event) {
+        console.log('open');
 
-    //方式一：使用监听器
-    webSocket.addEventListener("open", function (event) {
-        console.log("~~open~~");
-        console.log(event);
+        console.log("binaryType is " + sock.binaryType);
+        console.log("bufferedAmount is " + sock.bufferedAmount);
+        console.log("extensions is " + sock.extensions);
+        console.log("protocol is " + sock.protocol);
+        console.log("readyState is " + sock.readyState);
+        console.log("url is " + sock.url);
 
-        console.log("binaryType is " + webSocket.binaryType);
-        console.log("bufferedAmount is " + webSocket.bufferedAmount);
-        console.log("extensions is " + webSocket.extensions);
-        console.log("protocol is " + webSocket.protocol);
-        console.log("readyState is " + webSocket.readyState);
-        console.log("url is " + webSocket.url);
+    };
 
-    });
-    webSocket.addEventListener("message", function (messageEvent) {
-        console.log("~~message~~");
-        console.log(messageEvent);
+    sock.onmessage = function(messageEvent) {
+        console.log("message", messageEvent.data);
+    };
 
-        console.log("data is " + messageEvent.data);
-        console.log("origin is " + messageEvent.origin);
-        console.log("lastEventId is " + messageEvent.lastEventId);
-        console.log("source is " + messageEvent.source);
-        console.log("ports is " + messageEvent.ports);
-    });
-    webSocket.addEventListener("close", function (closeEvent) {
-        console.log("~~close~~");
-        console.log(closeEvent);
+    sock.onerror = function(event) {
+        console.log("error");
+    };
 
-        console.log("code is " + closeEvent.code);
-        console.log("reason is " + closeEvent.reason);
-        console.log("wasClean is " + closeEvent.wasClean);
-    });
-    webSocket.addEventListener("error", function (event) {
-        console.log("~~error~~");
-        console.log(event);
-    });
-
-
-    //方式二：使用周期函数
+    sock.onclose = function() {
+        console.log("close");
+    };
 
 
 
@@ -72,17 +59,19 @@
     $(function () {
         $("#send").on("click", function () {
 
-            if (webSocket.readyState == webSocket.OPEN) {
+            if (sock.readyState == SockJS.OPEN) {
+
                 console.log("sending!");
+                sock.send('test');
                 // webSocket.send("ok");
-                webSocket.send("close");
+                // sock.send("close");
             }
         });
         $("#close").on("click", function () {
 
-            if (webSocket.readyState != webSocket.CONNECTING && webSocket.readyState == webSocket.OPEN) {
+            if (sock.readyState != SockJS.CONNECTING && SockJS.readyState == SockJS.OPEN) {
                 console.log("closeing");
-                webSocket.close(1000, "ttt");
+                sock.close(1000, "ttt");
             }
         });
     });
