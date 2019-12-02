@@ -49,6 +49,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" scope="PROVIDED" name="Tomcat 9.0.27" level="application_server_libraries" />
     <orderEntry type="library" name="javax.validation:validation-api:2.0.1.Final" level="application" />
     <orderEntry type="library" name="org.hibernate:hibernate-validator:6.0.17.Final" level="application" />
     <orderEntry type="library" name="com.fasterxml.jackson.core:jackson-databind:2.10.0" level="application" />
@@ -58,7 +59,6 @@
     <orderEntry type="library" name="org.springframework:spring-webmvc:5.2.0.RELEASE" level="application" />
     <orderEntry type="library" name="io.projectreactor.netty:reactor-netty:0.9.0.RELEASE" level="application" />
     <orderEntry type="library" name="org.springframework:spring-websocket:5.2.0.RELEASE" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="Tomcat 9.0.29" level="application_server_libraries" />
     <orderEntry type="library" name="org.springframework:spring-webflux:5.2.0.RELEASE" level="application" />
     <orderEntry type="library" name="org.springframework:spring-messaging:5.2.0.RELEASE" level="application" />
     <orderEntry type="library" name="org.springframework:spring-messaging:5.2.0.RELEASE" level="application" />
