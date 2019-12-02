@@ -61,5 +61,6 @@
     <orderEntry type="library" scope="PROVIDED" name="Tomcat 9.0.29" level="application_server_libraries" />
     <orderEntry type="library" name="org.springframework:spring-webflux:5.2.0.RELEASE" level="application" />
     <orderEntry type="library" name="org.springframework:spring-messaging:5.2.0.RELEASE" level="application" />
+    <orderEntry type="library" name="org.springframework:spring-messaging:5.2.0.RELEASE" level="application" />
   </component>
 </module>
