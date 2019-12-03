@@ -14,7 +14,9 @@
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
             crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/webstomp-client@1.2.6/dist/webstomp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<%--    <script src="https://cdn.jsdelivr.net/npm/webstomp-client@1.2.6/dist/webstomp.min.js"></script>--%>
+
 
 </head>
 <body>
@@ -29,12 +31,25 @@
 <script>
 
 
-    var socket = new WebSocket("ws://192.168.0.126:8080/ep");
 
-    var stompClient = Stomp.over(socket);
+    var client  = Stomp.overWS("ws://192.168.0.126:8080/ep");
+    console.log(client);
 
 
-    console.log(stompClient);
+
+
+
+
+
+    // var socket = new WebSocket("ws://192.168.0.126:8080/ep");
+    // var stompClient = Stomp.over(socket);
+
+
+
+
+    // console.log(stompClient);
+    // console.log(stomp);
+    // console.log(global);
 
     // stompClient.connect({}, function(e,f,g) {
     //
