@@ -28,10 +28,20 @@
 
 <script>
 
-    var socket = new WebSocket("/spring-websocket-portfolio/portfolio");
+
+    var socket = new WebSocket("ws://192.168.0.126:8080/ep");
+
     var stompClient = Stomp.over(socket);
 
-    stompClient.connect({}, function(frame) {});
+
+    console.log(stompClient);
+
+    // stompClient.connect({}, function(e,f,g) {
+    //
+    //     console.log(e);
+    //     console.log(f);
+    //     console.log(g);
+    // });
 
 
 </script>

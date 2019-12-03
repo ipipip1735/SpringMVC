@@ -1,6 +1,7 @@
 package controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.reactive.socket.WebSocketSession;
@@ -27,5 +28,13 @@ public class WebSocketController {
     public String stomp() {
         return "stomp";
     }
+
+
+    @MessageMapping("/ctl")
+    public String ctl() {
+        System.out.println("~~ctl~~");
+        return "ctl";
+    }
+
 
 }
