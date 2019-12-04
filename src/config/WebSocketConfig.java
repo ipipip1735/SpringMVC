@@ -257,7 +257,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
         System.out.println("~~registerWebSocketHandlers~~");
 
         //使用WebSocket
-//        registry.addHandler(myHandler(), "/wss");//注册处理器，绑定处理器路由
+        registry.addHandler(myHandler(), "/wss");//注册处理器，绑定处理器路由
 
 //        registry.addHandler(myHandler(), "/wss")
 //                .setHandshakeHandler(handshakeHandler());//设置握手处理器
@@ -265,9 +265,9 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
 
         //使用SockJS
-        registry.addHandler(myHandler(), "/skJS")
-                .withSockJS()
-                .setWebSocketEnabled(false);
+//        registry.addHandler(myHandler(), "/skJS")
+//                .withSockJS()
+//                .setWebSocketEnabled(false);
 
 
 

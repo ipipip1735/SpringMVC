@@ -114,13 +114,13 @@
 
             if (webSocket.readyState == WebSocket.OPEN) {
                 console.log("sending!");
-                // webSocket.send("ok");
-                webSocket.send("close");
+                webSocket.send("ok");
+                // webSocket.send("close");
             }
         });
         $("#close").on("click", function () {
 
-            if (WebSocket.readyState != WebSocket.CONNECTING && WebSocket.readyState == WebSocket.OPEN) {
+            if (webSocket.readyState != WebSocket.CONNECTING && webSocket.readyState == WebSocket.OPEN) {
                 console.log("closeing");
                 webSocket.close(1000, "ttt");
             }
