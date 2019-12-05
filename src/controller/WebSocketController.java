@@ -32,18 +32,18 @@ public class WebSocketController {
 //    }
 
 
-    @MessageMapping("/cc")
+    @MessageMapping("/cc/we")
     public Message ctl(Message message) {
         System.out.println("~~cc~~");
 
         return message;
     }
 
-//    @SubscribeMapping("/queue/12")
-//    public String sub(Message message) {
-//        System.out.println("~~sub~~");
-//        return "sub";
-//    }
+    @SubscribeMapping("/sub/12")
+    public String sub(Message message) {
+        System.out.println("~~sub~~");
+        return "sub";
+    }
 
 
 }

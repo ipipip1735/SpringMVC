@@ -1,6 +1,7 @@
 package config;
 
 import dao.Person;
+import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpInputMessage;
@@ -11,6 +12,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.messaging.simp.broker.BrokerAvailabilityEvent;
 import org.springframework.web.reactive.HandlerMapping;
 import org.springframework.web.reactive.handler.SimpleUrlHandlerMapping;
 import org.springframework.web.reactive.socket.server.support.WebSocketHandlerAdapter;
@@ -20,7 +22,7 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-import org.springframework.web.socket.messaging.SubProtocolWebSocketHandler;
+import org.springframework.web.socket.messaging.*;
 import org.springframework.web.socket.server.HandshakeFailureException;
 import org.springframework.web.socket.server.HandshakeHandler;
 import org.springframework.web.socket.server.RequestUpgradeStrategy;
@@ -97,9 +99,6 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
         //方式二：使用请求策略
         RequestUpgradeStrategy requestUpgradeStrategy = new TomcatRequestUpgradeStrategy();//使用TomCat策略对象的
-
-
-
 
         DefaultHandshakeHandler handshakeHandler = new DefaultHandshakeHandler(requestUpgradeStrategy);
 
@@ -262,18 +261,10 @@ public class WebSocketConfig implements WebSocketConfigurer {
 //        registry.addHandler(myHandler(), "/wss")
 //                .setHandshakeHandler(handshakeHandler());//设置握手处理器
 
-
-
         //使用SockJS
 //        registry.addHandler(myHandler(), "/skJS")
 //                .withSockJS()
 //                .setWebSocketEnabled(false);
 
-
-
-
-
     }
-
-
 }
