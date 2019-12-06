@@ -53,8 +53,8 @@ public class STOMPConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.setApplicationDestinationPrefixes("/ctl");
-        config.enableSimpleBroker("/ete", "/all");
+        config.setApplicationDestinationPrefixes("/app");
+        config.enableSimpleBroker("/topic/", "/queue/");
     }
 
     @Override
