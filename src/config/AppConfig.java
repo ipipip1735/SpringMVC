@@ -29,5 +29,4 @@ import org.springframework.web.servlet.resource.ResourceUrlEncodingFilter;
 //@ComponentScan(basePackages = {"service"})
 //@ComponentScan(basePackages = {"filter"})
 //@Import(WebSocketConfig.class)//配置WebSocket
-@Import(STOMPConfig.class)//配置STOMP
 public class AppConfig {}

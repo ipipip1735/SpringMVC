@@ -15,50 +15,92 @@
             crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-<%--    <script src="https://cdn.jsdelivr.net/npm/webstomp-client@1.2.6/dist/webstomp.min.js"></script>--%>
+    <script src="https://cdn.jsdelivr.net/npm/webstomp-client@1.2.6/dist/webstomp.min.js"></script>
 
 
 </head>
 <body>
-<div id="context"></div>
-<button id="send">send</button>
-<button id="close">close</button>
-
 
 </body>
 
 
 <script>
+    //使用WebStomp.js
+    var client = webstomp.client("ws://192.168.0.126:8080/ep");
+    var subscription;
+    var n = 0;
+    client.connect({}, (frame) => {
+        console.log("~~connect~~");
+        console.log(frame);
+
+        subscription = client.subscribe("/topic/something", (message) => {
+            console.log("~~subscribe~~");
+            console.log(message);
+
+        }, {});
+    });
+
+
+    client.onreceive = function (frame) {
+        console.log("~~onreceive~~");
+        console.log(frame);
+    };
+
+
+    var number = setInterval(() => {
+        console.log("subscription is " + subscription.id)
+            // client.send("/app/appSendOne", body = 'ccc' + (n++), {});
+            client.send("/app/appSendTwo", body = 'ccc' + (n++), {});
+
+
+    }, 3000);
+
+
+    setTimeout(() => {
+        clearInterval(number);
+
+        subscription.unsubscribe();
+        client.disconnect(() => {
+            console.log("~~disconnect~~");
+            console.log("the client has closed!");
+        }, {})
+
+    }, 8000);
+
+
+</script>
 
 
 
-    var client  = Stomp.overWS("ws://192.168.0.126:8080/ep");
-    console.log(client);
-
-
-
-
-
-
-
-    // var socket = new WebSocket("ws://192.168.0.126:8080/ep");
-    // var stompClient = Stomp.over(socket);
-
-
-
-
-    // console.log(stompClient);
-    // console.log(stomp);
-    // console.log(global);
-
-    // stompClient.connect({}, function(e,f,g) {
+<script>
+    //使用Stomp.js
+    // var client = Stomp.client("ws://192.168.0.126:8080/ep");
     //
-    //     console.log(e);
-    //     console.log(f);
-    //     console.log(g);
+    // var subscription;
+    // client.connect({}, (frame) => {
+    //     console.log("~~connect~~");
+    //     console.log(frame);
+    //
+    //     subscription = client.subscribe("/topic/something", (frame) => {
+    //         console.log("~~subscribe~~");
+    //         console.log(frame);
+    //     });
     // });
-
-
+    //
+    //
+    // var number = setInterval(() => {
+    //     client.send("/topic/something", headers = {}, body = 'ccccc');
+    // }, 3000);
+    //
+    //
+    // setTimeout(() => {
+    //     clearInterval(number);
+    //     subscription.unsubscribe();
+    //     client.disconnect(() => {
+    //         console.log("the client has closed!");
+    //     }, {})
+    //
+    // }, 7000);
 </script>
 
 </html>

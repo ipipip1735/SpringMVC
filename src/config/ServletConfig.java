@@ -1,6 +1,5 @@
 package config;
 
-import advice.OneAdvice;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -8,21 +7,8 @@ import org.springframework.context.annotation.Configuration;
 
 import org.springframework.context.annotation.Import;
 import org.springframework.context.support.ResourceBundleMessageSource;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.resource.ResourceUrlEncodingFilter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-
-import javax.validation.Validator;
-import java.io.File;
-import java.io.IOException;
-import java.util.Random;
 
 
 /**
@@ -31,6 +17,7 @@ import java.util.Random;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"controller"})
+@Import(StompConfig.class)//配置STOMP
 public class ServletConfig{
 
     @Bean

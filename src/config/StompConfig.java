@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.MessageHeaders;
+import org.springframework.messaging.converter.MessageConverter;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.messaging.simp.broker.BrokerAvailabilityEvent;
@@ -24,6 +26,9 @@ import org.springframework.web.socket.server.RequestUpgradeStrategy;
 import org.springframework.web.socket.server.standard.TomcatRequestUpgradeStrategy;
 import org.springframework.web.socket.server.support.DefaultHandshakeHandler;
 
+import java.util.List;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.springframework.web.socket.CloseStatus.PROTOCOL_ERROR;
 
 /**
@@ -31,10 +36,9 @@ import static org.springframework.web.socket.CloseStatus.PROTOCOL_ERROR;
  */
 @Configuration
 @EnableWebSocketMessageBroker
-public class STOMPConfig implements WebSocketMessageBrokerConfigurer {
+public class StompConfig implements WebSocketMessageBrokerConfigurer {
     @Bean
     public DefaultHandshakeHandler handshakeHandler() {
-
         return new DefaultHandshakeHandler(new TomcatRequestUpgradeStrategy());
     }
 
@@ -62,7 +66,7 @@ public class STOMPConfig implements WebSocketMessageBrokerConfigurer {
         registration.interceptors(new ChannelInterceptor() {
             @Override
             public Message<?> preSend(Message<?> message, MessageChannel channel) {
-                System.out.println("~~preSend~~");
+                System.out.println("~~OutboundChannel-preSend~~");
                 System.out.println("message is " + message);
                 System.out.println("channel is " + channel);
                 return message;
@@ -70,14 +74,14 @@ public class STOMPConfig implements WebSocketMessageBrokerConfigurer {
 
             @Override
             public void postSend(Message<?> message, MessageChannel channel, boolean sent) {
-                System.out.println("~~postSend~~");
+                System.out.println("~~OutboundChannel-postSend~~");
                 System.out.println("message is " + message);
                 System.out.println("channel is " + channel);
             }
 
             @Override
             public void afterSendCompletion(Message<?> message, MessageChannel channel, boolean sent, Exception ex) {
-                System.out.println("~~afterSendCompletion~~");
+                System.out.println("~~OutboundChannel-afterSendCompletion~~");
                 System.out.println("message is " + message);
                 System.out.println("channel is " + channel);
                 System.out.println("sent is " + sent);
@@ -86,14 +90,14 @@ public class STOMPConfig implements WebSocketMessageBrokerConfigurer {
 
             @Override
             public boolean preReceive(MessageChannel channel) {
-                System.out.println("~~preReceive~~");
+                System.out.println("~~OutboundChannel-preReceive~~");
                 System.out.println("channel is " + channel);
                 return true;
             }
 
             @Override
             public Message<?> postReceive(Message<?> message, MessageChannel channel) {
-                System.out.println("~~postReceive~~");
+                System.out.println("~~OutboundChannel-postReceive~~");
                 System.out.println("message is " + message);
                 System.out.println("channel is " + channel);
                 return message;
@@ -101,12 +105,85 @@ public class STOMPConfig implements WebSocketMessageBrokerConfigurer {
 
             @Override
             public void afterReceiveCompletion(Message<?> message, MessageChannel channel, Exception ex) {
-                System.out.println("~~afterReceiveCompletion~~");
+                System.out.println("~~OutboundChannel-afterReceiveCompletion~~");
                 System.out.println("message is " + message);
             }
         });
     }
 
+    @Override
+    public void configureClientInboundChannel(ChannelRegistration registration) {
+        registration.interceptors(new ChannelInterceptor() {
+            @Override
+            public Message<?> preSend(Message<?> message, MessageChannel channel) {
+                System.out.println("~~InboundChannel-preSend~~");
+                System.out.println("message is " + message);
+                System.out.println("channel is " + channel);
+                return message;
+            }
+
+            @Override
+            public void postSend(Message<?> message, MessageChannel channel, boolean sent) {
+                System.out.println("~~InboundChannel-postSend~~");
+                System.out.println("message is " + message);
+                System.out.println("channel is " + channel);
+            }
+
+            @Override
+            public void afterSendCompletion(Message<?> message, MessageChannel channel, boolean sent, Exception ex) {
+                System.out.println("~~InboundChannel-afterSendCompletion~~");
+                System.out.println("message is " + message);
+                System.out.println("channel is " + channel);
+                System.out.println("sent is " + sent);
+
+            }
+
+            @Override
+            public boolean preReceive(MessageChannel channel) {
+                System.out.println("~~InboundChannel-preReceive~~");
+                System.out.println("channel is " + channel);
+                return true;
+            }
+
+            @Override
+            public Message<?> postReceive(Message<?> message, MessageChannel channel) {
+                System.out.println("~~InboundChannel-postReceive~~");
+                System.out.println("message is " + message);
+                System.out.println("channel is " + channel);
+                return message;
+            }
+
+            @Override
+            public void afterReceiveCompletion(Message<?> message, MessageChannel channel, Exception ex) {
+                System.out.println("~~InboundChannel-afterReceiveCompletion~~");
+                System.out.println("message is " + message);
+            }
+        });
+    }
+
+
+    @Override
+    public boolean configureMessageConverters(List<MessageConverter> messageConverters) {
+        messageConverters.add(new MessageConverter() {
+            @Override
+            public TextMessage fromMessage(Message<?> message, Class<?> targetClass) {
+                System.out.println("~~fromMessage~~");
+                System.out.println("message is " + message);
+                System.out.println("targetClass is " + targetClass);
+
+                return new TextMessage(new String((byte[]) message.getPayload(), UTF_8));
+            }
+
+            @Override
+            public Message<?> toMessage(Object payload, MessageHeaders headers) {
+                System.out.println("~~toMessage~~");
+                System.out.println("payload is " + payload);
+                System.out.println("headers is " + headers);
+                return null;
+            }
+        });
+        return true;//返回true表示可以和Spring默认转换器共同时，优先使用默认转换器
+    }
 
     @Bean
     public ApplicationListener<BrokerAvailabilityEvent> availabilityEventApplicationListener() {
