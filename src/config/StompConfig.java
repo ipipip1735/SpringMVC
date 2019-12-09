@@ -70,68 +70,68 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
     }
 
     //增加输出通道拦截器
-//    @Override
-//    public void configureClientOutboundChannel(ChannelRegistration registration) {
-//        registration.interceptors(new ChannelInterceptor() {
-//            @Override
-//            public Message<?> preSend(Message<?> message, MessageChannel channel) {
-//                System.out.println("~~OutboundChannel-preSend~~");
-//                System.out.println("message is " + message);
-//                System.out.println("channel is " + channel);
-//
-//                //增加拦截器
-////                ExecutorSubscribableChannel esc = (ExecutorSubscribableChannel) channel;
-////                esc.addInterceptor(null);
-//
-//                return message;
-////                return null;//拦截信息，即不发送信息给控制器或中间人
-//            }
-//
-//            @Override
-//            public void postSend(Message<?> message, MessageChannel channel, boolean sent) {
-//                System.out.println("~~OutboundChannel-postSend~~");
-//                System.out.println("message is " + message);
-//                System.out.println("channel is " + channel);
-//                System.out.println("sent is " + sent);
-//
-//                //如果是MESSAGE帧就写日志
-//                if(StompHeaderAccessor.wrap(message).getCommand() == StompCommand.MESSAGE){
-//                    ExecutorSubscribableChannel esc = (ExecutorSubscribableChannel) channel;
-//                    esc.getLogger().info("xxxxxxxxxxx");
-//                }
-//            }
-//
-//            @Override
-//            public void afterSendCompletion(Message<?> message, MessageChannel channel, boolean sent, Exception ex) {
-//                System.out.println("~~OutboundChannel-afterSendCompletion~~");
-//                System.out.println("message is " + message);
-//                System.out.println("channel is " + channel);
-//                System.out.println("sent is " + sent);
-//
-//            }
-//
-//            @Override
-//            public boolean preReceive(MessageChannel channel) {
-//                System.out.println("~~OutboundChannel-preReceive~~");
-//                System.out.println("channel is " + channel);
-//                return true;
-//            }
-//
-//            @Override
-//            public Message<?> postReceive(Message<?> message, MessageChannel channel) {
-//                System.out.println("~~OutboundChannel-postReceive~~");
-//                System.out.println("message is " + message);
-//                System.out.println("channel is " + channel);
-//                return message;
-//            }
-//
-//            @Override
-//            public void afterReceiveCompletion(Message<?> message, MessageChannel channel, Exception ex) {
-//                System.out.println("~~OutboundChannel-afterReceiveCompletion~~");
-//                System.out.println("message is " + message);
-//            }
-//        });
-//    }
+    @Override
+    public void configureClientOutboundChannel(ChannelRegistration registration) {
+        registration.interceptors(new ChannelInterceptor() {
+            @Override
+            public Message<?> preSend(Message<?> message, MessageChannel channel) {
+                System.out.println("~~OutboundChannel-preSend~~");
+                System.out.println("message is " + message);
+                System.out.println("channel is " + channel);
+
+                //增加拦截器
+//                ExecutorSubscribableChannel esc = (ExecutorSubscribableChannel) channel;
+//                esc.addInterceptor(null);
+
+                return message;
+//                return null;//拦截信息，即不发送信息给控制器或中间人
+            }
+
+            @Override
+            public void postSend(Message<?> message, MessageChannel channel, boolean sent) {
+                System.out.println("~~OutboundChannel-postSend~~");
+                System.out.println("message is " + message);
+                System.out.println("channel is " + channel);
+                System.out.println("sent is " + sent);
+
+                //如果是MESSAGE帧就写日志
+                if(StompHeaderAccessor.wrap(message).getCommand() == StompCommand.MESSAGE){
+                    ExecutorSubscribableChannel esc = (ExecutorSubscribableChannel) channel;
+                    esc.getLogger().info("xxxxxxxxxxx");
+                }
+            }
+
+            @Override
+            public void afterSendCompletion(Message<?> message, MessageChannel channel, boolean sent, Exception ex) {
+                System.out.println("~~OutboundChannel-afterSendCompletion~~");
+                System.out.println("message is " + message);
+                System.out.println("channel is " + channel);
+                System.out.println("sent is " + sent);
+
+            }
+
+            @Override
+            public boolean preReceive(MessageChannel channel) {
+                System.out.println("~~OutboundChannel-preReceive~~");
+                System.out.println("channel is " + channel);
+                return true;
+            }
+
+            @Override
+            public Message<?> postReceive(Message<?> message, MessageChannel channel) {
+                System.out.println("~~OutboundChannel-postReceive~~");
+                System.out.println("message is " + message);
+                System.out.println("channel is " + channel);
+                return message;
+            }
+
+            @Override
+            public void afterReceiveCompletion(Message<?> message, MessageChannel channel, Exception ex) {
+                System.out.println("~~OutboundChannel-afterReceiveCompletion~~");
+                System.out.println("message is " + message);
+            }
+        });
+    }
 
     //增加输入通道拦截器
     @Override

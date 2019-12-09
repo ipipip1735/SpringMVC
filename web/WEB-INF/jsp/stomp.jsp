@@ -33,10 +33,10 @@
         console.log("~~connect~~");
         console.log(frame);
 
-        subscription = client.subscribe("/topic/something", (message) => {
+        // subscription = client.subscribe("/topic/something", (message) => {
+        subscription = client.subscribe("/app/sub", (message) => {
             console.log("~~subscribe~~");
             console.log(message);
-
         }, {});
     });
 
@@ -48,12 +48,10 @@
 
 
     var number = setInterval(() => {
-        console.log("subscription is " + subscription.id)
-            client.send("/app/appSendOne", body = 'ccc' + (n++), {});
+        console.log("subscription is " + subscription.id);
+            // client.send("/app/appSendOne", body = 'ccc' + (n++), {});
             // client.send("/app/appSendTwo", body = 'ccc' + (n++), {});
             // client.send("/app/sub", body = 'ccc' + (n++), {});
-
-
     }, 3000);
 
 

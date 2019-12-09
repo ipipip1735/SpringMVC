@@ -126,7 +126,7 @@ public class StompController {
 
     @MessageMapping("/appSendOne")
     @SendTo("/topic/something")
-    public TextMessage appSend(Message<String> stringMessage) {
+    public TextMessage appSendOne(Message<String> stringMessage) {
         System.out.println("~~controller|appSendOne~~");
         System.out.println("stringMessage" + stringMessage);
 
@@ -135,11 +135,12 @@ public class StompController {
     }
 
     @MessageMapping("/appSendTwo")
-    public void appSend(TextMessage textMessage) {
+    public void appSendTwo(TextMessage textMessage) {
         System.out.println("~~controller|appSendTwo~~");
         String payLoad = "Server|" + textMessage.getPayload();
         this.template.convertAndSend("/topic/something", new Person());
     }
+
 
     @SubscribeMapping("/sub")
     public TextMessage appSub(Message message) {
@@ -147,5 +148,23 @@ public class StompController {
         return new TextMessage("ok");
     }
 
+//    @MessageMapping("/appSend")
+//    @SendTo("/app/a")
+//    public TextMessage appSend(Message<String> stringMessage) {
+//        System.out.println("~~controller|appSend~~");
+//        System.out.println("stringMessage" + stringMessage);
+//
+//        String payLoad = "Server|" + stringMessage.getPayload();
+//        return new TextMessage(payLoad);
+//    }
+
+//    @SendTo("/topic/something")
+//    public TextMessage appSendB(Message<String> stringMessage) {
+//        System.out.println("~~controller|appSendB~~");
+//        System.out.println("stringMessage" + stringMessage);
+//
+//        String payLoad = "Server|" + stringMessage.getPayload();
+//        return new TextMessage(payLoad);
+//    }
 
 }
