@@ -125,7 +125,7 @@ public class StompController {
 
 
     @MessageMapping("/appSendOne")
-//    @SendTo("/topic/something")
+    @SendTo("/topic/something")
     public TextMessage appSend(Message<String> stringMessage) {
         System.out.println("~~controller|appSendOne~~");
         System.out.println("stringMessage" + stringMessage);
@@ -141,7 +141,7 @@ public class StompController {
         this.template.convertAndSend("/topic/something", new Person());
     }
 
-    @SubscribeMapping("/something")
+    @SubscribeMapping("/sub")
     public TextMessage appSub(Message message) {
         System.out.println("~~controller|appSub~~");
         return new TextMessage("ok");
