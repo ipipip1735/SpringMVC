@@ -7,6 +7,7 @@ import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.converter.StringMessageConverter;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
@@ -144,8 +145,9 @@ public class StompController {
 //    }
 
 
+    //方式一
     @MessageMapping("/appSendThree")
-    @SendToUser("/queue/xxx")
+    @SendToUser("/ooo")
     public TextMessage appSendThree(Message<String> stringMessage) {
         System.out.println("~~controller|appSendThree~~");
         System.out.println("stringMessage" + stringMessage);
@@ -153,6 +155,31 @@ public class StompController {
         String payLoad = "Server|" + stringMessage.getPayload();
         return new TextMessage(payLoad);
     }
+    //方式二
+//    @MessageMapping("/appSendThree")
+//    public void appSendThree(Message<String> stringMessage, SimpMessageHeaderAccessor accessor) {
+//        System.out.println("~~controller|appSendThree~~");
+//        System.out.println("stringMessage" + stringMessage);
+//
+//        String payLoad = "Server|" + stringMessage.getPayload();
+//
+//        String user = accessor.getSessionId();
+//
+//        template.convertAndSendToUser("hhh", "/ooo", payLoad);
+//    }
+
+
+
+
+//    @MessageMapping("/appSendFour")
+//    @SendTo("/sgl")
+//    public TextMessage appSendFour(Message<String> stringMessage) {
+//        System.out.println("~~controller|appSendFour~~");
+//        System.out.println("stringMessage" + stringMessage);
+//
+//        String payLoad = "Server|" + stringMessage.getPayload();
+//        return new TextMessage(payLoad);
+//    }
 
 
 

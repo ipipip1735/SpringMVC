@@ -39,7 +39,10 @@
         // }, {});
 
 
-        subscription = client.subscribe("/user/queue/xxx", (message) => {
+        subscription = client.subscribe("/user/ooo", (message) => {
+        // subscription = client.subscribe("/user/ooo", (message) => {
+        // subscription = client.subscribe("/user/ooo", (message) => {
+        // subscription = client.subscribe("/user/ooo", (message) => {
             console.log("~~subscribe-/app/appSendThree~~");
             console.log(message);
         }, {});

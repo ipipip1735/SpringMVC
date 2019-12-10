@@ -31,6 +31,7 @@ import org.springframework.web.socket.server.RequestUpgradeStrategy;
 import org.springframework.web.socket.server.standard.TomcatRequestUpgradeStrategy;
 import org.springframework.web.socket.server.support.DefaultHandshakeHandler;
 
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -66,7 +67,11 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
         config.setApplicationDestinationPrefixes("/app");
-        config.enableSimpleBroker("/topic/", "/queue/");
+        config.enableSimpleBroker("/ooo");
+//        config.enableSimpleBroker("/user/hhh/ooo");
+//        config.enableSimpleBroker("/user/ooo");
+//        config.enableSimpleBroker("/user/ooo");
+//        config.enableSimpleBroker("/user/ooo");
     }
 
     //增加输出通道拦截器
@@ -145,6 +150,18 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
 
                 StompHeaderAccessor accessor = StompHeaderAccessor.wrap(message);
                 accessor.setHeader("xxx", "yyy");
+
+                if (StompCommand.CONNECT.equals(accessor.getCommand())){
+                    System.out.println("*********adduser");
+                    accessor.setUser(new Principal() {
+                        @Override
+                        public String getName() {
+                            System.out.println("**getName**");
+                            return "hhh";
+                        }
+                    });
+                }
+
                 message = MessageBuilder.createMessage(message.getPayload(), accessor.getMessageHeaders());
 
                 return message;
