@@ -34,10 +34,27 @@
         console.log(frame);
 
         // subscription = client.subscribe("/topic/something", (message) => {
-        subscription = client.subscribe("/app/sub", (message) => {
-            console.log("~~subscribe~~");
+        //     console.log("~~subscribe-/topic/something~~");
+        //     console.log(message);
+        // }, {});
+
+
+        subscription = client.subscribe("/user/queue/xxx", (message) => {
+            console.log("~~subscribe-/app/appSendThree~~");
             console.log(message);
         }, {});
+
+
+        // client.subscribe("/app/sub", (message) => {
+        //     console.log("~~subscribe-/app/sub~~");
+        //     console.log(message);
+        // }, {});
+
+
+        // client.subscribe("/app/sub", (message) => {
+        //     console.log("~~subscribe-/app/sub~~");
+        //     console.log(message);
+        // }, {});
     });
 
 
@@ -49,6 +66,7 @@
 
     var number = setInterval(() => {
         console.log("subscription is " + subscription.id);
+            client.send("/app/appSendThree", body = 'ccc' + (n++), {});
             // client.send("/app/appSendOne", body = 'ccc' + (n++), {});
             // client.send("/app/appSendTwo", body = 'ccc' + (n++), {});
             // client.send("/app/sub", body = 'ccc' + (n++), {});

@@ -8,6 +8,7 @@ import org.springframework.messaging.converter.StringMessageConverter;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.messaging.simp.stomp.*;
 import org.springframework.stereotype.Controller;
@@ -124,47 +125,56 @@ public class StompController {
     }
 
 
-    @MessageMapping("/appSendOne")
-    @SendTo("/topic/something")
-    public TextMessage appSendOne(Message<String> stringMessage) {
-        System.out.println("~~controller|appSendOne~~");
+//    @MessageMapping("/appSendOne")
+//    @SendTo("/topic/something")
+//    public TextMessage appSendOne(Message<String> stringMessage) {
+//        System.out.println("~~controller|appSendOne~~");
+//        System.out.println("stringMessage" + stringMessage);
+//
+//        String payLoad = "Server|" + stringMessage.getPayload();
+//        return new TextMessage(payLoad);
+//    }
+
+
+//    @MessageMapping("/appSendTwo")
+//    public void appSendTwo(TextMessage textMessage) {
+//        System.out.println("~~controller|appSendTwo~~");
+//        String payLoad = "Server|" + textMessage.getPayload();
+//        this.template.convertAndSend("/topic/something", new Person());
+//    }
+
+
+    @MessageMapping("/appSendThree")
+    @SendToUser("/queue/xxx")
+    public TextMessage appSendThree(Message<String> stringMessage) {
+        System.out.println("~~controller|appSendThree~~");
         System.out.println("stringMessage" + stringMessage);
 
         String payLoad = "Server|" + stringMessage.getPayload();
         return new TextMessage(payLoad);
     }
 
-    @MessageMapping("/appSendTwo")
-    public void appSendTwo(TextMessage textMessage) {
-        System.out.println("~~controller|appSendTwo~~");
-        String payLoad = "Server|" + textMessage.getPayload();
-        this.template.convertAndSend("/topic/something", new Person());
-    }
 
 
-    @SubscribeMapping("/sub")
-    public TextMessage appSub(Message message) {
-        System.out.println("~~controller|appSub~~");
-        return new TextMessage("ok");
-    }
-
-//    @MessageMapping("/appSend")
-//    @SendTo("/app/a")
-//    public TextMessage appSend(Message<String> stringMessage) {
-//        System.out.println("~~controller|appSend~~");
-//        System.out.println("stringMessage" + stringMessage);
-//
-//        String payLoad = "Server|" + stringMessage.getPayload();
-//        return new TextMessage(payLoad);
-//    }
-
+    //方式一
+//    @SubscribeMapping("/sub")
 //    @SendTo("/topic/something")
-//    public TextMessage appSendB(Message<String> stringMessage) {
-//        System.out.println("~~controller|appSendB~~");
-//        System.out.println("stringMessage" + stringMessage);
-//
-//        String payLoad = "Server|" + stringMessage.getPayload();
-//        return new TextMessage(payLoad);
+//    public TextMessage appSub(Message message) {
+//        System.out.println("~~controller|appSub~~");
+//        return new TextMessage("ok");
 //    }
+    //方式二
+//    @SubscribeMapping("/sub")
+//    public void appSub(Message message) {
+//        System.out.println("~~controller|appSub~~");
+//        this.template.convertAndSend("/topic/something", new TextMessage("ok"));
+//    }
+
+
+
+
+
+
+
 
 }
