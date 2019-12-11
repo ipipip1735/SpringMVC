@@ -29,35 +29,25 @@
     var client = webstomp.client("ws://192.168.0.126:8080/ep");
     var subscription;
     var n = 0;
-    client.connect({}, (frame) => {
+    // client.connect({"heart-beat": [0,0]}, (frame) => {
+    client.connect({login: "uuu", passcode: "ppp"}, (frame) => {
         console.log("~~connect~~");
         console.log(frame);
 
+
         // subscription = client.subscribe("/topic/something", (message) => {
-        //     console.log("~~subscribe-/topic/something~~");
-        //     console.log(message);
-        // }, {});
-
-
-        subscription = client.subscribe("/user/ooo", (message) => {
         // subscription = client.subscribe("/user/ooo", (message) => {
-        // subscription = client.subscribe("/user/ooo", (message) => {
-        // subscription = client.subscribe("/user/ooo", (message) => {
-            console.log("~~subscribe-/app/appSendThree~~");
+        subscription = client.subscribe("/app/appUser", (message) => {
+            console.log("~~subscribe~~");
             console.log(message);
         }, {});
 
 
-        // client.subscribe("/app/sub", (message) => {
-        //     console.log("~~subscribe-/app/sub~~");
-        //     console.log(message);
-        // }, {});
 
-
-        // client.subscribe("/app/sub", (message) => {
-        //     console.log("~~subscribe-/app/sub~~");
-        //     console.log(message);
-        // }, {});
+        setTimeout(() => {
+            // client.send("/app/appSendThree", body = 'ccc' + (n++), {});
+            client.send("/app/appUser", body = 'ccc' + (n++), {});
+        }, 3000);
     });
 
 
@@ -67,25 +57,25 @@
     };
 
 
-    var number = setInterval(() => {
-        console.log("subscription is " + subscription.id);
-            client.send("/app/appSendThree", body = 'ccc' + (n++), {});
-            // client.send("/app/appSendOne", body = 'ccc' + (n++), {});
-            // client.send("/app/appSendTwo", body = 'ccc' + (n++), {});
-            // client.send("/app/sub", body = 'ccc' + (n++), {});
-    }, 3000);
+    // var number = setInterval(() => {
+    //     console.log("subscription is " + subscription.id);
+    //         client.send("/app/appSendThree", body = 'ccc' + (n++), {});
+    //         // client.send("/app/appSendOne", body = 'ccc' + (n++), {});
+    //         // client.send("/app/appSendTwo", body = 'ccc' + (n++), {});
+    //         // client.send("/app/sub", body = 'ccc' + (n++), {});
+    // }, 3000);
 
 
-    setTimeout(() => {
-        clearInterval(number);
-
-        subscription.unsubscribe();
-        client.disconnect(() => {
-            console.log("~~disconnect~~");
-            console.log("the client has closed!");
-        }, {})
-
-    }, 8000);
+    // setTimeout(() => {
+    //     clearInterval(number);
+    //
+    //     subscription.unsubscribe();
+    //     client.disconnect(() => {
+    //         console.log("~~disconnect~~");
+    //         console.log("the client has closed!");
+    //     }, {})
+    //
+    // }, 8000);
 
 
 </script>

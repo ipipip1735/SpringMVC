@@ -14,10 +14,7 @@ import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
-import org.springframework.messaging.support.ChannelInterceptor;
-import org.springframework.messaging.support.ExecutorSubscribableChannel;
-import org.springframework.messaging.support.GenericMessage;
-import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.messaging.support.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -67,11 +64,10 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
         config.setApplicationDestinationPrefixes("/app");
-        config.enableSimpleBroker("/ooo");
-//        config.enableSimpleBroker("/user/hhh/ooo");
-//        config.enableSimpleBroker("/user/ooo");
-//        config.enableSimpleBroker("/user/ooo");
-//        config.enableSimpleBroker("/user/ooo");
+//        config.enableSimpleBroker("/topic/something", "/queue/something");
+//        config.enableSimpleBroker("/sgl");
+//        config.enableSimpleBroker("/ooo");
+        config.enableSimpleBroker("/app/appUser");
     }
 
     //增加输出通道拦截器
@@ -148,21 +144,21 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
                 System.out.println("message is " + message);
                 System.out.println("channel is " + channel);
 
-                StompHeaderAccessor accessor = StompHeaderAccessor.wrap(message);
-                accessor.setHeader("xxx", "yyy");
-
+                //验证用户
+                StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
                 if (StompCommand.CONNECT.equals(accessor.getCommand())){
-                    System.out.println("*********adduser");
+                    String login = accessor.getLogin();
+                    String passcode = accessor.getPasscode();
+                    System.out.println(">>>>>>>>" + login + "-" + passcode);
+                    String user = "TTT";
                     accessor.setUser(new Principal() {
                         @Override
                         public String getName() {
-                            System.out.println("**getName**");
-                            return "hhh";
+                            System.out.println(":::::::::::::getName:::::::::::::");
+                            return user;
                         }
                     });
                 }
-
-                message = MessageBuilder.createMessage(message.getPayload(), accessor.getMessageHeaders());
 
                 return message;
             }
