@@ -67,7 +67,8 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
 //        config.enableSimpleBroker("/topic/something", "/queue/something");
 //        config.enableSimpleBroker("/sgl");
 //        config.enableSimpleBroker("/ooo");
-        config.enableSimpleBroker("/app/appUser");
+//        config.enableSimpleBroker("/app/appUser");
+        config.enableSimpleBroker("/topic/appSendOne", "/queue/appSendOne");
     }
 
     //增加输出通道拦截器
@@ -145,20 +146,20 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
                 System.out.println("channel is " + channel);
 
                 //验证用户
-                StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
-                if (StompCommand.CONNECT.equals(accessor.getCommand())){
-                    String login = accessor.getLogin();
-                    String passcode = accessor.getPasscode();
-                    System.out.println(">>>>>>>>" + login + "-" + passcode);
-                    String user = "TTT";
-                    accessor.setUser(new Principal() {
-                        @Override
-                        public String getName() {
-                            System.out.println(":::::::::::::getName:::::::::::::");
-                            return user;
-                        }
-                    });
-                }
+//                StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
+//                if (StompCommand.CONNECT.equals(accessor.getCommand())){
+//                    String login = accessor.getLogin();
+//                    String passcode = accessor.getPasscode();
+//                    System.out.println(">>>>>>>>" + login + "-" + passcode);
+//                    String user = "TTT";
+//                    accessor.setUser(new Principal() {
+//                        @Override
+//                        public String getName() {
+//                            System.out.println(":::::::::::::getName:::::::::::::");
+//                            return user;
+//                        }
+//                    });
+//                }
 
                 return message;
             }

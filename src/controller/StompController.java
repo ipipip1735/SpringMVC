@@ -134,16 +134,16 @@ public class StompController {
     /**
      * 获取客户端发送的信息
      */
-    //方式一：使用注解设置发送信息的目标URL
-//    @MessageMapping("/appSendOne")
-//    @SendTo("/topic/something")
-//    public TextMessage appSendOne(Message<String> stringMessage) {
-//        System.out.println("~~controller|appSendOne~~");
-//        System.out.println("stringMessage" + stringMessage);
-//
-//        String payLoad = "Server|" + stringMessage.getPayload();
-//        return new TextMessage(payLoad);
-//    }
+    //方式一：使用注解设置待发送信息的目标URL
+    @MessageMapping("/appSendOne")
+    @SendToUser(broadcast = false)
+    public TextMessage appSendOne(Message<String> stringMessage) {
+        System.out.println("~~controller|appSendOne~~");
+        System.out.println("stringMessage" + stringMessage);
+
+        String payLoad = "Server|" + stringMessage.getPayload();
+        return new TextMessage(payLoad);
+    }
     //方式二：使用模板设置发送信息的目标URL
 //    @MessageMapping("/appSendTwo")
 //    public void appSendTwo(TextMessage textMessage) {
@@ -156,22 +156,22 @@ public class StompController {
     /**
      * 获取用户
      */
-    @MessageMapping("/appUser")
-    public void appUser(Message message) {
-        System.out.println("~~controller|appUser~~");
-        System.out.println("message is " + message);
-
-        String payLoad = "Server|" + message.getPayload();
-        StompHeaderAccessor accessor = StompHeaderAccessor.wrap(message);//获取访问器
-        String user = accessor.getUser().getName();//获取CONNECT帧中验证身份时增加的用户名
-        System.out.println(user);
-
-        template.convertAndSendToUser(user, "/app/appUser", payLoad, accessor.getMessageHeaders());
-    }
+//    @MessageMapping("/appUser")
+//    public void appUser(Message message) {
+//        System.out.println("~~controller|appUser~~");
+//        System.out.println("message is " + message);
+//
+//        String payLoad = "Server|" + message.getPayload();
+//        StompHeaderAccessor accessor = StompHeaderAccessor.wrap(message);//获取访问器
+//        String user = accessor.getUser().getName();//获取CONNECT帧中验证身份时增加的用户名
+//        System.out.println(user);
+//
+//        template.convertAndSendToUser(user, "/app/appUser", payLoad, accessor.getMessageHeaders());
+//    }
 
 
     /**
-     * 修改头信息
+     * 访问头信息
      */
 //    @MessageMapping("/topic/something")
 //    @SendTo("/topic/appHeader")
