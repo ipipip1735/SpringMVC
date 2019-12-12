@@ -64,11 +64,12 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
         config.setApplicationDestinationPrefixes("/app");
-//        config.enableSimpleBroker("/topic/something", "/queue/something");
+        config.enableSimpleBroker("/topic/something", "/queue/something");
 //        config.enableSimpleBroker("/sgl");
 //        config.enableSimpleBroker("/ooo");
 //        config.enableSimpleBroker("/app/appUser");
-        config.enableSimpleBroker("/topic/appSendOne", "/queue/appSendOne");
+//        config.enableSimpleBroker("/topic/appSendOne");
+//        config.enableSimpleBroker("/queue/appSendOne");
     }
 
     //增加输出通道拦截器
@@ -151,7 +152,7 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
 //                    String login = accessor.getLogin();
 //                    String passcode = accessor.getPasscode();
 //                    System.out.println(">>>>>>>>" + login + "-" + passcode);
-//                    String user = "TTT";
+//                    String user = "TTT";//设置用户名（一步是异步查询数据完成）
 //                    accessor.setUser(new Principal() {
 //                        @Override
 //                        public String getName() {

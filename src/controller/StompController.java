@@ -30,8 +30,8 @@ import java.lang.reflect.Type;
  */
 @RestController
 public class StompController {
-    @Autowired
-    private SimpMessagingTemplate template;
+//    @Autowired
+//    private SimpMessagingTemplate template;
 
 
     /**
@@ -135,21 +135,32 @@ public class StompController {
      * 获取客户端发送的信息
      */
     //方式一：使用注解设置待发送信息的目标URL
-    @MessageMapping("/appSendOne")
-    @SendToUser(broadcast = false)
-    public TextMessage appSendOne(Message<String> stringMessage) {
-        System.out.println("~~controller|appSendOne~~");
-        System.out.println("stringMessage" + stringMessage);
-
-        String payLoad = "Server|" + stringMessage.getPayload();
-        return new TextMessage(payLoad);
-    }
+//    @MessageMapping("/appSendOne")
+//    @SendToUser("/queue/appSendOne")
+//    public TextMessage appSendOne(Message<String> stringMessage) {
+//        System.out.println("~~controller|appSendOne~~");
+//        System.out.println("stringMessage" + stringMessage);
+//
+//        String payLoad = "Server|" + stringMessage.getPayload();
+//        return new TextMessage(payLoad);
+//    }
     //方式二：使用模板设置发送信息的目标URL
 //    @MessageMapping("/appSendTwo")
 //    public void appSendTwo(TextMessage textMessage) {
 //        System.out.println("~~controller|appSendTwo~~");
 //        String payLoad = "Server|" + textMessage.getPayload();
 //        this.template.convertAndSend("/topic/something", new Person());
+//    }
+    //方式三：异步处理信息
+//    @MessageMapping("/appSendTwo")
+//    @SendTo("/topic/something")
+//    public TextMessage appSendTwo(Message message) {
+//        System.out.println("~~controller|appSendTwo~~");
+//        String payLoad = "Server|" + message.getPayload();
+//
+//
+//
+//        return new TextMessage(payLoad);
 //    }
 
 
@@ -161,9 +172,11 @@ public class StompController {
 //        System.out.println("~~controller|appUser~~");
 //        System.out.println("message is " + message);
 //
+//
 //        String payLoad = "Server|" + message.getPayload();
 //        StompHeaderAccessor accessor = StompHeaderAccessor.wrap(message);//获取访问器
-//        String user = accessor.getUser().getName();//获取CONNECT帧中验证身份时增加的用户名
+//
+//        String user = accessor.getUser() == null ? accessor.getSessionId(): accessor.getUser().getName();//获取CONNECT帧中验证身份时增加的用户名
 //        System.out.println(user);
 //
 //        template.convertAndSendToUser(user, "/app/appUser", payLoad, accessor.getMessageHeaders());

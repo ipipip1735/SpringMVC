@@ -35,8 +35,9 @@
         console.log(frame);
 
 
+        subscription = client.subscribe("/topic/something", (message) => {
         // subscription = client.subscribe("/topic/appSendOne", (message) => {
-        subscription = client.subscribe("/user/queue/appSendOne", (message) => {
+        // subscription = client.subscribe("/user/queue/appSendOne", (message) => {
         // subscription = client.subscribe("/user/ooo", (message) => {
         // subscription = client.subscribe("/app/appUser", (message) => {
             console.log("~~subscribe~~");
@@ -46,8 +47,8 @@
 
 
         setTimeout(() => {
-            client.send("/app/appSendOne", body = 'ccc' + (n++), {});
-            // client.send("/app/appSendThree", body = 'ccc' + (n++), {});
+            // client.send("/app/appSendOne", body = 'ccc' + (n++), {});
+            client.send("/app/appSendTwo", body = 'ccc' + (n++), {});
             // client.send("/app/appSendThree", body = 'ccc' + (n++), {});
             // client.send("/app/appUser", body = 'ccc' + (n++), {});
         }, 3000);
