@@ -5,6 +5,7 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.util.SocketUtils;
 import org.springframework.util.concurrent.ListenableFuture;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.socket.TextMessage;
+import service.AsyncService;
 
 import java.util.function.Consumer;
 
@@ -22,40 +24,31 @@ import java.util.function.Consumer;
 @RestController
 public class AsyncController {
 
+    @Autowired
+    AsyncService asyncService;
+
     @GetMapping("/async")
     public ListenableFuture<String> async() {
         System.out.println("async start");
         System.out.println(Thread.currentThread());
 
 
-        AsyncResult<String> asyncResult = new AsyncResult<>("oo");
-        asyncResult.addCallback(new ListenableFutureCallback<String>() {
-            @Override
-            public void onFailure(Throwable ex) {
-                System.out.println("~~onFailure~~");
-                System.out.println("ex is " + ex);
-                System.out.println(Thread.currentThread());
-            }
-
-            @Override
-            public void onSuccess(String result) {
-                System.out.println("~~onSuccess~~");
-                System.out.println(Thread.currentThread());
-                System.out.println("result is " + result);
-            }
-        });
+        ListenableFuture<String> listenableFuture = asyncService.task();
+        listenableFuture.addCallback((r) -> {
+            System.out.println("~~onSuccess~~");
+            System.out.println(Thread.currentThread());
+            System.out.println(r);
+        }, Throwable::printStackTrace);
 
 
         System.out.println("async end");
 
-        return asyncResult;
+        return listenableFuture;
     }
-
 
 //    @GetMapping("/async")
 //    public DeferredResult<String> async() {
 //        System.out.println("~~async|start~~");
-//
 //
 //        DeferredResult<String> deferredResult = new DeferredResult();
 //
@@ -66,8 +59,10 @@ public class AsyncController {
 //                    Thread.sleep(3000L);
 //
 //
-////                    deferredResult.setResult("ok");
-////                    System.out.println("complete!");
+//                    deferredResult.setResult("ok");
+//                    System.out.println("complete!");
+//
+//
 //
 //
 ////                    deferredResult.setErrorResult(new Exception("xxx"));
@@ -105,8 +100,8 @@ public class AsyncController {
 //
 //        System.out.println("~~async|end~~");
 //
-//
 //        return deferredResult;
+//
 //    }
 
 
