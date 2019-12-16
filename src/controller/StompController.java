@@ -52,80 +52,54 @@ public class StompController {
 
         String url = "ws://192.168.0.126:8080/ep";
         StompSessionHandler sessionHandler = new StompSessionHandlerAdapter() {
-            @Override
-            public Type getPayloadType(StompHeaders headers) {
-                System.out.println("~~controller|send - getPayloadType~~");
-                System.out.println("headers is " + headers);
-                return String.class;
-            }
-
-            @Override
-            public void handleFrame(StompHeaders headers, Object payload) {
-                System.out.println("~~controller|send - handleFrame~~");
-                System.out.println("headers is " + headers);
-                System.out.println("payload is " + payload);
-            }
 
             @Override
             public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
-                System.out.println("~~controller|send - afterConnected~~");
+                System.out.println("~~client controller - afterConnected~~");
                 System.out.println("session is " + session);
                 System.out.println("connectedHeaders is " + connectedHeaders);
-
-//                StompController.this.session = session;
 
                 session.subscribe("/topic/something", new StompFrameHandler() {
 
                     @Override
                     public Type getPayloadType(StompHeaders headers) {
-                        System.out.println("~~controller|subscribe - getPayloadType~~");
+                        System.out.println("~~client controller|subscribe - getPayloadType~~");
                         System.out.println("headers is " + headers);
                         return String.class;
                     }
 
                     @Override
                     public void handleFrame(StompHeaders headers, Object payload) {
-                        System.out.println("~~controller|subscribe - handleFrame~~");
+                        System.out.println("~~client controller|subscribe - handleFrame~~");
                         System.out.println("headers is " + headers);
                         System.out.println("payload is " + payload);
                     }
 
                 });
-
-
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            for (int i = 0; i < 2; i++) {
-                                Thread.sleep(2000L);
-                                System.out.println("---------send-" + i + "--------");
-                                session.send("/app/something", "payload99999");
-                            }
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
             }
 
             @Override
             public void handleException(StompSession session, StompCommand command, StompHeaders headers, byte[] payload, Throwable exception) {
-                System.out.println("~~controller|send - handleException~~");
+                System.out.println("~~client controller - handleException~~");
                 System.out.println("session is " + session);
                 System.out.println("command is " + command);
                 System.out.println("headers is " + headers);
                 System.out.println("payload is " + payload);
+                System.out.println("exception is " + exception);
             }
 
             @Override
             public void handleTransportError(StompSession session, Throwable exception) {
-                System.out.println("~~controller|send - handleTransportError~~");
+                System.out.println("~~client controller - handleTransportError~~");
                 System.out.println("session is " + session);
                 System.out.println("exception is " + exception);
             }
         };
-        stompClient.connect(url, sessionHandler);
+        stompClient.connect(url, sessionHandler)
+        .addCallback(stompSession -> {
+            System.out.println("~~onSuccess~~");
+            System.out.println(stompSession);
+        }, Throwable::printStackTrace);
 
         return "stompSub";
     }
@@ -135,15 +109,15 @@ public class StompController {
      * 获取客户端发送的信息
      */
     //方式一：使用注解设置待发送信息的目标URL
-//    @MessageMapping("/appSendOne")
-//    @SendToUser("/queue/appSendOne")
-//    public TextMessage appSendOne(Message<String> stringMessage) {
-//        System.out.println("~~controller|appSendOne~~");
-//        System.out.println("stringMessage" + stringMessage);
-//
-//        String payLoad = "Server|" + stringMessage.getPayload();
-//        return new TextMessage(payLoad);
-//    }
+    @MessageMapping("/appSendOne")
+    @SendTo("/topic/something")//回应给用户
+    public TextMessage appSendOne(Message<String> stringMessage) {
+        System.out.println("~~controller|appSendOne~~");
+        System.out.println("stringMessage" + stringMessage);
+
+        String payLoad = "Server|" + stringMessage.getPayload();
+        return new TextMessage(payLoad);
+    }
     //方式二：使用模板设置发送信息的目标URL
 //    @MessageMapping("/appSendTwo")
 //    public void appSendTwo(TextMessage textMessage) {
@@ -151,7 +125,17 @@ public class StompController {
 //        String payLoad = "Server|" + textMessage.getPayload();
 //        this.template.convertAndSend("/topic/something", new Person());
 //    }
-    //方式三：异步处理信息
+    //方式三：使用注解设置待发送信息的目标URL
+//    @MessageMapping("/appSendOne")
+//    @SendToUser("/queue/appSendOne")//回应给用户
+//    public TextMessage appSendOne(Message<String> stringMessage) {
+//        System.out.println("~~controller|appSendOne~~");
+//        System.out.println("stringMessage" + stringMessage);
+//
+//        String payLoad = "Server|" + stringMessage.getPayload();
+//        return new TextMessage(payLoad);
+//    }
+    //方式四：异步处理信息
 //    @MessageMapping("/asyncMsg")
 //    @SendTo("/topic/something")
 //    public ListenableFuture<String> asyncMsg(Message message) {

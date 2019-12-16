@@ -29,6 +29,7 @@
           <file>file://$MODULE_DIR$/src/config/TwoServletConfig.java</file>
           <file>file://$MODULE_DIR$/src/config/STOMPConfig.java</file>
           <file>file://$MODULE_DIR$/src/config/WebSocketConfig.java</file>
+          <file>file://$MODULE_DIR$/src/config/AsyncConfig.java</file>
         </fileset>
         <fileset id="web application context" name="MVC application context" removed="true">
           <file>file://$MODULE_DIR$/web/WEB-INF/one-servlet.xml</file>
