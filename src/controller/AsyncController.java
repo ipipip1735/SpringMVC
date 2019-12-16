@@ -24,27 +24,27 @@ import java.util.function.Consumer;
 @RestController
 public class AsyncController {
 
-    @Autowired
-    AsyncService asyncService;
+//    @Autowired
+//    AsyncService asyncService;
 
-    @GetMapping("/async")
-    public ListenableFuture<String> async() {
-        System.out.println("async start");
-        System.out.println(Thread.currentThread());
-
-
-        ListenableFuture<String> listenableFuture = asyncService.task();
-        listenableFuture.addCallback((r) -> {
-            System.out.println("~~onSuccess~~");
-            System.out.println(Thread.currentThread());
-            System.out.println(r);
-        }, Throwable::printStackTrace);
-
-
-        System.out.println("async end");
-
-        return listenableFuture;
-    }
+//    @GetMapping("/async")
+//    public ListenableFuture<String> async() {
+//        System.out.println("async start");
+//        System.out.println(Thread.currentThread());
+//
+//
+//        ListenableFuture<String> listenableFuture = asyncService.task();
+//        listenableFuture.addCallback((r) -> {
+//            System.out.println("~~onSuccess~~");
+//            System.out.println(Thread.currentThread());
+//            System.out.println(r);
+//        }, Throwable::printStackTrace);
+//
+//
+//        System.out.println("async end");
+//
+//        return listenableFuture;
+//    }
 
 //    @GetMapping("/async")
 //    public DeferredResult<String> async() {

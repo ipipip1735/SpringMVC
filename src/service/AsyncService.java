@@ -9,7 +9,6 @@ import org.springframework.util.concurrent.ListenableFuture;
 /**
  * Created by Administrator on 2019/12/13 13:58.
  */
-@EnableAsync
 @Service("asyncService")
 public class AsyncService {
 
