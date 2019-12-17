@@ -2,8 +2,12 @@ package controller;
 
 import dao.Person;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
+import org.springframework.messaging.converter.MappingJackson2MessageConverter;
+import org.springframework.messaging.converter.SimpleMessageConverter;
 import org.springframework.messaging.converter.StringMessageConverter;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -26,6 +30,7 @@ import org.springframework.web.socket.messaging.WebSocketStompClient;
 import service.AsyncService;
 
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by Administrator on 2019/12/6 17:02.
@@ -45,9 +50,11 @@ public class StompController {
     @GetMapping("/stomp")
     public String stomp() {
 
+//        WebSocketClient webSocketClient = new StandardWebSocketClient();
         WebSocketClient webSocketClient = new StandardWebSocketClient();
         WebSocketStompClient stompClient = new WebSocketStompClient(webSocketClient);
-        stompClient.setMessageConverter(new StringMessageConverter());
+
+        stompClient.setMessageConverter(new MappingJackson2MessageConverter());
 //        stompClient.setTaskScheduler(taskScheduler);
 
         String url = "ws://192.168.0.126:8080/ep";
@@ -59,23 +66,22 @@ public class StompController {
                 System.out.println("session is " + session);
                 System.out.println("connectedHeaders is " + connectedHeaders);
 
-                session.subscribe("/topic/something", new StompFrameHandler() {
 
+                new Thread(new Runnable() {
                     @Override
-                    public Type getPayloadType(StompHeaders headers) {
-                        System.out.println("~~client controller|subscribe - getPayloadType~~");
-                        System.out.println("headers is " + headers);
-                        return String.class;
+                    public void run() {
+                        try {
+                            for (int i = 0; i < 2; i++) {
+                                Thread.sleep(2000L);
+                                System.out.println("---------send-" + i + "--------");
+                                session.send("/app/appSendOne", "oooo");
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
+                }).start();
 
-                    @Override
-                    public void handleFrame(StompHeaders headers, Object payload) {
-                        System.out.println("~~client controller|subscribe - handleFrame~~");
-                        System.out.println("headers is " + headers);
-                        System.out.println("payload is " + payload);
-                    }
-
-                });
             }
 
             @Override
@@ -96,10 +102,30 @@ public class StompController {
             }
         };
         stompClient.connect(url, sessionHandler)
-        .addCallback(stompSession -> {
-            System.out.println("~~onSuccess~~");
-            System.out.println(stompSession);
-        }, Throwable::printStackTrace);
+                .addCallback(stompSession -> {
+                    System.out.println("~~onSuccess~~");
+                    System.out.println(stompSession);
+
+                    stompSession.subscribe("/topic/something", new StompFrameHandler() {
+
+                        @Override
+                        public Type getPayloadType(StompHeaders headers) {
+                            System.out.println("~~client controller|subscribe - getPayloadType~~");
+                            System.out.println("headers is " + headers);
+                            return String.class;
+                        }
+
+                        @Override
+                        public void handleFrame(StompHeaders headers, Object payload) {
+                            System.out.println("~~client controller|subscribe - handleFrame~~");
+                            System.out.println("headers is " + headers);
+                            System.out.println("payload is " + payload);
+                        }
+
+                    });
+
+
+                }, Throwable::printStackTrace);
 
         return "stompSub";
     }
