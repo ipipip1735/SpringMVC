@@ -54,6 +54,7 @@ public class StompController {
         WebSocketClient webSocketClient = new StandardWebSocketClient();
         WebSocketStompClient stompClient = new WebSocketStompClient(webSocketClient);
 
+//        stompClient.setMessageConverter(new StringMessageConverter());
         stompClient.setMessageConverter(new MappingJackson2MessageConverter());
 //        stompClient.setTaskScheduler(taskScheduler);
 
@@ -90,7 +91,7 @@ public class StompController {
                 System.out.println("session is " + session);
                 System.out.println("command is " + command);
                 System.out.println("headers is " + headers);
-                System.out.println("payload is " + payload);
+                System.out.println("payload is " + new String(payload));
                 System.out.println("exception is " + exception);
             }
 
@@ -121,10 +122,7 @@ public class StompController {
                             System.out.println("headers is " + headers);
                             System.out.println("payload is " + payload);
                         }
-
                     });
-
-
                 }, Throwable::printStackTrace);
 
         return "stompSub";
@@ -138,11 +136,13 @@ public class StompController {
     @MessageMapping("/appSendOne")
     @SendTo("/topic/something")//回应给用户
     public TextMessage appSendOne(Message<String> stringMessage) {
+//    public String appSendOne(Message<String> stringMessage) {
         System.out.println("~~controller|appSendOne~~");
         System.out.println("stringMessage" + stringMessage);
-
-        String payLoad = "Server|" + stringMessage.getPayload();
+//        String payLoad = "Server|" + stringMessage.getPayload();
+        String payLoad = "a";
         return new TextMessage(payLoad);
+//        return payLoad;
     }
     //方式二：使用模板设置发送信息的目标URL
 //    @MessageMapping("/appSendTwo")

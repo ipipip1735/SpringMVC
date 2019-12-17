@@ -47,11 +47,11 @@
 
 
         setTimeout(() => {
-            // client.send("/app/appSendOne", body = 'ccc' + (n++), {});
+            client.send("/app/appSendOne", body = 'ccc' + (n++), {});
             // client.send("/app/appSendTwo", body = 'ccc' + (n++), {});
             // client.send("/app/appSendThree", body = 'ccc' + (n++), {});
             // client.send("/app/appUser", body = 'ccc' + (n++), {});
-            client.send("/app/asyncMsg", body = 'ccc' + (n++), {});
+            // client.send("/app/asyncMsg", body = 'ccc' + (n++), {});
         }, 3000);
     });
 
