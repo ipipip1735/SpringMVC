@@ -47,6 +47,8 @@ public class StompController {
 //    @Autowired
 //    AsyncService asyncService;
 
+    @Autowired
+    TaskScheduler taskScheduler;
 
     /**
      * 测试STOMP主体为JSON如何转换
@@ -93,8 +95,11 @@ public class StompController {
         WebSocketClient webSocketClient = new StandardWebSocketClient();
         WebSocketStompClient stompClient = new WebSocketStompClient(webSocketClient);
 
-        stompClient.setMessageConverter(new StringMessageConverter());//字符串转换器
-//        stompClient.setMessageConverter(new MappingJackson2MessageConverter());//JSON转换器
+//        stompClient.setMessageConverter(new StringMessageConverter());//字符串转换器
+        stompClient.setMessageConverter(new MappingJackson2MessageConverter());//JSON转换器
+
+//        stompClient.setTaskScheduler(taskScheduler);//增加计划任务器
+        stompClient.setDefaultHeartbeat(new long[] {0, 0});//配置心跳间隔
 
 
         String url = "ws://192.168.0.126:8080/ep";
@@ -114,7 +119,10 @@ public class StompController {
                             for (int i = 0; i < 2; i++) {
                                 Thread.sleep(2000L);
                                 System.out.println("---------send-" + i + "--------");
-                                session.send("/app/appSendOne", "bob");
+                                session.send("/app/appSendOne", "bob")
+                                .addReceiptLostTask(()->{
+                                    System.out.println("~~ReceiptLostTask~~");
+                                });
                             }
                         } catch (InterruptedException e) {
                             e.printStackTrace();
@@ -145,6 +153,8 @@ public class StompController {
                 .addCallback(stompSession -> {
                     System.out.println("~~onSuccess~~");
                     System.out.println(stompSession);
+
+//                    stompSession.setAutoReceipt(true);
 
                     stompSession.subscribe("/topic/something", new StompFrameHandler() {
 

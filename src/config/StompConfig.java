@@ -70,7 +70,32 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
 //        registry.addEndpoint("/portfolio")
 //                .setHandshakeHandler(handshakeHandler())
 //                .withSockJS();
+    }
 
+    @Override
+    public boolean configureMessageConverters(List<MessageConverter> messageConverters) {
+
+        MessageConverter messageConverter = new MessageConverter() {
+            @Override
+            public Object fromMessage(Message<?> message, Class<?> targetClass) {
+                System.out.println("~~fromMessage~~");
+                System.out.println("message is " + message);
+                System.out.println("targetClass is " + targetClass);
+
+                return "OK";
+            }
+
+            @Override
+            public Message<?> toMessage(Object payload, MessageHeaders headers) {
+                System.out.println("~~toMessage~~");
+                System.out.println("payload is " + payload);
+                System.out.println("headers is " + headers);
+
+                return new GenericMessage<String>(payload.toString(), headers);
+            }
+        };
+        messageConverters.add(messageConverter);//增加转换器（服务端转换器和客户端转换器是独立的）
+        return true;
     }
 
     @Override
@@ -84,10 +109,12 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
 //        registry.enableSimpleBroker("/topic/appSendOne")
 //        registry.enableSimpleBroker("/queue/appSendOne")
 
-        .setHeartbeatValue(new long[] {10000, 20000})
-        .setTaskScheduler(taskScheduler());
+//        .setTaskScheduler(taskScheduler())//配置心跳计划任务器
+        .setHeartbeatValue(new long[] {0, 0});
 
     }
+
+
 
     //增加输出通道拦截器
     @Override
