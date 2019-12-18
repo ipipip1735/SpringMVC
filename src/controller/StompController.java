@@ -1,5 +1,7 @@
 package controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
@@ -16,8 +18,10 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.messaging.simp.stomp.*;
+import org.springframework.messaging.support.GenericMessage;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.messaging.support.MessageHeaderAccessor;
+import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,18 +49,53 @@ public class StompController {
 
 
     /**
+     * 测试STOMP主体为JSON如何转换
+     */
+    @GetMapping("/convert")
+    public String conver() {
+
+
+        //创建Jackson2构建器，并配置
+        Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder()
+                .dateFormat(new SimpleDateFormat("yyyy-MM-dd"));
+        ObjectMapper objectMapper = builder.build();//创建Jackson2实例
+
+        MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
+        converter.setObjectMapper(objectMapper);//设置Jackson2实例，替换转换器底层Jackson2的默认配置
+
+
+        Person person = new Person();
+        person.setName("bob");
+        person.setAge(15);
+        String payload = null;
+        try {
+            payload = objectMapper.writeValueAsString(person);//创建JSON字符串，作为STOMP帧数据主体
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+
+        Message<byte[]> message = new GenericMessage<>(payload.getBytes());//创建信息对象
+        Person result = (Person) converter.fromMessage(message, Person.class);//转换信息对象为Java Bean
+
+
+        return result.getName() + "-" + result.getAge();
+
+    }
+
+    /**
      * STOMP客户端
      */
     @GetMapping("/stomp")
     public String stomp() {
 
-//        WebSocketClient webSocketClient = new StandardWebSocketClient();
+
         WebSocketClient webSocketClient = new StandardWebSocketClient();
         WebSocketStompClient stompClient = new WebSocketStompClient(webSocketClient);
 
-//        stompClient.setMessageConverter(new StringMessageConverter());
-        stompClient.setMessageConverter(new MappingJackson2MessageConverter());
-//        stompClient.setTaskScheduler(taskScheduler);
+        stompClient.setMessageConverter(new StringMessageConverter());//字符串转换器
+//        stompClient.setMessageConverter(new MappingJackson2MessageConverter());//JSON转换器
+
 
         String url = "ws://192.168.0.126:8080/ep";
         StompSessionHandler sessionHandler = new StompSessionHandlerAdapter() {
@@ -75,7 +114,7 @@ public class StompController {
                             for (int i = 0; i < 2; i++) {
                                 Thread.sleep(2000L);
                                 System.out.println("---------send-" + i + "--------");
-                                session.send("/app/appSendOne", "oooo");
+                                session.send("/app/appSendOne", "bob");
                             }
                         } catch (InterruptedException e) {
                             e.printStackTrace();
@@ -113,6 +152,7 @@ public class StompController {
                         public Type getPayloadType(StompHeaders headers) {
                             System.out.println("~~client controller|subscribe - getPayloadType~~");
                             System.out.println("headers is " + headers);
+//                            return Person.class;
                             return String.class;
                         }
 
@@ -135,14 +175,11 @@ public class StompController {
     //方式一：使用注解设置待发送信息的目标URL
     @MessageMapping("/appSendOne")
     @SendTo("/topic/something")//回应给用户
-    public TextMessage appSendOne(Message<String> stringMessage) {
-//    public String appSendOne(Message<String> stringMessage) {
+    public String appSendOne(Message<String> stringMessage) {
         System.out.println("~~controller|appSendOne~~");
         System.out.println("stringMessage" + stringMessage);
-//        String payLoad = "Server|" + stringMessage.getPayload();
-        String payLoad = "a";
-        return new TextMessage(payLoad);
-//        return payLoad;
+        String payLoad = "Server|" + stringMessage.getPayload();
+        return payLoad;
     }
     //方式二：使用模板设置发送信息的目标URL
 //    @MessageMapping("/appSendTwo")
@@ -179,6 +216,19 @@ public class StompController {
 //            System.out.println("result is " + result);
 //                }, Throwable::printStackTrace);
 //        return stringListenableFuture;
+//    }
+    //方式五：返回Java对象
+//    @MessageMapping("/appSendOne")
+//    @SendTo("/topic/something")//回应给用户
+//    public Person appSendOne(Message<String> stringMessage) {
+//        System.out.println("~~controller|appSendOne~~");
+//        System.out.println("stringMessage" + stringMessage);
+//
+//        Person person = new Person();
+//        person.setName(stringMessage.getPayload());
+//        person.setAge(15);
+//
+//        return person;
 //    }
 
 

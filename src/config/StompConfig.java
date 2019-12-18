@@ -1,8 +1,10 @@
 package config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHeaders;
@@ -12,9 +14,12 @@ import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.messaging.simp.broker.BrokerAvailabilityEvent;
 import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
+import org.springframework.messaging.simp.config.SimpleBrokerRegistration;
 import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.*;
+import org.springframework.scheduling.TaskScheduler;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -33,6 +38,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executor;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.springframework.web.socket.CloseStatus.PROTOCOL_ERROR;
@@ -43,9 +49,15 @@ import static org.springframework.web.socket.CloseStatus.PROTOCOL_ERROR;
 @Configuration
 @EnableWebSocketMessageBroker
 public class StompConfig implements WebSocketMessageBrokerConfigurer {
+
     @Bean
     public DefaultHandshakeHandler handshakeHandler() {
         return new DefaultHandshakeHandler(new TomcatRequestUpgradeStrategy());
+    }
+
+    @Bean
+    public TaskScheduler taskScheduler() {
+        return new ThreadPoolTaskScheduler();
     }
 
     @Override
@@ -62,14 +74,19 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
     }
 
     @Override
-    public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.setApplicationDestinationPrefixes("/app");
-        config.enableSimpleBroker("/topic/something", "/queue/something");
-//        config.enableSimpleBroker("/sgl");
-//        config.enableSimpleBroker("/ooo");
-//        config.enableSimpleBroker("/app/appUser");
-//        config.enableSimpleBroker("/topic/appSendOne");
-//        config.enableSimpleBroker("/queue/appSendOne");
+    public void configureMessageBroker(MessageBrokerRegistry registry) {
+        registry.setApplicationDestinationPrefixes("/app");
+
+        registry.enableSimpleBroker("/topic/something", "/queue/something")
+//        registry.enableSimpleBroker("/sgl")
+//        registry.enableSimpleBroker("/ooo")
+//        registry.enableSimpleBroker("/app/appUser")
+//        registry.enableSimpleBroker("/topic/appSendOne")
+//        registry.enableSimpleBroker("/queue/appSendOne")
+
+        .setHeartbeatValue(new long[] {10000, 20000})
+        .setTaskScheduler(taskScheduler());
+
     }
 
     //增加输出通道拦截器
