@@ -185,12 +185,7 @@ public class StompController {
                     System.out.println("~~onSuccess~~");
                     System.out.println(stompSession);
 
-
-
 //                    stompSession.setAutoReceipt(true);//自动增加receipt头字段
-
-                    StompHeaders headers = new StompHeaders();
-
                     stompSession.subscribe("/topic/something", new StompFrameHandler() {
 
                         @Override
