@@ -91,14 +91,13 @@ public class StompController {
     @GetMapping("/stomp")
     public String stomp() {
 
-
         WebSocketClient webSocketClient = new StandardWebSocketClient();
         WebSocketStompClient stompClient = new WebSocketStompClient(webSocketClient);
 
-//        stompClient.setMessageConverter(new StringMessageConverter());//字符串转换器
-        stompClient.setMessageConverter(new MappingJackson2MessageConverter());//JSON转换器
+        stompClient.setMessageConverter(new StringMessageConverter());//字符串转换器
+//        stompClient.setMessageConverter(new MappingJackson2MessageConverter());//JSON转换器
 
-//        stompClient.setTaskScheduler(taskScheduler);//增加计划任务器
+        stompClient.setTaskScheduler(taskScheduler);//增加计划任务器
         stompClient.setDefaultHeartbeat(new long[] {0, 0});//配置心跳间隔
 
 
@@ -112,6 +111,22 @@ public class StompController {
                 System.out.println("connectedHeaders is " + connectedHeaders);
 
 
+                session.subscribe("/topic/something", new StompFrameHandler() {
+                    @Override
+                    public Type getPayloadType(StompHeaders headers) {
+                        System.out.println("~~client controller|subscribe - getPayloadType~~");
+                        System.out.println("headers is " + headers);
+                        return String.class;
+                    }
+
+                    @Override
+                    public void handleFrame(StompHeaders headers, Object payload) {
+                        System.out.println("~~client controller|subscribe - handleFrame~~");
+                        System.out.println("headers is " + headers);
+                        System.out.println("payload is " + payload);
+                    }
+                });
+
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -119,10 +134,26 @@ public class StompController {
                             for (int i = 0; i < 2; i++) {
                                 Thread.sleep(2000L);
                                 System.out.println("---------send-" + i + "--------");
-                                session.send("/app/appSendOne", "bob")
-                                .addReceiptLostTask(()->{
-                                    System.out.println("~~ReceiptLostTask~~");
-                                });
+
+                                StompSession.Receiptable receiptable = session.send("/app/appSendOne", "bob");
+
+
+                                //增加reciept头字段
+//                                StompHeaders headers = new StompHeaders();
+//                                headers.setReceipt("r");
+//                                headers.setReceiptId("1");
+//                                headers.setDestination("/app/appSendOne");
+//                                StompSession.Receiptable receiptable = session.send(headers, "bob");
+//                                receiptable.addReceiptLostTask(()->{
+//                                    System.out.println("~~Receipt-LostTask~~");
+//                                    System.out.println("getReceiptId is " + receiptable.getReceiptId());
+//                                });
+//
+//                                receiptable.addReceiptTask(()->{
+//                                    System.out.println("~~Receipt-Task~~");
+//                                    System.out.println("getReceiptId is " + receiptable.getReceiptId());
+//                                });
+
                             }
                         } catch (InterruptedException e) {
                             e.printStackTrace();
@@ -154,7 +185,11 @@ public class StompController {
                     System.out.println("~~onSuccess~~");
                     System.out.println(stompSession);
 
-//                    stompSession.setAutoReceipt(true);
+
+
+//                    stompSession.setAutoReceipt(true);//自动增加receipt头字段
+
+                    StompHeaders headers = new StompHeaders();
 
                     stompSession.subscribe("/topic/something", new StompFrameHandler() {
 
@@ -182,15 +217,15 @@ public class StompController {
     /**
      * 获取客户端发送的信息
      */
-    //方式一：使用注解设置待发送信息的目标URL
-    @MessageMapping("/appSendOne")
-    @SendTo("/topic/something")//回应给用户
-    public String appSendOne(Message<String> stringMessage) {
-        System.out.println("~~controller|appSendOne~~");
-        System.out.println("stringMessage" + stringMessage);
-        String payLoad = "Server|" + stringMessage.getPayload();
-        return payLoad;
-    }
+//    //方式一：使用注解设置待发送信息的目标URL
+//    @MessageMapping("/appSendOne")
+//    @SendTo("/topic/something")//回应给用户
+//    public String appSendOne(Message<String> stringMessage) {
+//        System.out.println("~~controller|appSendOne~~");
+//        System.out.println("stringMessage" + stringMessage);
+//        String payLoad = "Server|" + stringMessage.getPayload();
+//        return payLoad;
+//    }
     //方式二：使用模板设置发送信息的目标URL
 //    @MessageMapping("/appSendTwo")
 //    public void appSendTwo(TextMessage textMessage) {
@@ -240,6 +275,18 @@ public class StompController {
 //
 //        return person;
 //    }
+    //方式六：使用注解设置待发送信息的目标URL
+    @MessageMapping("/appSendOne")
+    @SendTo("/topic/something")//回应给用户
+    public String appSendOne(Message<String> stringMessage, SimpMessageHeaderAccessor headerAccessor) {
+        System.out.println("~~controller|appSendOne~~");
+        System.out.println("stringMessage" + stringMessage);
+
+        System.out.println(headerAccessor.getSessionAttributes());
+
+        String payLoad = "Server|" + stringMessage.getPayload();
+        return payLoad;
+    }
 
 
     /**

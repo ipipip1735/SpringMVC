@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
@@ -50,6 +52,14 @@ import static org.springframework.web.socket.CloseStatus.PROTOCOL_ERROR;
 @EnableWebSocketMessageBroker
 public class StompConfig implements WebSocketMessageBrokerConfigurer {
 
+
+//    @Bean
+//    @Scope(scopeName = "websocket", proxyMode = ScopedProxyMode.TARGET_CLASS)
+//    public List<String> stringList() {
+//        return Arrays.asList("one");
+//    }
+
+
     @Bean
     public DefaultHandshakeHandler handshakeHandler() {
         return new DefaultHandshakeHandler(new TomcatRequestUpgradeStrategy());
@@ -94,7 +104,7 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
                 return new GenericMessage<String>(payload.toString(), headers);
             }
         };
-        messageConverters.add(messageConverter);//增加转换器（服务端转换器和客户端转换器是独立的）
+//        messageConverters.add(messageConverter);//增加转换器（服务端转换器和客户端转换器是独立的）
         return true;
     }
 
