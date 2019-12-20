@@ -2,6 +2,7 @@ package controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dao.Cat;
 import dao.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
@@ -46,6 +47,9 @@ public class StompController {
 
 //    @Autowired
 //    AsyncService asyncService;
+
+    @Autowired
+    private Cat cat;
 
     @Autowired
     TaskScheduler taskScheduler;
@@ -155,6 +159,9 @@ public class StompController {
 //                                });
 
                             }
+
+                            session.disconnect();
+
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -185,12 +192,7 @@ public class StompController {
                     System.out.println("~~onSuccess~~");
                     System.out.println(stompSession);
 
-
-
 //                    stompSession.setAutoReceipt(true);//自动增加receipt头字段
-
-                    StompHeaders headers = new StompHeaders();
-
                     stompSession.subscribe("/topic/something", new StompFrameHandler() {
 
                         @Override
@@ -284,6 +286,7 @@ public class StompController {
 
         System.out.println(headerAccessor.getSessionAttributes());
 
+        System.out.println(cat);
         String payLoad = "Server|" + stringMessage.getPayload();
         return payLoad;
     }

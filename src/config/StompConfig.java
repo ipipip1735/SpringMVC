@@ -1,5 +1,6 @@
 package config;
 
+import dao.Cat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
@@ -54,10 +55,11 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
 
 
 //    @Bean
-//    @Scope(scopeName = "websocket", proxyMode = ScopedProxyMode.TARGET_CLASS)
-//    public List<String> stringList() {
-//        return Arrays.asList("one");
-//    }
+    @Bean(initMethod="init", destroyMethod="destroy")
+    @Scope(scopeName = "websocket", proxyMode = ScopedProxyMode.TARGET_CLASS)
+    public Cat cat() {
+        return new Cat();
+    }
 
 
     @Bean
@@ -120,10 +122,8 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
 //        registry.enableSimpleBroker("/queue/appSendOne")
 
 //        .setTaskScheduler(taskScheduler())//配置心跳计划任务器
-        .setHeartbeatValue(new long[] {0, 0});
-
+                .setHeartbeatValue(new long[]{0, 0});
     }
-
 
 
     //增加输出通道拦截器
@@ -152,7 +152,7 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
                 System.out.println("sent is " + sent);
 
                 //如果是MESSAGE帧就写日志
-                if(StompHeaderAccessor.wrap(message).getCommand() == StompCommand.MESSAGE){
+                if (StompHeaderAccessor.wrap(message).getCommand() == StompCommand.MESSAGE) {
                     ExecutorSubscribableChannel esc = (ExecutorSubscribableChannel) channel;
                     esc.getLogger().info("xxxxxxxxxxx");
                 }
@@ -199,6 +199,14 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
                 System.out.println("~~InboundChannel-preSend~~");
                 System.out.println("message is " + message);
                 System.out.println("channel is " + channel);
+
+                StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
+                Map<String, Object> map = accessor.getSessionAttributes();
+                if (map != null && !map.containsKey("xxx")) {
+                    System.out.println("add attribute xxx!");
+                    map.put("xxx", "yyyy");
+                }
+
 
                 //验证用户
 //                StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
