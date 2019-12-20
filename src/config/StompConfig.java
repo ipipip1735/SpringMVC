@@ -1,5 +1,6 @@
 package config;
 
+import dao.Cat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
@@ -54,10 +55,11 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
 
 
 //    @Bean
-//    @Scope(scopeName = "websocket", proxyMode = ScopedProxyMode.TARGET_CLASS)
-//    public List<String> stringList() {
-//        return Arrays.asList("one");
-//    }
+    @Bean(initMethod="init", destroyMethod="destroy")
+    @Scope(scopeName = "websocket", proxyMode = ScopedProxyMode.TARGET_CLASS)
+    public Cat cat() {
+        return new Cat();
+    }
 
 
     @Bean
@@ -121,7 +123,6 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
 
 //        .setTaskScheduler(taskScheduler())//配置心跳计划任务器
                 .setHeartbeatValue(new long[]{0, 0});
-
     }
 
 
