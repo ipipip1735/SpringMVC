@@ -54,8 +54,7 @@ import static org.springframework.web.socket.CloseStatus.PROTOCOL_ERROR;
 public class StompConfig implements WebSocketMessageBrokerConfigurer {
 
 
-//    @Bean
-    @Bean(initMethod="init", destroyMethod="destroy")
+    @Bean(initMethod = "init", destroyMethod = "destroy")
     @Scope(scopeName = "websocket", proxyMode = ScopedProxyMode.TARGET_CLASS)
     public Cat cat() {
         return new Cat();
@@ -75,6 +74,7 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         System.out.println("~~registerStompEndpoints~~");
+
         registry.addEndpoint("/ep");
 //        registry.addEndpoint("/portfolio").withSockJS();
 
@@ -112,17 +112,26 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
+//        registry.setUserDestinationPrefix("/uname/");
         registry.setApplicationDestinationPrefixes("/app");
 
-        registry.enableSimpleBroker("/topic/something", "/queue/something")
-//        registry.enableSimpleBroker("/sgl")
-//        registry.enableSimpleBroker("/ooo")
-//        registry.enableSimpleBroker("/app/appUser")
-//        registry.enableSimpleBroker("/topic/appSendOne")
-//        registry.enableSimpleBroker("/queue/appSendOne")
 
-//        .setTaskScheduler(taskScheduler())//配置心跳计划任务器
-                .setHeartbeatValue(new long[]{0, 0});
+        //使用简单中间人
+//        registry.enableSimpleBroker("/topic", "/queue")
+////        registry.enableSimpleBroker("/sgl")
+////        registry.enableSimpleBroker("/ooo")
+////        registry.enableSimpleBroker("/app")
+////        registry.enableSimpleBroker("/topic")
+////        registry.enableSimpleBroker("/queue", "/ooo")
+////        .setTaskScheduler(taskScheduler())//配置心跳计划任务器
+//                .setHeartbeatValue(new long[]{0, 0});
+
+        //使用RabbitMQ作中间人
+        registry.enableStompBrokerRelay("/queue", "/topic", "/exchange", "/amq/queue")
+                .setRelayHost("localhost").setRelayPort(61613)
+                .setVirtualHost("/")
+                .setClientLogin("one").setClientPasscode("one")
+                .setSystemLogin("guest").setSystemPasscode("guest");
     }
 
 
@@ -152,10 +161,10 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
                 System.out.println("sent is " + sent);
 
                 //如果是MESSAGE帧就写日志
-                if (StompHeaderAccessor.wrap(message).getCommand() == StompCommand.MESSAGE) {
-                    ExecutorSubscribableChannel esc = (ExecutorSubscribableChannel) channel;
-                    esc.getLogger().info("xxxxxxxxxxx");
-                }
+//                if (StompHeaderAccessor.wrap(message).getCommand() == StompCommand.MESSAGE) {
+//                    ExecutorSubscribableChannel esc = (ExecutorSubscribableChannel) channel;
+//                    esc.getLogger().info("xxxxxxxxxxx");
+//                }
             }
 
             @Override
@@ -200,12 +209,12 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
                 System.out.println("message is " + message);
                 System.out.println("channel is " + channel);
 
-                StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
-                Map<String, Object> map = accessor.getSessionAttributes();
-                if (map != null && !map.containsKey("xxx")) {
-                    System.out.println("add attribute xxx!");
-                    map.put("xxx", "yyyy");
-                }
+//                StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
+//                Map<String, Object> map = accessor.getSessionAttributes();
+//                if (map != null && !map.containsKey("xxx")) {
+//                    System.out.println("add attribute xxx!");
+//                    map.put("xxx", "yyyy");
+//                }
 
 
                 //验证用户
@@ -291,7 +300,7 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
 //        return true;//返回true表示可以和Spring默认转换器共同时，优先使用默认转换器
 //    }
 
-    //增加事件
+    //增加监听器（与中间人节点的连接发生变化时触发）
     @Bean
     public ApplicationListener<BrokerAvailabilityEvent> availabilityEventApplicationListener() {
 
@@ -304,7 +313,7 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
         };
     }
 
-    //增加事件
+    //增加监听器（会话连接时触发）
     @Bean
     public ApplicationListener<SessionConnectEvent> sessionConnectEventApplicationListener() {
         return new ApplicationListener<SessionConnectEvent>() {
@@ -316,7 +325,7 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
         };
     }
 
-    //增加事件
+    //增加监听器（会话连接成功后触发）
     @Bean
     public ApplicationListener<SessionConnectedEvent> sessionConnectedEventApplicationListener() {
         return new ApplicationListener<SessionConnectedEvent>() {
@@ -329,7 +338,7 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
     }
 
 
-    //增加事件
+    //增加监听器（会话关闭后触发）
     @Bean
     public ApplicationListener<SessionDisconnectEvent> sessionDisconnectEventApplicationListener() {
         return new ApplicationListener<SessionDisconnectEvent>() {
@@ -341,6 +350,7 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
         };
     }
 
+    //增加监听器（订阅时触发）
     @Bean
     public ApplicationListener<SessionSubscribeEvent> sessionSubscribeEventApplicationListener() {
         return new ApplicationListener<SessionSubscribeEvent>() {
@@ -352,7 +362,7 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
         };
     }
 
-    //增加事件
+    //增加监听器（取消订阅时触发）
     @Bean
     public ApplicationListener<SessionUnsubscribeEvent> sessionUnsubscribeEventApplicationListener() {
         return new ApplicationListener<SessionUnsubscribeEvent>() {

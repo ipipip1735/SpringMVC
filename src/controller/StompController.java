@@ -42,8 +42,8 @@ import java.text.SimpleDateFormat;
  */
 @RestController
 public class StompController {
-//    @Autowired
-//    private SimpMessagingTemplate template;
+    @Autowired
+    private SimpMessagingTemplate template;
 
 //    @Autowired
 //    AsyncService asyncService;
@@ -55,7 +55,7 @@ public class StompController {
     TaskScheduler taskScheduler;
 
     /**
-     * 测试STOMP主体为JSON如何转换
+     * 测试STOMP主体为JSON时如何转换
      */
     @GetMapping("/convert")
     public String conver() {
@@ -102,7 +102,7 @@ public class StompController {
 //        stompClient.setMessageConverter(new MappingJackson2MessageConverter());//JSON转换器
 
         stompClient.setTaskScheduler(taskScheduler);//增加计划任务器
-        stompClient.setDefaultHeartbeat(new long[] {0, 0});//配置心跳间隔
+        stompClient.setDefaultHeartbeat(new long[]{0, 0});//配置心跳间隔
 
 
         String url = "ws://192.168.0.126:8080/ep";
@@ -278,18 +278,18 @@ public class StompController {
 //        return person;
 //    }
     //方式六：使用注解设置待发送信息的目标URL
-    @MessageMapping("/appSendOne")
-    @SendTo("/topic/something")//回应给用户
-    public String appSendOne(Message<String> stringMessage, SimpMessageHeaderAccessor headerAccessor) {
-        System.out.println("~~controller|appSendOne~~");
-        System.out.println("stringMessage" + stringMessage);
-
-        System.out.println(headerAccessor.getSessionAttributes());
-
-        System.out.println(cat);
-        String payLoad = "Server|" + stringMessage.getPayload();
-        return payLoad;
-    }
+//    @MessageMapping("/appSendOne")
+//    @SendTo("/topic/something")//回应给用户
+//    public String appSendOne(Message<String> stringMessage, SimpMessageHeaderAccessor headerAccessor) {
+//        System.out.println("~~controller|appSendOne~~");
+//        System.out.println("stringMessage" + stringMessage);
+//
+//        System.out.println(headerAccessor.getSessionAttributes());
+//
+//        System.out.println(cat);
+//        String payLoad = "Server|" + stringMessage.getPayload();
+//        return payLoad;
+//    }
 
 
     /**
@@ -315,7 +315,7 @@ public class StompController {
      * 访问头信息
      */
 //    @MessageMapping("/topic/something")
-//    @SendTo("/topic/appHeader")
+//    @SendTo("/topic/appHeader")//目标URL为/topic/appHeader
 //    public Message appHeader(Message message) {
 //        System.out.println("~~controller|appHeader~~");
 //
@@ -340,7 +340,8 @@ public class StompController {
      */
     //方式一：使用注解
 //    @MessageMapping("/appSendThree")
-//    @SendToUser("/ooo")
+////    @SendToUser //目标URL/user/queue/appSendThree
+//    @SendToUser("/ooo") //目标URL为/user/ooo
 //    public TextMessage appSendThree(Message<String> stringMessage) {
 //        System.out.println("~~controller|appSendThree~~");
 //        System.out.println("stringMessage" + stringMessage);
@@ -357,11 +358,13 @@ public class StompController {
 //        String payLoad = "Server|" + stringMessage.getPayload();
 //
 //        String user = accessor.getSessionId();
+//        System.out.println("user is " + user);
 //
 //        template.convertAndSendToUser(user, "/ooo", payLoad, accessor.getMessageHeaders());
 //    }
 
 
+    //测试@SendTo
 //    @MessageMapping("/appSendFour")
 //    @SendTo("/sgl")
 //    public TextMessage appSendFour(Message<String> stringMessage) {
@@ -390,5 +393,19 @@ public class StompController {
 //        System.out.println("~~controller|appSub~~");
 //        return new TextMessage("ok");
 //    }
+
+
+    /**
+     * 使用RabbitMQ作为中间人
+     */
+    @MessageMapping("/rabbitMQ")//接收SEND帧
+    @SendTo("/queue/qone")
+//    @SendTo("/exchange/eone/rone")
+    public String rabbitMQ(Message<String> stringMessage) {
+        System.out.println("~~controller|rabbitMQ~~");
+        System.out.println("stringMessage" + stringMessage);
+        String payLoad = "Server|" + stringMessage.getPayload();
+        return payLoad;
+    }
 
 }

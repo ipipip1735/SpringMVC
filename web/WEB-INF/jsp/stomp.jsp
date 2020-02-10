@@ -26,33 +26,45 @@
 
 <script>
     //使用WebStomp.js
-    var client = webstomp.client("ws://192.168.0.126:8080/ep");
+    // var client = webstomp.client("ws://localhost:8080/ep");
+    // var client = webstomp.client("ws://192.168.0.126:8080/ep");
+    var client = webstomp.client("ws://192.168.0.127:8080/ep");
     var subscription;
     var n = 0;
-    // client.connect({"heart-beat": [0,0]}, (frame) => {
-    client.connect({login: "uuu", passcode: "ppp"}, (frame) => {
+    client.connect({"heart-beat": [0, 0]}, (frame) => {
+        // client.connect({login: "uuu", passcode: "ppp"}, (frame) => {
         console.log("~~connect~~");
         console.log(frame);
 
-
-        subscription = client.subscribe("/topic/something", (message) => {
+        // subscription = client.subscribe("/topic/something", (message) => {
         // subscription = client.subscribe("/topic/appSendOne", (message) => {
-        // subscription = client.subscribe("/user/queue/appSendOne", (message) => {
-        // subscription = client.subscribe("/user/ooo", (message) => {
+        // subscription = client.subscribe("/user/queue/appSendThree", (message) => {
+        // subscription = client.subscribe("/uname/ooo", (message) => {
         // subscription = client.subscribe("/app/appUser", (message) => {
+        subscription = client.subscribe("/queue/qone", (message) => {
             console.log("~~subscribe~~");
             console.log(message);
-        }, {});
+
+            message.ack();//确认信息
+        }, {ack: 'client', 'prefetch-count': 2});
+
+        // setTimeout(() => {
+        //     // client.send("/app/appSendOne", body = 'ccc' + (n++), {});
+        //     // client.send("/app/appSenappSendOnedTwo", body = 'ccc' + (n++), {});
+        //     // client.send("/app/appSendThree", body = 'ccc' + (n++), {});
+        //     // client.send("/app/appUser", body = 'ccc' + (n++), {});
+        //     // client.send("/app/asyncMsg", body = 'ccc' + (n++), {});
+        //     client.send("/app/rabbitMQ", body = 'rrr' + (n++), {});
+        // }, 3000);
 
 
-
+        //每秒发送一次，持续30秒
+        var number = setInterval(() => {
+            client.send("/app/rabbitMQ", body = 'rrr' + (n++), {});
+        }, 1000);
         setTimeout(() => {
-            client.send("/app/appSendOne", body = 'ccc' + (n++), {});
-            // client.send("/app/appSendTwo", body = 'ccc' + (n++), {});
-            // client.send("/app/appSendThree", body = 'ccc' + (n++), {});
-            // client.send("/app/appUser", body = 'ccc' + (n++), {});
-            // client.send("/app/asyncMsg", body = 'ccc' + (n++), {});
-        }, 3000);
+            clearInterval(number);
+        }, 30500);
     });
 
 
@@ -84,7 +96,6 @@
 
 
 </script>
-
 
 
 <script>
