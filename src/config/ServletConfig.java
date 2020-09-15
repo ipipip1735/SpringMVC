@@ -17,7 +17,6 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"controller"})
-@Import(StompConfig.class)//配置STOMP
 public class ServletConfig{
 
     @Bean

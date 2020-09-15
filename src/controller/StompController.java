@@ -40,7 +40,7 @@ import java.text.SimpleDateFormat;
 /**
  * Created by Administrator on 2019/12/6 17:02.
  */
-@RestController
+//@RestController
 public class StompController {
     @Autowired
     private SimpMessagingTemplate template;

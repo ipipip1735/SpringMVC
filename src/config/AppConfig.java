@@ -27,7 +27,8 @@ import org.springframework.web.servlet.resource.ResourceUrlEncodingFilter;
 //@Import(PathMatchConfig.class)//配置路径匹配策略
 //@Import(ViewControllerConfig.class)//配置视图导航
 //@Import(WebSocketConfig.class)//配置WebSocket
-//@Import(AsyncConfig.class)//配置WebSocket
+//@Import(AsyncConfig.class)//配置异步线程
 //@ComponentScan(basePackages = {"service"})
 //@ComponentScan(basePackages = {"filter"})
+//@Import(StompConfig.class)//配置STOMP
 public class AppConfig {}
