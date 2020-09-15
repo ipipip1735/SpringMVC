@@ -92,9 +92,9 @@ public class ResourcesConfig implements WebMvcConfigurer {
 
 
         //方式二：使用系统自带对象
-        String version = "1.2.0";
+        String version = this.version;
         VersionResourceResolver versionResolver = new VersionResourceResolver()
-                .addFixedVersionStrategy(this.version, "/aa/bb/**")
+                .addFixedVersionStrategy(version, "/aa/bb/**")
                 .addVersionStrategy(new ContentVersionStrategy(), "/**");
 
         registry.setOrder(-1)
